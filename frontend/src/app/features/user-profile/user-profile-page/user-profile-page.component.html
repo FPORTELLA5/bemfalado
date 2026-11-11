@@ -44,6 +44,7 @@
         <button type="button" [class.active]="activeSection() === 'overview'" [attr.aria-current]="activeSection() === 'overview' ? 'page' : null" (click)="setSection('overview')"><span aria-hidden="true">⌂</span> Visão geral</button>
         <button type="button" [class.active]="activeSection() === 'praises'" [attr.aria-current]="activeSection() === 'praises' ? 'page' : null" (click)="setSection('praises')"><span aria-hidden="true">♡</span> Meus elogios <span class="profile-nav-count">{{ publishedPraiseCount() }}</span></button>
         <a class="profile-navigation-link" routerLink="/favoritos"><span aria-hidden="true">♡</span> Favoritos</a>
+        <a class="profile-navigation-link" routerLink="/notificacoes"><span aria-hidden="true">♧</span> Notificações</a>
         <button type="button" [class.active]="activeSection() === 'private'" [attr.aria-current]="activeSection() === 'private' ? 'page' : null" (click)="setSection('private')"><span aria-hidden="true">▤</span> Experiências privadas <span class="profile-nav-count">{{ privateExperienceCount() }}</span></button>
         <button type="button" [class.active]="activeSection() === 'account'" [attr.aria-current]="activeSection() === 'account' ? 'page' : null" (click)="setSection('account')"><span aria-hidden="true">⚙</span> Dados da conta</button>
       </nav>
