@@ -16,6 +16,20 @@ export class NotificationsService {
     this.notificationItems().filter((notification: UserNotification) => !notification.read).length
   ));
 
+  addNotification(notification: Omit<UserNotification, 'id' | 'createdAt' | 'read'>): void {
+    const newNotification: UserNotification = {
+      ...notification,
+      id: `notification-${Date.now()}`,
+      createdAt: new Date().toISOString(),
+      read: false
+    };
+
+    this.notificationItems.update((current: readonly UserNotification[]) => [
+      newNotification,
+      ...current
+    ]);
+  }
+
   markAsRead(notificationId: string): void {
     this.notificationItems.update((current: readonly UserNotification[]) => (
       current.map((notification: UserNotification) => (
