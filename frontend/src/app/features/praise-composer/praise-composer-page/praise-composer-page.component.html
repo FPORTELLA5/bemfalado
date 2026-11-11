@@ -88,6 +88,35 @@
               <textarea rows="6" maxlength="1200" [value]="content()" (input)="onTextInput($event, 'content')" placeholder="Conte o que aconteceu e por que sua experiência foi positiva..."></textarea>
               <small>{{ content().length }}/1200 caracteres · mínimo de 30</small>
             </label>
+
+            <div class="photo-upload">
+              <div class="photo-upload-heading">
+                <div>
+                  <strong>Fotos da experiência</strong>
+                  <p>Opcional · até 3 imagens, JPG, PNG ou WebP, com até 5 MB cada.</p>
+                </div>
+                <span>{{ photoAttachments().length }}/3</span>
+              </div>
+              <label class="photo-picker">
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple [disabled]="photoAttachments().length >= 3" (change)="onPhotosSelected($event)">
+                <span aria-hidden="true">＋</span>
+                <span>Adicionar fotos</span>
+              </label>
+              @if (photoFeedback()) {
+                <p class="photo-feedback" role="status">{{ photoFeedback() }}</p>
+              }
+              @if (photoAttachments().length > 0) {
+                <div class="photo-preview-grid">
+                  @for (photo of photoAttachments(); track photo.previewUrl) {
+                    <div class="photo-preview">
+                      <img [src]="photo.previewUrl" [alt]="'Prévia da foto ' + photo.file.name">
+                      <button type="button" [attr.aria-label]="'Remover foto ' + photo.file.name" (click)="removePhoto(photo.previewUrl)">×</button>
+                      <small>{{ photo.file.name }}</small>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
           }
           @case (4) {
             <div class="step-heading">
@@ -106,9 +135,16 @@
               </div>
               <h3>{{ title() }}</h3>
               <p>{{ content() }}</p>
+              @if (photoAttachments().length > 0) {
+                <div class="review-photo-grid">
+                  @for (photo of photoAttachments(); track photo.previewUrl) {
+                    <img [src]="photo.previewUrl" [alt]="'Foto anexada: ' + photo.file.name">
+                  }
+                </div>
+              }
               <small>Publicado por Você · Prévia demonstrativa</small>
             </article>
-            <p class="demo-disclaimer">Esta etapa é apenas uma prévia. O BemFalado ainda não possui cadastro, autenticação ou publicação conectados ao backend.</p>
+            <p class="demo-disclaimer">Esta etapa é apenas uma prévia. O BemFalado ainda não possui cadastro, autenticação, armazenamento de imagens ou publicação conectados ao backend.</p>
           }
         }
 
