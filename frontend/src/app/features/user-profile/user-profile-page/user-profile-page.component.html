@@ -1,0 +1,128 @@
+<main class="profile-page">
+  <div class="profile-container">
+    <div class="profile-topline">
+      <a routerLink="/" class="profile-back-link">← Voltar para o BemFalado</a>
+      <span class="profile-demo-label">Perfil demonstrativo</span>
+    </div>
+
+    <section class="profile-hero" aria-labelledby="profile-name">
+      <div class="profile-avatar" aria-hidden="true">{{ initials() }}</div>
+      <div class="profile-identity">
+        <p class="profile-eyebrow">Minha conta</p>
+        <h1 id="profile-name">{{ profile().displayName }}</h1>
+        <p class="profile-location">{{ profile().city }}{{ profile().city && profile().state ? ', ' : '' }}{{ profile().state }}</p>
+        <p class="profile-member-since">No BemFalado desde {{ formatDate(profile().memberSince) }}</p>
+      </div>
+      <button type="button" class="profile-edit-button" (click)="setSection('account')">Editar perfil</button>
+    </section>
+
+    <div class="profile-demo-notice" role="note">
+      <span aria-hidden="true">ⓘ</span>
+      <p>Esta é uma prévia com informações fictícias. Alterações feitas aqui não são salvas em uma conta real.</p>
+    </div>
+
+    <section class="profile-stats" aria-label="Resumo da participação">
+      <article class="profile-stat-card">
+        <span class="profile-stat-icon" aria-hidden="true">♡</span>
+        <strong>{{ publishedPraiseCount() }}</strong>
+        <span>Elogios publicados</span>
+      </article>
+      <article class="profile-stat-card">
+        <span class="profile-stat-icon private-stat-icon" aria-hidden="true">▤</span>
+        <strong>{{ privateExperienceCount() }}</strong>
+        <span>Experiências privadas</span>
+      </article>
+      <article class="profile-stat-card">
+        <span class="profile-stat-icon" aria-hidden="true">⌁</span>
+        <strong>{{ publishedPraiseCount() + privateExperienceCount() }}</strong>
+        <span>Participações registradas</span>
+      </article>
+    </section>
+
+    <div class="profile-workspace">
+      <nav class="profile-navigation" aria-label="Seções do perfil">
+        <button type="button" [class.active]="activeSection() === 'overview'" [attr.aria-current]="activeSection() === 'overview' ? 'page' : null" (click)="setSection('overview')"><span aria-hidden="true">⌂</span> Visão geral</button>
+        <button type="button" [class.active]="activeSection() === 'praises'" [attr.aria-current]="activeSection() === 'praises' ? 'page' : null" (click)="setSection('praises')"><span aria-hidden="true">♡</span> Meus elogios <span class="profile-nav-count">{{ publishedPraiseCount() }}</span></button>
+        <button type="button" [class.active]="activeSection() === 'private'" [attr.aria-current]="activeSection() === 'private' ? 'page' : null" (click)="setSection('private')"><span aria-hidden="true">▤</span> Experiências privadas <span class="profile-nav-count">{{ privateExperienceCount() }}</span></button>
+        <button type="button" [class.active]="activeSection() === 'account'" [attr.aria-current]="activeSection() === 'account' ? 'page' : null" (click)="setSection('account')"><span aria-hidden="true">⚙</span> Dados da conta</button>
+      </nav>
+
+      <section class="profile-section-content" aria-live="polite">
+        @if (activeSection() === 'overview') {
+          <div class="profile-section-heading">
+            <div><p class="profile-eyebrow">Seu espaço</p><h2>Visão geral</h2></div>
+            <a routerLink="/compartilhar" class="profile-primary-action">Compartilhar experiência <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="profile-welcome-card">
+            <div><h3>Suas experiências ajudam outras pessoas.</h3><p>Cada elogio publicado amplia as boas indicações disponíveis na comunidade.</p></div>
+            <span aria-hidden="true" class="welcome-spark">✳</span>
+          </div>
+          <div class="profile-content-grid">
+            <article class="profile-panel">
+              <div class="profile-panel-heading"><h3>Seus elogios recentes</h3><button type="button" class="profile-text-action" (click)="setSection('praises')">Ver todos</button></div>
+              @for (praise of praises.slice(0, 2); track praise.id) {
+                <div class="profile-mini-praise">
+                  <span class="mini-praise-mark" aria-hidden="true">♡</span>
+                  <div><strong>{{ praise.businessName }}</strong><p>{{ praise.title }}</p><small>{{ formatDate(praise.publishedAt) }}</small></div>
+                </div>
+              }
+            </article>
+            <article class="profile-panel private-summary-panel">
+              <div class="profile-panel-heading"><h3>Registros privados</h3><button type="button" class="profile-text-action" (click)="setSection('private')">Ver registros</button></div>
+              <p class="private-summary-number">{{ privateExperienceCount() }} <span>experiências</span></p>
+              <p class="private-summary-copy">Visíveis somente para você. Nenhum relato ou motivo é exibido publicamente.</p>
+              <span class="privacy-indicator"><span aria-hidden="true">▣</span> Área privada</span>
+            </article>
+          </div>
+        }
+
+        @if (activeSection() === 'praises') {
+          <div class="profile-section-heading"><div><p class="profile-eyebrow">Sua contribuição pública</p><h2>Meus elogios</h2><p class="profile-section-description">Elogios que você escolheu compartilhar com a comunidade.</p></div><a routerLink="/compartilhar" class="profile-primary-action">Novo elogio <span aria-hidden="true">→</span></a></div>
+          <div class="profile-praise-list">
+            @for (praise of praises; track praise.id) {
+              <article class="profile-praise-card">
+                <div class="praise-card-topline"><span class="praise-business-category">{{ praise.businessCategory }}</span><time [attr.datetime]="praise.publishedAt">{{ formatDate(praise.publishedAt) }}</time></div>
+                <h3>{{ praise.title }}</h3>
+                <p class="praise-business-name">{{ praise.businessName }}</p>
+                <p class="praise-excerpt">{{ praise.excerpt }}</p>
+                <div class="praise-quality-list">@for (quality of praise.praisedQualities; track quality) { <span>{{ quality }}</span> }</div>
+                <a [routerLink]="['/negocio', praise.businessId]" class="profile-text-action">Ver perfil do estabelecimento →</a>
+              </article>
+            }
+          </div>
+        }
+
+        @if (activeSection() === 'private') {
+          <div class="profile-section-heading"><div><p class="profile-eyebrow">Somente você pode ver</p><h2>Experiências privadas</h2><p class="profile-section-description">Registros de experiências em que você optou por não publicar um elogio.</p></div></div>
+          <div class="private-privacy-banner"><span aria-hidden="true">▣</span><p><strong>Privacidade preservada.</strong> Estes registros não exibem avaliação, texto ou motivo. Não são mostrados no perfil público nem para o estabelecimento.</p></div>
+          <div class="profile-private-list">
+            @for (experience of privateExperiences; track experience.id) {
+              <article class="profile-private-card">
+                <span class="private-record-icon" aria-hidden="true">▤</span>
+                <div><strong>{{ experience.businessName }}</strong><p>{{ experience.businessCategory }}</p><small>Registrada em {{ formatDate(experience.recordedAt) }}</small></div>
+                <span class="private-record-label">Privado</span>
+              </article>
+            }
+          </div>
+          <p class="private-method-note">Na versão completa, a contabilização desses registros no Índice de reconhecimento dependerá das regras de elegibilidade, consentimento e prevenção a duplicidades.</p>
+        }
+
+        @if (activeSection() === 'account') {
+          <div class="profile-section-heading"><div><p class="profile-eyebrow">Informações pessoais</p><h2>Dados da conta</h2><p class="profile-section-description">Gerencie as informações básicas do seu perfil.</p></div>@if (!isEditing()) { <button type="button" class="profile-outline-action" (click)="startEditing()">Editar dados</button> }</div>
+          @if (profileSavedNotice()) { <p class="profile-saved-notice" role="status">Prévia atualizada. As alterações não foram salvas em uma conta real.</p> }
+          <form class="profile-account-form" (submit)="$event.preventDefault(); saveProfileDemo()">
+            <label><span>Nome de exibição</span><input type="text" name="displayName" maxlength="100" [readOnly]="!isEditing()" [value]="profile().displayName" (input)="onProfileInput($event, 'displayName')"></label>
+            <label><span>E-mail</span><input type="email" name="email" [value]="profile().email" readonly><small>Para alterar o e-mail, a versão completa exigirá confirmação de segurança.</small></label>
+            <label><span>Cidade</span><input type="text" name="city" maxlength="100" [readOnly]="!isEditing()" [value]="profile().city" (input)="onProfileInput($event, 'city')"></label>
+            <label><span>Sobre você</span><textarea name="bio" rows="4" maxlength="240" [readOnly]="!isEditing()" [value]="profile().bio" (input)="onProfileInput($event, 'bio')"></textarea><small>Até 240 caracteres.</small></label>
+            @if (isEditing()) {
+              <div class="profile-form-actions"><button type="button" class="profile-cancel-action" (click)="cancelEditing()">Cancelar</button><button type="submit" class="profile-primary-action">Salvar alterações</button></div>
+            }
+          </form>
+          <div class="profile-account-security"><div><strong>Senha e segurança</strong><p>Gerencie sua senha e as formas de acesso à conta.</p></div><a routerLink="/recuperar-senha" class="profile-text-action">Alterar senha →</a></div>
+          <p class="profile-account-note">Configurações de privacidade, exclusão de conta e gerenciamento de consentimentos serão detalhadas antes da integração real.</p>
+        }
+      </section>
+    </div>
+  </div>
+</main>
