@@ -161,10 +161,10 @@
   font-weight: 800;
 }
 
-.accent-blue { background: #e2eaf2; color: #304b68; }
-.accent-terracotta { background: #f1e2da; color: #805542; }
-.accent-green { background: #e0ece5; color: #416b55; }
-.accent-purple { background: #eae4f0; color: #655276; }
+.business-avatar[data-accent='blue'] { background: #e2eaf2; color: #304b68; }
+.business-avatar[data-accent='terracotta'] { background: #f1e2da; color: #805542; }
+.business-avatar[data-accent='green'] { background: #e0ece5; color: #416b55; }
+.business-avatar[data-accent='purple'] { background: #eae4f0; color: #655276; }
 
 .business-main { min-width: 0; flex: 1; }
 
