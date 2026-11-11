@@ -19,8 +19,11 @@
 .desktop-nav a, .login-link { color: var(--color-text-muted); font-size: .9rem; font-weight: 500; transition: color .18s ease; }
 .desktop-nav a:hover, .login-link:hover { color: var(--color-text); }
 .header-actions { display: flex; align-items: center; gap: 22px; }
-.theme-button, .mobile-menu-button { width: 38px; height: 38px; display: grid; place-items: center; color: var(--color-text); border: 1px solid var(--color-border); background: var(--color-surface); border-radius: 50%; }
-.theme-button svg, .mobile-menu-button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.theme-control { display: flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 10px; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-muted); background: var(--color-surface); }
+.theme-control svg { width: 16px; height: 16px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.theme-control select { max-width: 98px; border: 0; outline: 0; color: var(--color-text); background: transparent; font-size: .76rem; cursor: pointer; }
+.mobile-menu-button { width: 38px; height: 38px; display: grid; place-items: center; color: var(--color-text); border: 1px solid var(--color-border); background: var(--color-surface); border-radius: 50%; }
+.mobile-menu-button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 22px; border: 1px solid transparent; border-radius: 9px; font-size: .9rem; font-weight: 600; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
 .button:hover { transform: translateY(-1px); }
 .button-primary { color: #fff; background: #26364a; }
@@ -45,6 +48,7 @@
 .location-field { flex: .76; }
 .search-submit { min-height: 46px; padding-inline: 20px; }
 .search-submit span { font-size: 1.2rem; line-height: 1; }
+.search-feedback { margin: 12px 0 0; color: var(--color-text-muted); font-size: .78rem; line-height: 1.5; }
 .hero-footnote { display: flex; align-items: center; gap: 8px; margin-top: 15px; color: var(--color-text-muted); font-size: .78rem; }
 .footnote-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-success); }
 
