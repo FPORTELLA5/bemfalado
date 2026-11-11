@@ -1,8 +1,10 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import type { CreatePraiseReportInput, PraiseReport } from '../models/praise-report.model';
+import { ModerationQueueService } from '../../moderation/services/moderation-queue.service';
 
 @Injectable({ providedIn: 'root' })
 export class PraiseReportsService {
+  private readonly moderationQueue = inject(ModerationQueueService);
   private readonly reportRecords = signal<readonly PraiseReport[]>([]);
   readonly reports = this.reportRecords.asReadonly();
 
@@ -19,6 +21,7 @@ export class PraiseReportsService {
       ...currentReports,
       report
     ]);
+    this.moderationQueue.addSubmittedReport(report);
 
     return report;
   }
