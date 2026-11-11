@@ -3,9 +3,11 @@ import { RouterLink } from '@angular/router';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import type { PhotoAttachment } from '../models/photo-attachment.model';
+import type { BusinessRequestDraft } from '../models/business-request-draft.model';
 
 type ComposerStep = 1 | 2 | 3 | 4;
 type TextField = 'title' | 'content';
+type BusinessRequestField = keyof BusinessRequestDraft;
 
 const MAX_PHOTOS = 3;
 const MAX_PHOTO_SIZE_BYTES = 5 * 1024 * 1024;
@@ -38,6 +40,33 @@ export class PraiseComposerPageComponent implements OnDestroy {
   readonly photoAttachments = signal<readonly PhotoAttachment[]>([]);
   readonly photoFeedback = signal<string>('');
   readonly isFinished = signal<boolean>(false);
+  readonly showBusinessRequestForm = signal<boolean>(false);
+  readonly businessRequestSubmitted = signal<boolean>(false);
+  readonly businessRequestCategories: readonly string[] = [
+    'Alimentação e bebidas',
+    'Saúde e bem-estar',
+    'Beleza e estética',
+    'Comércio e lojas',
+    'Casa e construção',
+    'Automóveis e transporte',
+    'Educação',
+    'Turismo e hospedagem',
+    'Tecnologia e serviços digitais',
+    'Outros serviços'
+  ];
+  readonly businessRequest = signal<BusinessRequestDraft>({
+    businessName: '',
+    category: '',
+    city: '',
+    neighborhood: '',
+    website: ''
+  });
+  readonly canSubmitBusinessRequest = computed<boolean>(() => {
+    const request = this.businessRequest();
+    return request.businessName.trim().length >= 2
+      && request.category.length > 0
+      && request.city.trim().length >= 2;
+  });
 
   readonly filteredBusinesses = computed<readonly BusinessResult[]>(() => {
     const term = normalizeSearchTerm(this.businessSearchTerm());
@@ -77,6 +106,35 @@ export class PraiseComposerPageComponent implements OnDestroy {
     const target = event.target;
     if (!(target instanceof HTMLInputElement)) return;
     this.businessSearchTerm.set(target.value);
+  }
+
+  openBusinessRequest(): void {
+    this.businessRequest.update((current: BusinessRequestDraft) => ({
+      ...current,
+      businessName: this.businessSearchTerm().trim()
+    }));
+    this.showBusinessRequestForm.set(true);
+    this.businessRequestSubmitted.set(false);
+  }
+
+  onBusinessRequestInput(event: Event, field: BusinessRequestField): void {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return;
+
+    this.businessRequest.update((current: BusinessRequestDraft) => ({
+      ...current,
+      [field]: target.value
+    }));
+  }
+
+  submitBusinessRequest(): void {
+    if (!this.canSubmitBusinessRequest()) return;
+    this.businessRequestSubmitted.set(true);
+  }
+
+  closeBusinessRequest(): void {
+    this.showBusinessRequestForm.set(false);
+    this.businessRequestSubmitted.set(false);
   }
 
   onBusinessSelect(businessId: string): void {
