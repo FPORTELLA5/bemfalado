@@ -1,0 +1,29 @@
+<main class="results-page">
+  <section class="results-heading" aria-labelledby="results-title">
+    <p class="results-eyebrow">Descubra boas experiências</p>
+    <h1 id="results-title">Resultados da busca</h1>
+
+    @if (term()) {
+      <p class="results-summary">Você pesquisou por <strong>{{ term() }}</strong>.</p>
+    } @else if (category()) {
+      <p class="results-summary">Categoria selecionada: <strong>{{ category() }}</strong>.</p>
+    } @else {
+      <p class="results-summary">Explore negócios e serviços recomendados pela comunidade.</p>
+    }
+
+    @if (location()) {
+      <p class="results-location">Região: {{ location() }}</p>
+    }
+  </section>
+
+  <section class="results-empty" aria-labelledby="empty-title">
+    <div class="results-empty-icon" aria-hidden="true">⌕</div>
+    <h2 id="empty-title">Estamos preparando esta busca</h2>
+    <p>
+      A pesquisa já está encaminhada. Nesta etapa, estamos construindo a experiência
+      de resultados; os negócios serão exibidos quando a consulta estiver conectada
+      à base real do BemFalado.
+    </p>
+    <a class="button button-primary" routerLink="/">Voltar para o início</a>
+  </section>
+</main>
