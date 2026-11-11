@@ -43,7 +43,7 @@
       @for (business of results(); track business.id) {
         <article class="business-card">
           <div class="business-identity">
-            <div class="business-avatar" [class]="'business-avatar accent-' + business.accent" aria-hidden="true">
+            <div class="business-avatar" [attr.data-accent]="business.accent" aria-hidden="true">
               {{ business.initials }}
             </div>
             <div class="business-main">
