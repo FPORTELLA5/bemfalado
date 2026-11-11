@@ -340,8 +340,10 @@
 }
 
 .recognition-metric small {
+  max-width: 250px;
   color: var(--color-text-muted);
   font-size: .65rem;
+  line-height: 1.45;
 }
 
 .business-card-action {
@@ -403,10 +405,6 @@
   text-decoration: underline;
 }
 
-.recognition-metric small {
-  max-width: 250px;
-  line-height: 1.45;
-}
 
 .results-disclaimer {
   margin-top: 22px;
