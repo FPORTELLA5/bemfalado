@@ -41,8 +41,8 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Resposta a elogios pelo negócio | Fase posterior | Exige autenticação, autorização e regras de moderação. |
 | Validação inicial de texto | Implementada — demonstração | Serviço tipado valida links, padrão de CPF, algumas frases negativas explícitas, ameaças, termos ofensivos selecionados e repetição excessiva; bloqueia avanço no formulário quando há sinal. Não é classificador contextual completo nem validação de segurança no servidor. |
 | Denúncia de conteúdo | Implementada — demonstração | Formulário privado em cada elogio, sete motivos estruturados e detalhes opcionais limitados a 500 caracteres. O envio alimenta a fila demonstrativa em memória; não há autenticação, persistência, notificação real, nem auditoria. A identidade do denunciante não é coletada/exibida. Denunciar não remove conteúdo nem altera o índice. |
-| Central de moderação | Implementada — demonstração | Rota /demonstracao/moderacao, fila fictícia, filtros pendentes/analisadas/todas, prioridade demonstrativa, visualização do elogio, contexto da denúncia e decisões de manter, ocultar temporariamente ou remover com justificativa obrigatória. Registros e decisões ficam em memória. A rota não possui autenticação/autorização e não pode ser usada com denúncias reais. |
-| Moderação básica | Parcial — interface demonstrativa | Interface de fila e decisões prototipada. Permanecem pendentes backend, controle de acesso por função, persistência, trilha de auditoria, fila operacional, notificações ao autor, contestação e revisão por pessoa autorizada. |
+| Central de moderação | Implementada — demonstração | Rota /demonstracao/moderacao, fila fictícia, filtros pendentes/analisadas/todas, decisões justificadas e área de contestação. A rota não possui autenticação/autorização e não pode ser usada com denúncias reais. |
+| Moderação básica | Implementada — demonstração | Fluxo de denúncia, decisão, contestação e revisão com justificativas; notificações internas e trilha de auditoria em memória com eventos de recebimento, decisão, contestação e resultado da revisão. A trilha é append-only apenas na lógica do protótipo e não é inviolável. Permanecem pendentes backend, autenticação/autorização, armazenamento persistente, proteção contra adulteração, retenção, auditoria de acesso e atribuição comprovada de revisores independentes. |
 | Gestão administrativa de negócios | Pendente | Inclui análise das solicitações de inclusão e atualização de status. |
 | Gestão administrativa de usuários | Pendente | Escopo mínimo e permissões ainda precisam ser definidos. |
 
@@ -94,4 +94,10 @@ Esta revisão é documental e baseada no estado do repositório consultado. Não
 - Central de moderação: lista e análise das contestações, com decisão justificada (mínimo de 10 caracteres).
 - Notificações internas demonstrativas no envio e na conclusão da revisão.
 - A aceitação da contestação não republica automaticamente o elogio; a decisão sobre o status do conteúdo deve ser registrada separadamente.
-- Limitações: dados em memória, sem autenticação/autorização, sem persistência, sem atribuição de revisor independente e sem auditoria. Não utilizar com denúncias ou contestações reais.
+- Limitações: dados e trilha em memória, sem autenticação/autorização, sem persistência, sem proteção contra adulteração e sem atribuição comprovada de revisor independente. Não utilizar com denúncias ou contestações reais.
+
+### Trilha de auditoria de moderação
+- Serviço e modelos tipados para registrar recebimento de denúncia, decisão, envio de contestação e resultado da revisão.
+- Cada evento registra objeto afetado, publicação relacionada, responsável demonstrativo, data/hora, estado anterior/novo e justificativa.
+- Histórico apresentado em linha do tempo na central de moderação.
+- O protótipo apenas acrescenta eventos em memória; não oferece imutabilidade, armazenamento seguro, identidade real do responsável, controle de acesso ou retenção. Requisitos definitivos documentados na política de moderação.
