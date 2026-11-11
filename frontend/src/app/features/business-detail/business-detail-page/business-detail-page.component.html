@@ -90,6 +90,74 @@
                   <span>{{ quality }}</span>
                 }
               </div>
+
+              <div class="praise-report-actions">
+                @if (reportSubmittedFor() === praise.id) {
+                  <p class="report-success" role="status">
+                    Denúncia registrada nesta demonstração. Nenhuma equipe recebeu o envio.
+                  </p>
+                } @else {
+                  <button
+                    class="report-open-button"
+                    type="button"
+                    [attr.aria-expanded]="activeReportPraiseId() === praise.id"
+                    [attr.aria-controls]="'report-form-' + praise.id"
+                    (click)="activeReportPraiseId() === praise.id ? closeReportForm() : openReportForm(praise.id)"
+                  >{{ activeReportPraiseId() === praise.id ? 'Cancelar denúncia' : 'Sinalizar conteúdo' }}</button>
+                }
+              </div>
+
+              @if (activeReportPraiseId() === praise.id) {
+                <form
+                  class="praise-report-form"
+                  [id]="'report-form-' + praise.id"
+                  (submit)="submitReport($event, praise.id)"
+                >
+                  <h4>Denunciar este elogio</h4>
+                  <p class="report-form-intro">
+                    Use este canal somente para sinalizar uma possível violação das regras da comunidade.
+                    Ele não é um canal de reclamação sobre o estabelecimento.
+                  </p>
+
+                  <label [for]="'report-reason-' + praise.id">Motivo da denúncia</label>
+                  <select
+                    [id]="'report-reason-' + praise.id"
+                    [value]="selectedReportReason()"
+                    (change)="onReportReasonChange($event)"
+                    required
+                  >
+                    @for (reason of reportReasons; track reason.value) {
+                      <option [value]="reason.value">{{ reason.label }}</option>
+                    }
+                  </select>
+
+                  <label [for]="'report-details-' + praise.id">
+                    Detalhes adicionais <span>(opcional)</span>
+                  </label>
+                  <textarea
+                    [id]="'report-details-' + praise.id"
+                    rows="3"
+                    maxlength="500"
+                    [value]="reportDetails()"
+                    (input)="onReportDetailsInput($event)"
+                    placeholder="Explique brevemente o que deve ser analisado. Evite incluir dados pessoais."
+                  ></textarea>
+                  <span class="report-character-count">{{ reportDetails().length }}/{{ maxReportDetailsLength }} caracteres</span>
+
+                  <p class="report-privacy-note">
+                    A denúncia é privada. A identidade de quem denuncia não será exibida ao estabelecimento.
+                    Uma denúncia não remove automaticamente o elogio e não altera o Índice de Reconhecimento.
+                  </p>
+
+                  <div class="report-form-actions">
+                    <button class="report-cancel-button" type="button" (click)="closeReportForm()">Cancelar</button>
+                    <button class="report-submit-button" type="submit">Enviar denúncia</button>
+                  </div>
+                  <p class="report-demo-disclaimer">
+                    Demonstração: o registro fica somente na memória desta página e será perdido ao sair dela.
+                  </p>
+                </form>
+              }
             </article>
           } @empty {
             <div class="praises-empty">
