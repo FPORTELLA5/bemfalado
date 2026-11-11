@@ -121,7 +121,7 @@ Planejar desde o início:
 
 ## 9. Decisões pendentes antes da implementação
 
-1. Política de avaliações: somente positivas ou qualquer nota?
+1. Política de avaliações: definida — somente elogios e relatos de experiências positivas. Não aceitar avaliações negativas.
 2. Regras de critérios não aplicáveis e cálculo das médias.
 3. Cadastro de negócios: criação pela comunidade, por administradores ou ambos?
 4. Identidade e verificação de representantes comerciais.
