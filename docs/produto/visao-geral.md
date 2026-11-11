@@ -132,6 +132,12 @@ Idiomas planejados: Português (Brasil), Inglês e Espanhol.
 
 Meta de acessibilidade: WCAG 2.2 nível AA. A interface deverá ser responsiva para celular, tablet e desktop.
 
+## Conteúdo institucional e transparência
+
+A experiência pública deverá oferecer páginas claras para apresentar o propósito do BemFalado, explicar o funcionamento e as regras da comunidade, orientar empresas e disponibilizar informações de contato. Os textos legais deverão ser coerentes com os fluxos e dados realmente tratados pelo produto.
+
+Os rascunhos de [Termos de Uso](../legal/termos-de-uso-rascunho.md) e [Política de Privacidade](../legal/politica-de-privacidade-rascunho.md) são documentos de trabalho, não contratos ou avisos juridicamente aprovados. Antes do lançamento será necessário identificar a entidade controladora, mapear os tratamentos e fornecedores reais, definir canais de atendimento e obter revisão jurídica.
+
 ## Requisitos transversais
 
 - Segurança e proteção contra spam e elogios falsos;
