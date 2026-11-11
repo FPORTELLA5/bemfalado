@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "check:no-any": "node scripts/check-no-any.mjs"
+    "check:no-any": "node scripts/check-no-any.mjs",
+    "validate": "npm run check:no-any && npm run build"
   },
   "dependencies": {
     "@angular/common": "^22.2.5",
