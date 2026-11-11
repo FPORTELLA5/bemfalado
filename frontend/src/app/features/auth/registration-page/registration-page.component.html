@@ -34,6 +34,34 @@
             <p>Preencha seus dados para participar do BemFalado.</p>
           </div>
 
+          <div class="social-registration" aria-label="Opções de cadastro com conta externa">
+            <button type="button" class="social-registration-button" (click)="onSocialProviderSelected('Google')">
+              <svg class="social-icon google-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#4285F4" d="M21.6 12.23c0-.72-.06-1.42-.18-2.09H12v3.95h5.38a4.6 4.6 0 0 1-2 3.02v2.55h3.24c1.9-1.75 2.98-4.33 2.98-7.43Z"/>
+                <path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.34l-3.24-2.55c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.06v2.63A10 10 0 0 0 12 22Z"/>
+                <path fill="#FBBC05" d="M6.41 13.95a6 6 0 0 1 0-3.9V7.42H3.06a10 10 0 0 0 0 9.16l3.35-2.63Z"/>
+                <path fill="#EA4335" d="M12 5.93c1.47 0 2.79.5 3.83 1.52l2.87-2.87C16.95 2.96 14.7 2 12 2a10 10 0 0 0-8.94 5.42l3.35 2.63C7.2 7.69 9.4 5.93 12 5.93Z"/>
+              </svg>
+              <span>Google</span>
+            </button>
+            <button type="button" class="social-registration-button" (click)="onSocialProviderSelected('Facebook')">
+              <svg class="social-icon facebook-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.4 21v-8.2h2.76l.41-3.2H13.4V7.56c0-.93.26-1.56 1.6-1.56h1.7V3.14c-.3-.04-1.34-.14-2.55-.14-2.53 0-4.26 1.54-4.26 4.37V9.6H7v3.2h2.89V21h3.51Z"/>
+              </svg>
+              <span>Facebook</span>
+            </button>
+            <button type="button" class="social-registration-button" (click)="onSocialProviderSelected('Apple')">
+              <svg class="social-icon apple-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M16.37 12.6c.02 2.2 1.93 2.93 1.95 2.94-.02.05-.3 1.04-.99 2.06-.6.88-1.23 1.75-2.22 1.77-.97.02-1.28-.57-2.39-.57-1.1 0-1.45.55-2.36.59-.95.04-1.67-.95-2.28-1.83-1.25-1.8-2.2-5.08-.92-7.3.64-1.1 1.78-1.8 3.02-1.82.94-.02 1.82.63 2.39.63.56 0 1.62-.78 2.73-.67.47.02 1.8.19 2.65 1.43-.07.04-1.58.92-1.58 2.77ZM14.58 6.6c.5-.6.84-1.43.75-2.26-.72.03-1.6.48-2.12 1.08-.47.53-.88 1.38-.77 2.18.8.06 1.63-.4 2.14-1Z"/>
+              </svg>
+              <span>Apple</span>
+            </button>
+          </div>
+          @if (socialProviderNotice()) {
+            <p class="social-registration-notice" role="status">{{ socialProviderNotice() }}</p>
+          }
+          <div class="registration-divider"><span>ou cadastre-se com e-mail</span></div>
+
           <form class="registration-form" novalidate (submit)="onSubmit($event)">
             <label class="registration-field">
               <span>Nome completo</span>
