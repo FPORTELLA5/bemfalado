@@ -1,0 +1,35 @@
+<section class="categories-section" id="categorias">
+    <div class="container">
+      <div class="section-topline">
+        <div>
+          <div class="eyebrow">Explore possibilidades</div>
+          <h2 class="section-heading">O que você procura hoje?</h2>
+          <p class="section-copy">Encontre boas experiências em diferentes momentos da vida.</p>
+        </div>
+        <a class="text-link desktop-only" href="/categorias">Ver todas as categorias <span>→</span></a>
+      </div>
+
+      <div class="category-grid">
+        @for (category of categories; track category.name) {
+          <button class="category-item" type="button" (click)="categorySelected.emit(category.name)">
+            <span class="category-icon" [attr.data-icon]="category.icon">
+              @switch (category.icon) {
+                @case ('utensils') { <svg viewBox="0 0 24 24"><path d="M7 3v7m4-7v7M5 3v4a4 4 0 0 0 8 0V3m-4 8v10m8-18v18m0-18c3 2 4 5 4 9h-4"/></svg> }
+                @case ('heart') { <svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.2-8.8 11-8.8 11s-8.8-5.8-8.8-11A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg> }
+                @case ('sparkles') { <svg viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm7 11 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg> }
+                @case ('shopping-bag') { <svg viewBox="0 0 24 24"><path d="M4 8h16l-1 13H5L4 8Zm4 0a4 4 0 0 1 8 0"/></svg> }
+                @case ('house') { <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3V10Zm6 10v-6h6v6"/></svg> }
+                @case ('car') { <svg viewBox="0 0 24 24"><path d="m5 11 2-5h10l2 5 2 2v6h-2v-2H5v2H3v-6l2-2Zm0 0h14M7 14h2m6 0h2"/></svg> }
+                @case ('graduation-cap') { <svg viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5L2 9Zm4 2v5c4 3 8 3 12 0v-5m4-2v7"/></svg> }
+                @case ('compass') { <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg> }
+                @case ('monitor') { <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg> }
+                @default { <svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg> }
+              }
+            </span>
+            <span class="category-text"><strong>{{ category.name }}</strong><small>{{ category.description }}</small></span>
+            <span class="category-arrow" aria-hidden="true">↗</span>
+          </button>
+        }
+      </div>
+    </div>
+  </section>
