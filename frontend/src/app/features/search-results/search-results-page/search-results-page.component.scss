@@ -377,9 +377,35 @@
 }
 
 .no-results p {
+  max-width: 480px;
   margin: 0 0 20px;
   color: var(--color-text-muted);
   font-size: .85rem;
+  line-height: 1.65;
+}
+
+.no-results-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.no-results-home {
+  color: var(--color-brand);
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.no-results-home:hover {
+  text-decoration: underline;
+}
+
+.recognition-metric small {
+  max-width: 250px;
+  line-height: 1.45;
 }
 
 .results-disclaimer {
