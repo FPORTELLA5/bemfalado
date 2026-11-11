@@ -20,6 +20,7 @@ export class AppComponent {
   readonly mobileMenuOpen = signal(false);
   readonly searchTerm = signal('');
   readonly locationTerm = signal('');
+  readonly searchFeedback = signal('');
 
   readonly categories: Category[] = [
     { name: 'Alimentação', icon: 'utensils', description: 'Restaurantes, cafés e bares' },
@@ -35,17 +36,28 @@ export class AppComponent {
   ];
 
   constructor() {
-    effect(() => {
+    effect((onCleanup) => {
       const preference = this.themePreference();
-      if (typeof document === 'undefined') return;
+      if (typeof document === 'undefined' || typeof window === 'undefined') return;
 
-      const resolved = preference === 'system'
-        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-        : preference;
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      const applyTheme = (): void => {
+        const resolved = preference === 'system'
+          ? (media.matches ? 'dark' : 'light')
+          : preference;
+        document.documentElement.dataset['theme'] = resolved;
+        document.documentElement.style.colorScheme = resolved;
+      };
 
-      document.documentElement.dataset['theme'] = resolved;
-      document.documentElement.style.colorScheme = resolved;
-      localStorage.setItem('bemfalado-theme', preference);
+      applyTheme();
+      if (preference === 'system') {
+        media.addEventListener('change', applyTheme);
+        onCleanup(() => media.removeEventListener('change', applyTheme));
+      }
+
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('bemfalado-theme', preference);
+      }
     });
   }
 
@@ -71,15 +83,18 @@ export class AppComponent {
   submitSearch(): void {
     const term = this.searchTerm().trim();
     if (!term) {
+      this.searchFeedback.set('Digite o nome de um lugar, empresa ou serviço para começar.');
       document.getElementById('search-input')?.focus();
       return;
     }
-    const query = new URLSearchParams({ q: term, local: this.locationTerm().trim() });
-    window.location.href = `/buscar?${query.toString()}`;
+    this.searchFeedback.set('Busca selecionada. A próxima etapa será conectar este campo aos resultados reais do BemFalado.');
   }
 
   selectCategory(category: string): void {
-    window.location.href = `/buscar?categoria=${encodeURIComponent(category)}`;
+    this.searchTerm.set(category);
+    this.searchFeedback.set(`Categoria “${category}” selecionada. Você pode complementar a busca acima.`);
+    document.getElementById('search-input')?.focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   closeMobileMenu(): void {
