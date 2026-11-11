@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, signal } from '@angular/core';
 import { CategoryGridComponent } from './features/home/category-grid/category-grid.component';
+import { CommunityCtaComponent } from './features/home/community-cta/community-cta.component';
+import { DiscoverySectionComponent } from './features/home/discovery-section/discovery-section.component';
+import { HowItWorksComponent } from './features/home/how-it-works/how-it-works.component';
 import { FooterComponent } from './features/home/footer/footer.component';
 import { HeaderComponent } from './features/home/header/header.component';
 import { HeroSearchComponent } from './features/home/hero-search/hero-search.component';
@@ -9,7 +12,7 @@ import type { ThemePreference } from './shared/models/theme-preference.type';
 @Component({
   selector: 'bf-root',
   standalone: true,
-  imports: [HeaderComponent, HeroSearchComponent, CategoryGridComponent, FooterComponent],
+  imports: [HeaderComponent, HeroSearchComponent, CategoryGridComponent, DiscoverySectionComponent, HowItWorksComponent, CommunityCtaComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
