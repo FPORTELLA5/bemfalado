@@ -6,7 +6,6 @@ Status: primeira versão conceitual. A identidade visual está em desenvolviment
 
 **Nome:** BemFalado  
 **Slogan:** Boas experiências merecem ser compartilhadas.  
-**Chamada de ação:** Elogiaê
 
 O BemFalado nasce como uma plataforma descontraída, próxima e fácil de entender, com o objetivo de construir confiança. A longo prazo, deve se tornar uma referência para descobrir estabelecimentos, empresas e serviços a partir de experiências positivas compartilhadas por usuários reais.
 
@@ -20,7 +19,6 @@ O BemFalado nasce como uma plataforma descontraída, próxima e fácil de entend
 Exemplos:
 - “Boas experiências merecem ser compartilhadas.”
 - “Descubra lugares e serviços bem recomendados.”
-- “Gostou da experiência? Elogiaê!”
 - “Veja o que pessoas reais elogiam.”
 
 Evitar: linguagem agressiva, exageros promocionais, promessas de reputação garantida e expressões que sugiram avaliações compradas.
