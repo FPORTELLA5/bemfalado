@@ -231,13 +231,14 @@
                 <div>
                   <strong>Fotos da experiência</strong>
                   <p>Opcional · até 3 imagens, JPG, PNG ou WebP, com até 5 MB cada.</p>
+                  <p>A tela verifica formato, integridade e dimensões. A análise de conteúdo visual, privacidade e metadados deverá ocorrer no servidor antes da publicação.</p>
                 </div>
                 <span>{{ photoAttachments().length }}/3</span>
               </div>
               <label class="photo-picker">
-                <input type="file" accept="image/jpeg,image/png,image/webp" multiple [disabled]="photoAttachments().length >= 3" (change)="onPhotosSelected($event)">
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple [disabled]="photoAttachments().length >= 3 || isProcessingPhotos()" (change)="onPhotosSelected($event)">
                 <span aria-hidden="true">＋</span>
-                <span>Adicionar fotos</span>
+                <span>{{ isProcessingPhotos() ? 'Verificando imagens...' : 'Adicionar fotos' }}</span>
               </label>
               @if (photoFeedback()) {
                 <p class="photo-feedback" role="status">{{ photoFeedback() }}</p>
