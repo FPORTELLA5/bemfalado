@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import type { ModerationFilter, ModerationQueueItem, ModerationStatus } from '../models/moderation-queue.model';
 import { ModerationQueueService } from '../services/moderation-queue.service';
 import { ModerationAppealsService } from '../services/moderation-appeals.service';
+import { ModerationAuditService } from '../services/moderation-audit.service';
 import type { ModerationAppeal } from '../models/moderation-appeal.model';
 
 @Component({
@@ -16,6 +17,7 @@ import type { ModerationAppeal } from '../models/moderation-appeal.model';
 export class ModerationQueuePageComponent {
   readonly moderation = inject(ModerationQueueService);
   readonly appeals = inject(ModerationAppealsService);
+  readonly audit = inject(ModerationAuditService);
   readonly selectedAppealId = signal<string | null>(null);
   readonly appealReviewNote = signal<string>('');
   readonly maxAppealReviewNoteLength = 500;
