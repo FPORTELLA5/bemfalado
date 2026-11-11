@@ -11,6 +11,14 @@ const MAX_PHOTOS = 3;
 const MAX_PHOTO_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_PHOTO_TYPES: readonly string[] = ['image/jpeg', 'image/png', 'image/webp'];
 
+function normalizeSearchTerm(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLocaleLowerCase('pt-BR');
+}
+
 @Component({
   selector: 'bf-praise-composer-page',
   standalone: true,
@@ -22,6 +30,7 @@ const ALLOWED_PHOTO_TYPES: readonly string[] = ['image/jpeg', 'image/png', 'imag
 export class PraiseComposerPageComponent implements OnDestroy {
   readonly step = signal<ComposerStep>(1);
   readonly businesses: readonly BusinessResult[] = MOCK_BUSINESS_RESULTS;
+  readonly businessSearchTerm = signal<string>('');
   readonly selectedBusinessId = signal<string>('');
   readonly selectedQualities = signal<readonly string[]>([]);
   readonly title = signal<string>('');
@@ -29,6 +38,23 @@ export class PraiseComposerPageComponent implements OnDestroy {
   readonly photoAttachments = signal<readonly PhotoAttachment[]>([]);
   readonly photoFeedback = signal<string>('');
   readonly isFinished = signal<boolean>(false);
+
+  readonly filteredBusinesses = computed<readonly BusinessResult[]>(() => {
+    const term = normalizeSearchTerm(this.businessSearchTerm());
+    if (!term) return this.businesses;
+
+    return this.businesses.filter((business: BusinessResult) => {
+      const searchableText = normalizeSearchTerm([
+        business.name,
+        business.category,
+        business.description,
+        business.neighborhood,
+        business.city
+      ].join(' '));
+
+      return searchableText.includes(term);
+    });
+  });
 
   readonly selectedBusiness = computed<BusinessResult | undefined>(() => (
     this.businesses.find((business: BusinessResult) => business.id === this.selectedBusinessId())
@@ -46,6 +72,12 @@ export class PraiseComposerPageComponent implements OnDestroy {
         return true;
     }
   });
+
+  onBusinessSearch(event: Event): void {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    this.businessSearchTerm.set(target.value);
+  }
 
   onBusinessSelect(businessId: string): void {
     this.selectedBusinessId.set(businessId);
