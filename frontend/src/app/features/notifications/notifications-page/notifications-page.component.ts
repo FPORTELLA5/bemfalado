@@ -40,6 +40,7 @@ export class NotificationsPageComponent {
       case 'praise-useful': return '✳';
       case 'favorite-update': return '⌑';
       case 'account': return '○';
+      case 'moderation-update': return '⌁';
     }
   }
 
