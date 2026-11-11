@@ -53,6 +53,19 @@
 .business-empty-state strong { color: var(--color-text); font-size: .82rem; }
 .business-empty-state p { margin: 0; color: var(--color-text-muted); font-size: .75rem; line-height: 1.5; }
 .business-empty-state span { color: var(--color-text-muted); font-size: .67rem; line-height: 1.5; }
+.request-open-button { justify-self: center; margin-top: 8px; }
+.business-request-form { display: grid; gap: 4px; margin-top: 16px; padding: 18px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg); }
+.request-form-heading strong { color: var(--color-text); font-size: .86rem; }
+.request-form-heading p { margin: 5px 0 0; color: var(--color-text-muted); font-size: .73rem; line-height: 1.5; }
+.business-request-form .composer-field { margin-top: 13px; }
+.business-request-form .composer-field select { width: 100%; min-height: 42px; padding: 10px 12px; border: 1px solid var(--color-border-strong); border-radius: 8px; background: var(--color-surface); color: var(--color-text); font: inherit; font-size: .82rem; }
+.business-request-form .composer-field input:focus, .business-request-form .composer-field select:focus { border-color: var(--color-brand); outline: 2px solid color-mix(in srgb, var(--color-brand) 18%, transparent); outline-offset: 1px; }
+.request-form-location { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.request-form-note { margin: 14px 0 0; color: var(--color-text-muted); font-size: .68rem; line-height: 1.55; }
+.request-form-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 14px; }
+.request-success { display: grid; gap: 7px; margin-top: 16px; padding: 16px; border: 1px solid var(--color-border); border-radius: 9px; background: var(--color-bg); }
+.request-success strong { color: var(--color-brand); font-size: .82rem; }
+.request-success p { margin: 0; color: var(--color-text-muted); font-size: .72rem; line-height: 1.6; }
 .field-hint { margin: 14px 0 0; color: var(--color-text-muted); font-size: .72rem; }
 
 .quality-options { display: flex; flex-wrap: wrap; gap: 9px; }
@@ -108,6 +121,9 @@
   .progress-step small { font-size: .61rem; }
   .composer-card { padding: 19px 16px; }
   .business-option { padding: 10px; }
+  .request-form-location { grid-template-columns: 1fr; gap: 0; }
+  .request-form-actions { flex-wrap: wrap; }
+  .request-form-actions button { flex: 1; }
   .business-option-copy small { font-size: .65rem; }
   .composer-actions .button-primary, .composer-actions .button-secondary { padding-inline: 12px; }
   .photo-preview-grid, .review-photo-grid { gap: 7px; }
