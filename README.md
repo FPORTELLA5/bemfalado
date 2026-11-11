@@ -18,6 +18,7 @@ O BemFalado ajuda pessoas a encontrar estabelecimentos, empresas e serviços a p
 ## Estrutura do repositório
 
 - `docs/`: visão do produto, decisões de UX, branding e especificações.
+- `docs/desenvolvimento/`: padrões técnicos e convenções de código.
 - `frontend/`: aplicação web Angular.
 - `backend/`: futura API Java com Spring Boot.
 - `database/`: futura estrutura de banco de dados e versionamento.
@@ -53,6 +54,8 @@ npm run build
 
 Entregue nesta etapa:
 - Estrutura inicial da aplicação Angular.
+- Home dividida em componentes standalone reutilizáveis.
+- Tipagem explícita nos componentes e eventos, sem uso de `any` ou `$any()`.
 - Tokens globais de design e temas claro/escuro.
 - Página inicial responsiva.
 - Navegação móvel e alternância de tema.
