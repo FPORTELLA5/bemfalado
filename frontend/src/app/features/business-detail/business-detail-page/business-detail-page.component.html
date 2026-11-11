@@ -19,11 +19,20 @@
             <p class="profile-location"><span aria-hidden="true">⌖</span> {{ item.neighborhood }}, {{ item.city }}</p>
           </div>
         </div>
+
         <p class="profile-description">{{ item.description }}</p>
+
         <div class="profile-qualities" aria-label="Qualidades mais elogiadas">
           @for (quality of item.praisedQualities; track quality) {
             <span>{{ quality }}</span>
           }
+        </div>
+
+        <div class="profile-actions">
+          <a class="profile-praise-link" routerLink="/compartilhar">
+            Compartilhar uma experiência positiva
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </section>
 
@@ -31,7 +40,10 @@
         <div class="recognition-primary">
           <span class="recognition-label">Índice de reconhecimento</span>
           <strong>{{ item.recognitionIndex }}%</strong>
-          <p>Proporção de experiências que resultaram em elogios publicados.</p>
+          <p>
+            {{ item.praiseCount }} de {{ item.experienceCount }} experiências registradas
+            resultaram em elogios publicados.
+          </p>
         </div>
         <div class="recognition-secondary">
           <div>
@@ -51,7 +63,9 @@
             <p class="section-eyebrow">Experiências compartilhadas</p>
             <h2 id="praises-title">O que estão falando</h2>
           </div>
-          <span class="praises-total">{{ praises().length }} exemplos</span>
+          <span class="praises-total">
+            {{ praises().length }} {{ praises().length === 1 ? 'elogio nesta demonstração' : 'elogios nesta demonstração' }}
+          </span>
         </div>
 
         <div class="praise-list">
@@ -70,13 +84,20 @@
               </div>
             </article>
           } @empty {
-            <p class="praises-empty">Ainda não há elogios publicados para este estabelecimento.</p>
+            <div class="praises-empty">
+              <h3>Este perfil ainda não recebeu elogios.</h3>
+              <p>Se você teve uma boa experiência, pode ser a primeira pessoa a compartilhá-la.</p>
+              <a routerLink="/compartilhar">Compartilhar experiência</a>
+            </div>
           }
         </div>
       </section>
 
       <p class="detail-disclaimer">
-        Os indicadores apresentados são ilustrativos. Na versão real, a metodologia, o período de cálculo e a base de experiências serão informados de forma transparente.
+        Os dados desta página são ilustrativos. Na versão real, o período de cálculo, a quantidade
+        de experiências consideradas e a metodologia do índice serão apresentados de forma transparente.
+        O índice representa a proporção de experiências que geraram elogios publicados; não é uma nota
+        ou garantia de qualidade.
       </p>
     } @else {
       <section class="detail-not-found">
