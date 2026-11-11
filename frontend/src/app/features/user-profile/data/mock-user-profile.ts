@@ -13,7 +13,7 @@ export const MOCK_USER_PROFILE: UserProfile = {
 export const MOCK_USER_PRAISES: readonly UserPraiseSummary[] = [
   {
     id: 'user-praise-001',
-    businessId: 'cafe-aurora',
+    businessId: 'mock-001',
     businessName: 'Café Aurora',
     businessCategory: 'Alimentação e bebidas',
     publishedAt: '2026-10-28',
@@ -23,7 +23,7 @@ export const MOCK_USER_PRAISES: readonly UserPraiseSummary[] = [
   },
   {
     id: 'user-praise-002',
-    businessId: 'clinica-horizonte',
+    businessId: 'mock-003',
     businessName: 'Clínica Horizonte',
     businessCategory: 'Saúde e bem-estar',
     publishedAt: '2026-09-16',
@@ -33,7 +33,7 @@ export const MOCK_USER_PRAISES: readonly UserPraiseSummary[] = [
   },
   {
     id: 'user-praise-003',
-    businessId: 'casa-ipe',
+    businessId: 'mock-002',
     businessName: 'Casa Ipê Decoração',
     businessCategory: 'Comércio e lojas',
     publishedAt: '2026-08-03',
