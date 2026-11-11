@@ -118,6 +118,32 @@
   font-size: .88rem;
   line-height: 1.7;
 }
+.social-registration { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.social-registration-button {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.social-registration-button:hover { border-color: var(--color-brand); background: var(--color-surface-raised); transform: translateY(-1px); }
+.social-registration-button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+.social-icon { width: 18px; height: 18px; flex: 0 0 auto; }
+.facebook-icon { color: #1877f2; }
+.apple-icon { color: var(--color-text); }
+.social-registration-notice { margin: 10px 0 0; color: var(--color-text-muted); font-size: .73rem; line-height: 1.5; }
+.registration-divider { display: flex; align-items: center; gap: 12px; margin: 21px 0; color: var(--color-text-muted); font-size: .7rem; }
+.registration-divider::before, .registration-divider::after { content: ""; height: 1px; flex: 1; background: var(--color-border); }
 .registration-form { display: grid; gap: 17px; }
 .registration-field { display: grid; gap: 7px; min-width: 0; }
 .registration-field > span, .registration-field > label {
