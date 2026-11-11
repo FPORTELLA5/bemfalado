@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
