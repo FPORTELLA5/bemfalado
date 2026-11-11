@@ -9,6 +9,7 @@ interface RegistrationForm {
 }
 
 type RegistrationField = keyof RegistrationForm;
+type SocialProvider = 'Google' | 'Facebook' | 'Apple';
 
 @Component({
   selector: 'bf-registration-page',
@@ -30,6 +31,7 @@ export class RegistrationPageComponent {
   readonly passwordVisible = signal<boolean>(false);
   readonly confirmationVisible = signal<boolean>(false);
   readonly registrationCompleted = signal<boolean>(false);
+  readonly socialProviderNotice = signal<string>('');
 
   readonly passwordsMatch = computed<boolean>(() => {
     const values = this.form();
@@ -49,6 +51,10 @@ export class RegistrationPageComponent {
       && this.passwordsMatch()
       && this.acceptedTerms();
   });
+
+  onSocialProviderSelected(provider: SocialProvider): void {
+    this.socialProviderNotice.set(`A entrada com ${provider} será ativada quando a integração segura estiver configurada.`);
+  }
 
   onFieldInput(event: Event, field: RegistrationField): void {
     const target = event.target;
