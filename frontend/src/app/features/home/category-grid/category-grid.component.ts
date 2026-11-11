@@ -1,10 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-
-interface CategoryItem {
-  readonly name: string;
-  readonly icon: string;
-  readonly description: string;
-}
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import type { CategoryItem } from '../../../shared/models/category.type';
 
 @Component({
   selector: 'bf-category-grid',
@@ -13,7 +8,7 @@ interface CategoryItem {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryGridComponent {
-  @Output() readonly categorySelected = new EventEmitter<string>();
+  readonly categorySelected = output<string>();
 
   readonly categories: readonly CategoryItem[] = [
     { name: 'Alimentação', icon: 'utensils', description: 'Restaurantes, cafés e bares' },
