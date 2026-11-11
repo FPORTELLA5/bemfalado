@@ -106,6 +106,7 @@ export class PraiseComposerPageComponent implements OnDestroy {
     const target = event.target;
     if (!(target instanceof HTMLInputElement)) return;
     this.businessSearchTerm.set(target.value);
+    this.selectedBusinessId.set('');
   }
 
   openBusinessRequest(): void {
