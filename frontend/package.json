@@ -5,7 +5,8 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "check:no-any": "node scripts/check-no-any.mjs"
   },
   "dependencies": {
     "@angular/common": "^22.2.5",
