@@ -191,6 +191,26 @@ Decisões possíveis:
 
 Toda ação deverá ter justificativa registrada. Não deve haver remoção automática definitiva baseada apenas em uma denúncia ou em uma classificação de IA.
 
+### Requisitos da trilha de auditoria
+
+O histórico deverá ser append-only: eventos anteriores não podem ser editados ou apagados pela interface operacional. Correções devem gerar novo evento que referencie o evento corrigido.
+
+Registrar, no mínimo:
+- identificador único do evento;
+- tipo e identificador do objeto afetado (denúncia, publicação ou contestação);
+- identificador da publicação relacionada;
+- ação executada e estados anterior e posterior;
+- identidade e papel do responsável, ou identificação do evento automatizado;
+- data e hora geradas pelo servidor, em padrão consistente;
+- justificativa e regra aplicada;
+- vínculo entre eventos relacionados, para reconstruir a sequência completa.
+
+Eventos mínimos: recebimento da denúncia, atribuição ou transferência de responsável, decisão sobre denúncia, envio de contestação, decisão sobre contestação e alteração posterior do status da publicação. Acesso administrativo a dados restritos e tentativas de alteração não autorizada também devem ser registrados conforme análise de risco.
+
+A trilha deve ter armazenamento persistente no backend, permissões específicas de leitura, proteção contra alteração/exclusão, monitoramento, política de retenção e procedimento de exportação para auditoria autorizada. Não registrar senhas, tokens, dados sensíveis desnecessários ou cópias integrais de anexos no log. Definir retenção e descarte com assessoria jurídica.
+
+O protótipo frontend pode demonstrar a sequência de eventos, mas não constitui trilha imutável: dados em memória e código executado no navegador podem ser alterados pelo próprio cliente.
+
 ## 10. Revisão e contestação
 
 Quando uma publicação for bloqueada ou removida, o usuário deverá receber uma explicação adequada e, quando aplicável, poder solicitar revisão. A contestação deverá ser analisada por pessoa autorizada diferente da decisão inicial sempre que operacionalmente possível.
