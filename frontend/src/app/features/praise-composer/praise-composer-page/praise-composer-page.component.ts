@@ -52,6 +52,8 @@ export class PraiseComposerPageComponent implements OnDestroy {
   readonly photoAttachments = signal<readonly PhotoAttachment[]>([]);
   readonly photoFeedback = signal<string>('');
   readonly isFinished = signal<boolean>(false);
+  readonly showPrivateExperienceConfirmation = signal<boolean>(false);
+  readonly isPrivateExperienceFinished = signal<boolean>(false);
   readonly showBusinessRequestForm = signal<boolean>(false);
   readonly businessRequestSubmitted = signal<boolean>(false);
   readonly businessRequestCategories: readonly string[] = [
@@ -155,6 +157,22 @@ export class PraiseComposerPageComponent implements OnDestroy {
 
   onBusinessSelect(businessId: string): void {
     this.selectedBusinessId.set(businessId);
+    this.showPrivateExperienceConfirmation.set(false);
+  }
+
+  openPrivateExperienceConfirmation(): void {
+    if (!this.selectedBusiness()) return;
+    this.showPrivateExperienceConfirmation.set(true);
+  }
+
+  cancelPrivateExperienceConfirmation(): void {
+    this.showPrivateExperienceConfirmation.set(false);
+  }
+
+  finishPrivateExperienceDemo(): void {
+    if (!this.selectedBusiness() || !this.showPrivateExperienceConfirmation()) return;
+    this.showPrivateExperienceConfirmation.set(false);
+    this.isPrivateExperienceFinished.set(true);
   }
 
   toggleQuality(quality: string): void {
