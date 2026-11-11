@@ -6,6 +6,7 @@ import { LoginPageComponent } from './features/auth/login-page/login-page.compon
 import { PasswordRecoveryPageComponent } from './features/auth/password-recovery-page/password-recovery-page.component';
 import { PraiseComposerPageComponent } from './features/praise-composer/praise-composer-page/praise-composer-page.component';
 import { SearchResultsPageComponent } from './features/search-results/search-results-page/search-results-page.component';
+import { UserProfilePageComponent } from './features/user-profile/user-profile-page/user-profile-page.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,11 @@ export const routes: Routes = [
     path: 'negocio/:id',
     component: BusinessDetailPageComponent,
     title: 'Perfil do estabelecimento | BemFalado'
+  },
+  {
+    path: 'minha-conta',
+    component: UserProfilePageComponent,
+    title: 'Meu perfil | BemFalado'
   },
   {
     path: 'entrar',
