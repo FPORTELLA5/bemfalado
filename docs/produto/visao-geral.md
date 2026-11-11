@@ -66,13 +66,19 @@ Proposta inicial de publicação:
 - Editar ou excluir a própria publicação.
 
 Não será utilizada uma escala de estrelas de 1 a 5 no modelo inicial. A plataforma destacará:
-- Quantidade de elogios recebidos;
+- Quantidade de elogios publicados;
+- Quantidade de experiências registradas;
+- Índice de reconhecimento: proporção de experiências registradas que resultaram em um elogio publicado;
 - Qualidades mais elogiadas;
 - Elogios recentes;
 - Elogios considerados úteis pela comunidade;
 - Evolução do reconhecimento ao longo do tempo.
 
-Não deverá ser exibido um percentual de recomendação calculado apenas entre elogios, pois esse número pode sugerir uma amostra de avaliações positivas e negativas que a plataforma não coleta.
+O índice será calculado dividindo a quantidade de experiências válidas que resultaram em elogio pela quantidade total de experiências válidas registradas no período, multiplicando o resultado por 100. Exemplo: 90 experiências com elogio entre 100 experiências válidas registradas = índice de reconhecimento de 90%.
+
+Para manter a proposta pública exclusivamente positiva, o usuário poderá registrar uma experiência sem publicar um elogio. Esse registro será privado: não haverá texto público, nota negativa ou reclamação. Ele será utilizado somente no cálculo agregado dos indicadores, conforme aviso claro ao usuário e regras de privacidade.
+
+O índice deverá ser apresentado junto da quantidade de experiências consideradas e do período analisado. A plataforma deverá estabelecer critérios contra duplicidade e fraude, além de uma quantidade mínima de registros antes de exibir o índice. Não se deve apresentar o índice como uma pesquisa representativa de todos os clientes do negócio: ele representa apenas as experiências válidas registradas na plataforma.
 
 ### Regras decorrentes
 - A publicação deve descrever uma experiência genuinamente positiva.
@@ -81,7 +87,9 @@ Não deverá ser exibido um percentual de recomendação calculado apenas entre 
 - A moderação deverá distinguir um elogio legítimo de uma crítica disfarçada.
 - A plataforma não deve prometer que todos os negócios terão elogios: ausência de publicações significa apenas ausência de relatos registrados.
 - A política editorial positiva não elimina a necessidade de moderação, transparência ou mecanismos para corrigir informações factuais incorretas.
-- Devem ser definidas regras para prevenção de fraude, volume mínimo de publicações antes de destacar indicadores e apresentação transparente dos dados.
+- Devem ser definidas regras para prevenção de fraude e duplicidade nos registros de experiência, volume mínimo de registros antes de destacar o índice e apresentação transparente dos dados.
+- O registro privado de uma experiência sem elogio não poderá gerar publicação negativa nem ser usado para expor o usuário ou o estabelecimento individualmente.
+- O índice deverá sempre informar sua base de cálculo (quantidade de experiências e período) e não poderá ser descrito como representativo de todos os clientes do negócio sem evidência adequada.
 
 ## Acesso e monetização
 
@@ -115,11 +123,13 @@ Meta de acessibilidade: WCAG 2.2 nível AA. A interface deverá ser responsiva p
 ### Descobrir
 Página inicial → pesquisa → filtros → resultados → perfil do negócio → elogios.
 
-### Publicar um elogio
-Login → localizar negócio → selecionar aspectos positivos → escrever título e relato → adicionar fotos opcionais → revisar → publicar.
+### Registrar uma experiência
+Login → localizar negócio → escolher entre publicar um elogio ou apenas registrar a experiência sem elogio.
+- Se optar pelo elogio: selecionar aspectos positivos → escrever título e relato → adicionar fotos opcionais → revisar → publicar.
+- Se optar por não elogiar: confirmar o registro privado, sem texto público ou avaliação negativa.
 
 ### Encontrar negócios bem recomendados
-Selecionar categoria e região → consultar negócios com mais elogios e qualidades mais destacadas → abrir o perfil e ler os relatos.
+Selecionar categoria e região → comparar quantidade de elogios, índice de reconhecimento, volume de experiências e qualidades mais destacadas → abrir o perfil e ler os relatos.
 
 ## Escopo inicial sugerido (MVP)
 
@@ -128,7 +138,7 @@ Selecionar categoria e região → consultar negócios com mais elogios e qualid
 3. Categorias e cadastro de estabelecimentos/empresas;
 4. Pesquisa e página pública do negócio;
 5. Publicação e consulta de elogios;
-6. Indicadores de elogios e qualidades destacadas;
+6. Indicadores de elogios, experiências registradas, índice de reconhecimento e qualidades destacadas;
 7. Denúncia e moderação básica;
 8. Testes, segurança e preparação para publicação.
 
