@@ -5,14 +5,13 @@ import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-r
 import type { PhotoAttachment } from '../models/photo-attachment.model';
 import type { BusinessRequestDraft } from '../models/business-request-draft.model';
 import { TextModerationService } from '../services/text-moderation.service';
+import { PhotoValidationService } from '../services/photo-validation.service';
 
 type ComposerStep = 1 | 2 | 3 | 4;
 type TextField = 'title' | 'content';
 type BusinessRequestField = keyof BusinessRequestDraft;
 
 const MAX_PHOTOS = 3;
-const MAX_PHOTO_SIZE_BYTES = 5 * 1024 * 1024;
-const ALLOWED_PHOTO_TYPES: readonly string[] = ['image/jpeg', 'image/png', 'image/webp'];
 
 function normalizeSearchTerm(value: string): string {
   return value
@@ -33,6 +32,7 @@ function normalizeSearchTerm(value: string): string {
 export class PraiseComposerPageComponent implements OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly textModeration = inject(TextModerationService);
+  private readonly photoValidation = inject(PhotoValidationService);
 
   constructor() {
     const requestedBusinessId = this.route.snapshot.queryParamMap.get('businessId');
@@ -58,6 +58,7 @@ export class PraiseComposerPageComponent implements OnDestroy {
   ));
   readonly photoAttachments = signal<readonly PhotoAttachment[]>([]);
   readonly photoFeedback = signal<string>('');
+  readonly isProcessingPhotos = signal<boolean>(false);
   readonly isFinished = signal<boolean>(false);
   readonly showPrivateExperienceConfirmation = signal<boolean>(false);
   readonly isPrivateExperienceFinished = signal<boolean>(false);
@@ -204,13 +205,12 @@ export class PraiseComposerPageComponent implements OnDestroy {
     this.content.set(target.value);
   }
 
-  onPhotosSelected(event: Event): void {
+  async onPhotosSelected(event: Event): Promise<void> {
     const target = event.target;
-    if (!(target instanceof HTMLInputElement)) return;
+    if (!(target instanceof HTMLInputElement) || this.isProcessingPhotos()) return;
 
     const selectedFiles = Array.from(target.files ?? []);
-    const currentAttachments = this.photoAttachments();
-    const remainingSlots = MAX_PHOTOS - currentAttachments.length;
+    const remainingSlots = MAX_PHOTOS - this.photoAttachments().length;
     const acceptedFiles: File[] = [];
     const feedbackMessages: string[] = [];
 
@@ -220,33 +220,41 @@ export class PraiseComposerPageComponent implements OnDestroy {
       return;
     }
 
-    for (const file of selectedFiles) {
-      if (acceptedFiles.length >= remainingSlots) {
-        feedbackMessages.push('O limite é de 3 fotos por elogio.');
-        break;
+    this.isProcessingPhotos.set(true);
+    this.photoFeedback.set('Verificando formato e integridade das imagens...');
+
+    try {
+      for (const file of selectedFiles) {
+        if (acceptedFiles.length >= remainingSlots) {
+          feedbackMessages.push('O limite é de 3 fotos por elogio.');
+          break;
+        }
+
+        const validation = await this.photoValidation.validate(file);
+        if (!validation.valid) {
+          feedbackMessages.push(validation.message);
+          continue;
+        }
+
+        acceptedFiles.push(file);
       }
 
-      if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
-        feedbackMessages.push('Use imagens JPG, PNG ou WebP.');
-        continue;
-      }
+      const newAttachments: PhotoAttachment[] = acceptedFiles.map((file: File) => ({
+        file,
+        previewUrl: URL.createObjectURL(file)
+      }));
 
-      if (file.size > MAX_PHOTO_SIZE_BYTES) {
-        feedbackMessages.push('Cada imagem deve ter no máximo 5 MB.');
-        continue;
-      }
-
-      acceptedFiles.push(file);
+      this.photoAttachments.update((current: readonly PhotoAttachment[]) => [
+        ...current,
+        ...newAttachments
+      ]);
+      this.photoFeedback.set(feedbackMessages[0] ?? (
+        acceptedFiles.length > 0 ? 'Imagem(ns) validada(s) para pré-visualização.' : ''
+      ));
+    } finally {
+      this.isProcessingPhotos.set(false);
+      target.value = '';
     }
-
-    const newAttachments: PhotoAttachment[] = acceptedFiles.map((file: File) => ({
-      file,
-      previewUrl: URL.createObjectURL(file)
-    }));
-
-    this.photoAttachments.set([...currentAttachments, ...newAttachments]);
-    this.photoFeedback.set(feedbackMessages[0] ?? '');
-    target.value = '';
   }
 
   removePhoto(previewUrl: string): void {
