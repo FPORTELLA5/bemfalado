@@ -1,0 +1,42 @@
+<main class="institutional-page">
+  <section class="institutional-hero">
+    <div class="institutional-container">
+      <a class="back-link" routerLink="/">← Voltar para o início</a>
+      <p class="eyebrow">{{ page().eyebrow }}</p>
+      <h1>{{ page().title }}</h1>
+      <p class="introduction">{{ page().introduction }}</p>
+      @if (page().draftLabel) {
+        <p class="draft-label" role="note">{{ page().draftLabel }}</p>
+      }
+    </div>
+  </section>
+
+  <div class="institutional-container content-layout">
+    <article class="content-card">
+      @for (section of page().sections; track section.heading) {
+        <section class="content-section">
+          <h2>{{ section.heading }}</h2>
+          @for (paragraph of section.paragraphs; track paragraph) {
+            <p>{{ paragraph }}</p>
+          }
+          @if (section.bullets) {
+            <ul>
+              @for (bullet of section.bullets; track bullet) {
+                <li>{{ bullet }}</li>
+              }
+            </ul>
+          }
+        </section>
+      }
+      @if (page().notice) {
+        <aside class="notice" role="note">{{ page().notice }}</aside>
+      }
+    </article>
+
+    <aside class="side-note">
+      <span class="side-note-mark" aria-hidden="true">“</span>
+      <p>Boas experiências merecem ser compartilhadas.</p>
+      <a routerLink="/buscar">Descobrir experiências <span aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</main>
