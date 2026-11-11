@@ -2,8 +2,9 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, signal }
 import { CategoryGridComponent } from './features/home/category-grid/category-grid.component';
 import { FooterComponent } from './features/home/footer/footer.component';
 import { HeaderComponent } from './features/home/header/header.component';
-import { HeroSearchComponent, SearchCriteria } from './features/home/hero-search/hero-search.component';
-import { ThemePreference } from './shared/models/theme-preference.type';
+import { HeroSearchComponent } from './features/home/hero-search/hero-search.component';
+import type { SearchCriteria } from './features/home/hero-search/hero-search.component';
+import type { ThemePreference } from './shared/models/theme-preference.type';
 
 @Component({
   selector: 'bf-root',
