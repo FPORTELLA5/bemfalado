@@ -6,7 +6,7 @@ import { HowItWorksComponent } from './features/home/how-it-works/how-it-works.c
 import { FooterComponent } from './features/home/footer/footer.component';
 import { HeaderComponent } from './features/home/header/header.component';
 import { HeroSearchComponent } from './features/home/hero-search/hero-search.component';
-import type { SearchCriteria } from './features/home/hero-search/hero-search.component';
+import type { SearchCriteria } from './shared/models/search-criteria.type';
 import type { ThemePreference } from './shared/models/theme-preference.type';
 
 @Component({
