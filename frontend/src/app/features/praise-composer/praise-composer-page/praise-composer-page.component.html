@@ -1,0 +1,138 @@
+<main class="composer-page">
+  <div class="composer-container">
+    <a class="composer-back-link" routerLink="/">← Voltar ao início</a>
+
+    @if (!isFinished()) {
+      <header class="composer-heading">
+        <p class="composer-eyebrow">Compartilhe uma boa experiência</p>
+        <h1>Uma boa experiência merece ser contada.</h1>
+        <p>Conte à comunidade o que fez esse negócio se destacar.</p>
+      </header>
+
+      <nav class="composer-progress" aria-label="Etapas do elogio">
+        @for (stepNumber of [1, 2, 3, 4]; track stepNumber) {
+          <div class="progress-step" [class.is-active]="step() === stepNumber" [class.is-complete]="step() > stepNumber">
+            <span>{{ step() > stepNumber ? '✓' : stepNumber }}</span>
+            <small>
+              @switch (stepNumber) {
+                @case (1) { Negócio }
+                @case (2) { Destaques }
+                @case (3) { Seu elogio }
+                @case (4) { Revisão }
+              }
+            </small>
+          </div>
+        }
+      </nav>
+
+      <section class="composer-card" aria-live="polite">
+        @switch (step()) {
+          @case (1) {
+            <div class="step-heading">
+              <span>Etapa 1 de 4</span>
+              <h2>Qual negócio você quer elogiar?</h2>
+              <p>Selecione um dos estabelecimentos de demonstração.</p>
+            </div>
+            <div class="business-options">
+              @for (business of businesses; track business.id) {
+                <button
+                  class="business-option"
+                  type="button"
+                  [class.is-selected]="selectedBusinessId() === business.id"
+                  [attr.aria-pressed]="selectedBusinessId() === business.id"
+                  (click)="onBusinessSelect(business.id)">
+                  <span class="business-option-avatar" [attr.data-accent]="business.accent">{{ business.initials }}</span>
+                  <span class="business-option-copy">
+                    <strong>{{ business.name }}</strong>
+                    <small>{{ business.category }} · {{ business.neighborhood }}, {{ business.city }}</small>
+                  </span>
+                  <span class="selection-indicator" aria-hidden="true">{{ selectedBusinessId() === business.id ? '✓' : '' }}</span>
+                </button>
+              }
+            </div>
+          }
+          @case (2) {
+            <div class="step-heading">
+              <span>Etapa 2 de 4</span>
+              <h2>O que merece ser destacado?</h2>
+              <p>Escolha uma ou mais qualidades que fizeram parte da sua experiência.</p>
+            </div>
+            <div class="quality-options">
+              @for (quality of ['Atendimento', 'Qualidade dos produtos', 'Variedade', 'Agilidade', 'Organização', 'Acolhimento', 'Ambiente', 'Custo-benefício', 'Entrega', 'Acessibilidade', 'Conhecimento da equipe', 'Cuidado nos detalhes']; track quality) {
+                <button
+                  class="quality-option"
+                  type="button"
+                  [class.is-selected]="selectedQualities().includes(quality)"
+                  [attr.aria-pressed]="selectedQualities().includes(quality)"
+                  (click)="toggleQuality(quality)">
+                  <span aria-hidden="true">{{ selectedQualities().includes(quality) ? '✓' : '+' }}</span>
+                  {{ quality }}
+                </button>
+              }
+            </div>
+            <p class="field-hint">Selecione pelo menos uma qualidade.</p>
+          }
+          @case (3) {
+            <div class="step-heading">
+              <span>Etapa 3 de 4</span>
+              <h2>Conte como foi sua experiência.</h2>
+              <p>Seja específico. Seu relato pode ajudar outras pessoas.</p>
+            </div>
+            <label class="composer-field">
+              <span>Título do elogio</span>
+              <input type="text" maxlength="90" [value]="title()" (input)="onTextInput($event, 'title')" placeholder="Ex.: Atendimento que faz a diferença">
+              <small>{{ title().length }}/90 caracteres · mínimo de 5</small>
+            </label>
+            <label class="composer-field">
+              <span>Seu relato</span>
+              <textarea rows="6" maxlength="1200" [value]="content()" (input)="onTextInput($event, 'content')" placeholder="Conte o que aconteceu e por que sua experiência foi positiva..."></textarea>
+              <small>{{ content().length }}/1200 caracteres · mínimo de 30</small>
+            </label>
+          }
+          @case (4) {
+            <div class="step-heading">
+              <span>Etapa 4 de 4</span>
+              <h2>Revise seu elogio.</h2>
+              <p>Confira as informações antes de concluir esta demonstração.</p>
+            </div>
+            <article class="praise-preview">
+              @if (selectedBusiness(); as business) {
+                <span class="preview-business">{{ business.name }} · {{ business.neighborhood }}</span>
+              }
+              <div class="preview-qualities">
+                @for (quality of selectedQualities(); track quality) {
+                  <span>{{ quality }}</span>
+                }
+              </div>
+              <h3>{{ title() }}</h3>
+              <p>{{ content() }}</p>
+              <small>Publicado por Você · Prévia demonstrativa</small>
+            </article>
+            <p class="demo-disclaimer">Esta etapa é apenas uma prévia. O BemFalado ainda não possui cadastro, autenticação ou publicação conectados ao backend.</p>
+          }
+        }
+
+        <div class="composer-actions">
+          @if (step() > 1) {
+            <button class="button-secondary" type="button" (click)="previousStep()">Voltar</button>
+          } @else {
+            <span></span>
+          }
+          @if (step() < 4) {
+            <button class="button-primary" type="button" [disabled]="!canContinue()" (click)="nextStep()">Continuar <span aria-hidden="true">→</span></button>
+          } @else {
+            <button class="button-primary" type="button" (click)="finishDemo()">Concluir demonstração</button>
+          }
+        </div>
+      </section>
+    } @else {
+      <section class="composer-success">
+        <span class="success-mark" aria-hidden="true">✓</span>
+        <p class="composer-eyebrow">Demonstração concluída</p>
+        <h1>Seu elogio está pronto para ser publicado.</h1>
+        <p>O fluxo de criação foi concluído, mas nenhum dado foi enviado ou salvo. A publicação real será conectada após a implementação de cadastro, autenticação e API.</p>
+        <a class="button-primary success-link" routerLink="/">Voltar à página inicial</a>
+      </section>
+    }
+  </div>
+</main>
