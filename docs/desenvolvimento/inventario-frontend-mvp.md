@@ -24,7 +24,8 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Solicitação de inclusão de negócio | Implementada — demonstração | Formulário coleta dados comerciais públicos; não envia nem armazena solicitação. |
 | Validação de campos e fotos | Implementada parcialmente | Regras locais no navegador; precisam ser revistas para acessibilidade e integração futura. |
 | Registro privado de experiência sem elogio | Implementado — demonstração | Alternativa após selecionar o negócio, com explicação e confirmação explícita. Não armazena nem contabiliza dados; integração real exigirá autenticação, consentimento registrado, prevenção a duplicidade e regras de elegibilidade. |
-| Autenticação e cadastro | Pendente | Cadastro, login, recuperação de senha, confirmação de e-mail e encerramento de sessão. |
+| Cadastro de usuário | Implementado — demonstração | Formulário tipado com nome, e-mail, senha, confirmação e aceite dos termos; validações locais e estado de conclusão. Não cria conta nem envia dados. |
+| Login, recuperação de senha e confirmação de e-mail | Pendente | Fluxos reais dependem do backend, envio de e-mail e gestão segura de sessão. |
 | Perfil do usuário | Pendente | Dados pessoais, preferências, publicações próprias e ações sobre a conta. |
 | Favoritos e interações | Pendente | Definir o conjunto mínimo do MVP e implementar estados de visitante/autenticado. |
 
