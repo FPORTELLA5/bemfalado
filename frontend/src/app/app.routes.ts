@@ -8,6 +8,7 @@ import { PraiseComposerPageComponent } from './features/praise-composer/praise-c
 import { SearchResultsPageComponent } from './features/search-results/search-results-page/search-results-page.component';
 import { UserProfilePageComponent } from './features/user-profile/user-profile-page/user-profile-page.component';
 import { FavoritesPageComponent } from './features/favorites/favorites-page/favorites-page.component';
+import { NotificationsPageComponent } from './features/notifications/notifications-page/notifications-page.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,11 @@ export const routes: Routes = [
     path: 'favoritos',
     component: FavoritesPageComponent,
     title: 'Estabelecimentos salvos | BemFalado'
+  },
+  {
+    path: 'notificacoes',
+    component: NotificationsPageComponent,
+    title: 'Notificações | BemFalado'
   },
   {
     path: 'entrar',
