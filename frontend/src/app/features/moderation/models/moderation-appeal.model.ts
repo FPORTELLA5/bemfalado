@@ -18,6 +18,7 @@ export interface ModerationAppeal {
 
 export interface CreateModerationAppealInput {
   readonly praiseId: string;
+  readonly decisionId: string;
   readonly businessName: string;
   readonly praiseTitle: string;
   readonly authorName: string;
