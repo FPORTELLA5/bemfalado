@@ -41,7 +41,7 @@
   @if (results().length > 0) {
     <section class="business-list" aria-label="Lista de negócios">
       @for (business of results(); track business.id) {
-        <article class="business-card">
+        <a class="business-card" [routerLink]="['/negocio', business.id]" [attr.aria-label]="'Ver perfil de ' + business.name">
           <div class="business-identity">
             <div class="business-avatar" [attr.data-accent]="business.accent" aria-hidden="true">
               {{ business.initials }}
@@ -76,7 +76,8 @@
               <small>Base: {{ business.experienceCount }} experiências</small>
             </div>
           </div>
-        </article>
+          <span class="business-card-action">Ver perfil completo <span aria-hidden="true">→</span></span>
+        </a>
       }
     </section>
   } @else {
