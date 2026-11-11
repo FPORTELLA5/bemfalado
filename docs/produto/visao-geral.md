@@ -85,6 +85,9 @@ Para manter a proposta pública exclusivamente positiva, o usuário poderá regi
 O índice deverá ser apresentado junto da quantidade de experiências consideradas e do período analisado. A plataforma deverá estabelecer critérios contra duplicidade e fraude, além de uma quantidade mínima de registros antes de exibir o índice. Não se deve apresentar o índice como uma pesquisa representativa de todos os clientes do negócio: ele representa apenas as experiências válidas registradas na plataforma.
 
 ### Regras decorrentes
+
+A política detalhada está documentada em [Política de publicação, conteúdo e moderação](./politica-publicacao-conteudo-moderacao.md). Ela define conteúdo permitido e proibido, validação de texto/imagens/emojis/links, denúncias privadas, níveis de tratamento, revisão humana, auditoria, contestação e relação com o Índice de Reconhecimento. A política é uma especificação de produto para orientar a implementação e exige revisão jurídica antes do lançamento.
+
 - A publicação deve descrever uma experiência genuinamente positiva.
 - O conteúdo não pode ser usado para reclamações, ataques, ofensas ou exposição indevida.
 - Denúncias continuam disponíveis para sinalizar fraude, conteúdo impróprio, conflito de interesse ou violação das regras.
