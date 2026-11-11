@@ -201,6 +201,17 @@ A plataforma deve informar:
 - como solicitar revisão;
 - se o conteúdo pode ser editado e reenviado.
 
+Regras funcionais propostas para o fluxo:
+- a contestação deve ser vinculada à publicação e à decisão específica contestada;
+- o autor deve apresentar justificativa, com limite de tamanho e validação no servidor;
+- deve ser permitida uma contestação por decisão, com proteção contra envios duplicados;
+- a solicitação deve gerar confirmação e atualização privada de status ao autor;
+- estados mínimos: aguardando análise, contestação aceita e contestação não aceita;
+- a revisão deve ser realizada por pessoa autorizada diferente da decisão inicial sempre que operacionalmente possível;
+- a decisão da contestação exige justificativa, responsável, data e histórico;
+- aceitar a contestação não deve republicar automaticamente o conteúdo: a equipe deve registrar separadamente o novo status da publicação, considerando o motivo da decisão original e a revisão;
+- o envio ou resultado da contestação não altera diretamente o Índice de reconhecimento.
+
 O prazo operacional de resposta será definido antes do lançamento e divulgado nos canais adequados. Não prometer prazo ainda não suportado pela operação.
 
 ## 11. Proteção contra abuso e manipulação
