@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import type { PhotoAttachment } from '../models/photo-attachment.model';
@@ -30,6 +30,18 @@ function normalizeSearchTerm(value: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PraiseComposerPageComponent implements OnDestroy {
+  private readonly route = inject(ActivatedRoute);
+
+  constructor() {
+    const requestedBusinessId = this.route.snapshot.queryParamMap.get('businessId');
+    const requestedBusiness = this.businesses.find((business: BusinessResult) => business.id === requestedBusinessId);
+
+    if (requestedBusiness) {
+      this.selectedBusinessId.set(requestedBusiness.id);
+      this.businessSearchTerm.set(requestedBusiness.name);
+    }
+  }
+
   readonly step = signal<ComposerStep>(1);
   readonly businesses: readonly BusinessResult[] = MOCK_BUSINESS_RESULTS;
   readonly businessSearchTerm = signal<string>('');
