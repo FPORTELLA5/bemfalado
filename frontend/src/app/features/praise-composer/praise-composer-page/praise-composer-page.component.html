@@ -31,25 +31,59 @@
             <div class="step-heading">
               <span>Etapa 1 de 4</span>
               <h2>Qual negócio você quer elogiar?</h2>
-              <p>Selecione um dos estabelecimentos de demonstração.</p>
+              <p>Busque pelo nome, categoria ou localização do estabelecimento.</p>
             </div>
-            <div class="business-options">
-              @for (business of businesses; track business.id) {
-                <button
-                  class="business-option"
-                  type="button"
-                  [class.is-selected]="selectedBusinessId() === business.id"
-                  [attr.aria-pressed]="selectedBusinessId() === business.id"
-                  (click)="onBusinessSelect(business.id)">
-                  <span class="business-option-avatar" [attr.data-accent]="business.accent">{{ business.initials }}</span>
-                  <span class="business-option-copy">
-                    <strong>{{ business.name }}</strong>
-                    <small>{{ business.category }} · {{ business.neighborhood }}, {{ business.city }}</small>
-                  </span>
-                  <span class="selection-indicator" aria-hidden="true">{{ selectedBusinessId() === business.id ? '✓' : '' }}</span>
-                </button>
-              }
+
+            <label class="business-search">
+              <span class="visually-hidden">Buscar estabelecimento</span>
+              <span class="business-search-icon" aria-hidden="true">⌕</span>
+              <input
+                type="search"
+                autocomplete="off"
+                [value]="businessSearchTerm()"
+                (input)="onBusinessSearch($event)"
+                placeholder="Ex.: Salão da Ana, restaurante, Tijuca...">
+            </label>
+
+            @if (selectedBusiness(); as selected) {
+              <div class="selected-business-summary">
+                <span>Estabelecimento selecionado</span>
+                <strong>{{ selected.name }}</strong>
+                <small>{{ selected.category }} · {{ selected.neighborhood }}, {{ selected.city }}</small>
+              </div>
+            }
+
+            <div class="business-results-heading">
+              <span>{{ businessSearchTerm().trim() ? 'Resultados da busca' : 'Estabelecimentos sugeridos' }}</span>
+              <small>{{ filteredBusinesses().length }} {{ filteredBusinesses().length === 1 ? 'resultado' : 'resultados' }}</small>
             </div>
+
+            @if (filteredBusinesses().length > 0) {
+              <div class="business-options">
+                @for (business of filteredBusinesses(); track business.id) {
+                  <button
+                    class="business-option"
+                    type="button"
+                    [class.is-selected]="selectedBusinessId() === business.id"
+                    [attr.aria-pressed]="selectedBusinessId() === business.id"
+                    (click)="onBusinessSelect(business.id)">
+                    <span class="business-option-avatar" [attr.data-accent]="business.accent">{{ business.initials }}</span>
+                    <span class="business-option-copy">
+                      <strong>{{ business.name }}</strong>
+                      <small>{{ business.category }} · {{ business.neighborhood }}, {{ business.city }}</small>
+                    </span>
+                    <span class="selection-indicator" aria-hidden="true">{{ selectedBusinessId() === business.id ? '✓' : '' }}</span>
+                  </button>
+                }
+              </div>
+            } @else {
+              <div class="business-empty-state">
+                <strong>Não encontramos esse estabelecimento.</strong>
+                <p>Confira a escrita ou tente buscar por outro nome, categoria ou bairro.</p>
+                <span>O cadastro de um novo estabelecimento será uma etapa própria, com validação, em uma próxima versão.</span>
+              </div>
+            }
+            <p class="field-hint">Os estabelecimentos exibidos nesta demonstração são fictícios.</p>
           }
           @case (2) {
             <div class="step-heading">
