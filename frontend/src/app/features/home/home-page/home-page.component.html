@@ -1,6 +1,6 @@
 <main>
-  <bf-hero-search />
-  <bf-category-grid />
+  <bf-hero-search (searchRequested)="onSearch($event)" />
+  <bf-category-grid (categorySelected)="onCategorySelected($event)" />
   <bf-discovery-section />
   <bf-how-it-works />
   <bf-community-cta />
