@@ -28,6 +28,7 @@ export interface PrivateExperienceSummary {
 
 export interface ModeratedPraiseNotice {
   readonly id: string;
+  readonly decisionId: string;
   readonly businessName: string;
   readonly title: string;
   readonly status: 'hidden' | 'removed';
