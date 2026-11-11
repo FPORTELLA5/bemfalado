@@ -40,4 +40,10 @@ Direção conceitual aprovada: símbolo de balão de conversa estilizado, com um
 - Desenvolver versões horizontal, vertical, monocromática, negativa e ícone de aplicativo.
 - A imagem gerada durante a exploração é referência conceitual, não arte-final vetorial.
 
-O nome escolhido para a marca é **BemFalado**. A chamada **Elogiaê** poderá ser usada na interface como convite para publicar um elogio. A disponibilidade no INPI, domínio e redes sociais ainda precisa ser verificada antes do lançamento.
+O nome escolhido para a marca é **BemFalado**. A disponibilidade no INPI, domínio e redes sociais ainda precisa ser verificada antes do lançamento.
+
+## Temas da interface
+
+A experiência digital do BemFalado deverá oferecer tema claro e tema escuro, além da opção de acompanhar a preferência do sistema operacional. A escolha manual do usuário deverá ser persistida.
+
+A paleta institucional permanece como referência da marca, mas os componentes da interface terão tokens semânticos específicos para cada tema. No tema escuro, usar superfícies escuras, texto claro e versões ajustadas dos acentos azul e terracota. Não inverter mecanicamente a paleta. Validar contraste, foco, estados e legibilidade nos dois temas conforme WCAG 2.2 AA.
