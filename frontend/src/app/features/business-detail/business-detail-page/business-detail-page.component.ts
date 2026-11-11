@@ -5,6 +5,7 @@ import type { BusinessPraise } from '../models/business-praise.model';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
 import { MOCK_BUSINESS_PRAISES } from '../data/mock-business-praises';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
+import { FavoritesService } from '../../favorites/services/favorites.service';
 
 @Component({
   selector: 'bf-business-detail-page',
@@ -16,6 +17,7 @@ import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-r
 })
 export class BusinessDetailPageComponent {
   private readonly route = inject(ActivatedRoute);
+  readonly favorites = inject(FavoritesService);
   private readonly routeParams = toSignal(this.route.paramMap, {
     initialValue: this.route.snapshot.paramMap
   });
@@ -34,6 +36,10 @@ export class BusinessDetailPageComponent {
         second.publishedAt.localeCompare(first.publishedAt)
       ))
   ));
+
+  toggleFavorite(businessId: string): void {
+    this.favorites.toggle(businessId);
+  }
 
   formatDate(date: string): string {
     const parsedDate = new Date(`${date}T12:00:00`);
