@@ -1,0 +1,134 @@
+<main class="registration-page">
+  <div class="registration-layout">
+    <aside class="registration-aside" aria-label="Sobre o BemFalado">
+      <a class="registration-brand" routerLink="/" aria-label="BemFalado — página inicial">
+        <span class="registration-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 10.5C8 7.46 10.46 5 13.5 5h13C29.54 5 32 7.46 32 10.5v10c0 3.04-2.46 5.5-5.5 5.5H19l-7 5v-5.3A5.49 5.49 0 0 1 8 20.5v-10Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M14 16.5c1.55 2.1 3.45 3.15 5.8 3.15 2.35 0 4.25-1.05 5.7-3.15" stroke="#D9A58F" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>bemfalado<span>.</span></span>
+      </a>
+
+      <div class="registration-aside-copy">
+        <p class="registration-eyebrow">Boas experiências merecem ser compartilhadas.</p>
+        <h1>Faça parte de uma comunidade que valoriza o que é bom.</h1>
+        <p>Descubra lugares bem falados e compartilhe experiências positivas que podem ajudar outras pessoas.</p>
+      </div>
+
+      <div class="registration-aside-note">
+        <span aria-hidden="true">“</span>
+        <p>Uma boa indicação pode transformar a próxima escolha de alguém.</p>
+      </div>
+    </aside>
+
+    <section class="registration-content" aria-labelledby="registration-title">
+      @if (!registrationCompleted()) {
+        <div class="registration-card">
+          <a class="registration-back-link" routerLink="/">← Voltar para o início</a>
+
+          <div class="registration-heading">
+            <p class="registration-kicker">Crie sua conta gratuita</p>
+            <h2 id="registration-title">Vamos começar?</h2>
+            <p>Preencha seus dados para participar do BemFalado.</p>
+          </div>
+
+          <form class="registration-form" novalidate (submit)="onSubmit($event)">
+            <label class="registration-field">
+              <span>Nome completo</span>
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                maxlength="120"
+                required
+                minlength="2"
+                [value]="form().name"
+                [attr.aria-invalid]="submitted() && form().name.trim().length < 2"
+                aria-describedby="name-hint">
+              <small id="name-hint">Como você gostaria de ser identificado?</small>
+            </label>
+
+            <label class="registration-field">
+              <span>E-mail</span>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                maxlength="160"
+                required
+                [value]="form().email"
+                [attr.aria-invalid]="submitted() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form().email.trim())"
+                aria-describedby="email-hint">
+              <small id="email-hint">Usaremos seu e-mail para acesso e confirmação da conta.</small>
+            </label>
+
+            <div class="registration-field">
+              <label for="registration-password">Senha</label>
+              <div class="password-input-wrap">
+                <input
+                  id="registration-password"
+                  [type]="passwordVisible() ? 'text' : 'password'"
+                  name="password"
+                  autocomplete="new-password"
+                  minlength="10"
+                  required
+                  [value]="form().password"
+                  [attr.aria-invalid]="submitted() && !passwordLengthValid()"
+                  aria-describedby="password-hint">
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility()" [attr.aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'">
+                  {{ passwordVisible() ? 'Ocultar' : 'Mostrar' }}
+                </button>
+              </div>
+              <small id="password-hint">Use pelo menos 10 caracteres.</small>
+            </div>
+
+            <div class="registration-field">
+              <label for="registration-password-confirmation">Confirmar senha</label>
+              <div class="password-input-wrap">
+                <input
+                  id="registration-password-confirmation"
+                  [type]="confirmationVisible() ? 'text' : 'password'"
+                  name="passwordConfirmation"
+                  autocomplete="new-password"
+                  required
+                  [value]="form().passwordConfirmation"
+                  [attr.aria-invalid]="submitted() && !passwordsMatch()"
+                  aria-describedby="confirmation-hint">
+                <button type="button" class="password-toggle" (click)="toggleConfirmationVisibility()" [attr.aria-label]="confirmationVisible() ? 'Ocultar confirmação de senha' : 'Mostrar confirmação de senha'">
+                  {{ confirmationVisible() ? 'Ocultar' : 'Mostrar' }}
+                </button>
+              </div>
+              <small id="confirmation-hint">Digite novamente a mesma senha.</small>
+              @if (submitted() && form().passwordConfirmation.length > 0 && !passwordsMatch()) {
+                <span class="field-error" role="alert">As senhas não coincidem.</span>
+              }
+            </div>
+
+            <label class="terms-check">
+              <input type="checkbox" name="acceptedTerms" required [checked]="acceptedTerms()" (change)="onTermsChange($event)">
+              <span>Li e aceito os <a href="/termos-de-uso">Termos de Uso</a> e a <a href="/privacidade">Política de Privacidade</a>.</span>
+            </label>
+            @if (submitted() && !acceptedTerms()) {
+              <p class="field-error terms-error" role="alert">É necessário aceitar os termos para continuar.</p>
+            }
+
+            <button class="registration-submit" type="submit">Criar minha conta <span aria-hidden="true">→</span></button>
+          </form>
+
+          <p class="registration-demo-note">Demonstração do frontend: nenhum dado será enviado ou armazenado.</p>
+        </div>
+      } @else {
+        <div class="registration-success" role="status" aria-live="polite">
+          <span class="success-icon" aria-hidden="true">✓</span>
+          <p class="registration-kicker">Etapa visual concluída</p>
+          <h2>Seu cadastro está pronto para a próxima etapa.</h2>
+          <p>Na versão completa, enviaremos um e-mail para confirmar seu endereço antes de liberar o acesso à conta.</p>
+          <p class="registration-demo-note">Esta foi apenas uma simulação. Nenhuma conta foi criada e seus dados não foram enviados nem armazenados.</p>
+          <a class="registration-submit success-home-link" routerLink="/">Voltar para o início</a>
+        </div>
+      }
+    </section>
+  </div>
+</main>
