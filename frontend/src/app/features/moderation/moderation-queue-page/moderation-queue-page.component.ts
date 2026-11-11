@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import type { ModerationFilter, ModerationQueueItem, ModerationStatus } from '../models/moderation-queue.model';
 import { ModerationQueueService } from '../services/moderation-queue.service';
+import { ModerationAppealsService } from '../services/moderation-appeals.service';
+import type { ModerationAppeal } from '../models/moderation-appeal.model';
 
 @Component({
   selector: 'bf-moderation-queue-page',
@@ -13,6 +15,10 @@ import { ModerationQueueService } from '../services/moderation-queue.service';
 })
 export class ModerationQueuePageComponent {
   readonly moderation = inject(ModerationQueueService);
+  readonly appeals = inject(ModerationAppealsService);
+  readonly selectedAppealId = signal<string | null>(null);
+  readonly appealReviewNote = signal<string>('');
+  readonly maxAppealReviewNoteLength = 500;
   readonly activeFilter = signal<ModerationFilter>('pending');
   readonly selectedReportId = signal<string | null>(null);
   readonly decisionNote = signal<string>('');
@@ -39,6 +45,48 @@ export class ModerationQueuePageComponent {
 
     return items.find((item) => item.id === selectedId) ?? items[0];
   });
+
+  readonly selectedAppeal = computed<ModerationAppeal | undefined>(() => {
+    const items = this.appeals.appeals();
+    const selectedId = this.selectedAppealId();
+    return items.find((item) => item.id === selectedId) ?? items[0];
+  });
+
+  selectAppeal(appealId: string): void {
+    this.selectedAppealId.set(appealId);
+    this.appealReviewNote.set('');
+  }
+
+  onAppealReviewNoteInput(event: Event): void {
+    const target = event.target;
+    if (target instanceof HTMLTextAreaElement) {
+      this.appealReviewNote.set(target.value.slice(0, this.maxAppealReviewNoteLength));
+    }
+  }
+
+  decideAppeal(status: 'accepted' | 'rejected'): void {
+    const selected = this.selectedAppeal();
+    const note = this.appealReviewNote().trim();
+
+    if (!selected || selected.status !== 'pending' || note.length < 10) {
+      return;
+    }
+
+    this.appeals.decide({
+      appealId: selected.id,
+      status,
+      reviewNote: note
+    });
+    this.appealReviewNote.set('');
+  }
+
+  appealStatusLabel(status: ModerationAppeal['status']): string {
+    switch (status) {
+      case 'pending': return 'Aguardando revisão';
+      case 'accepted': return 'Contestação aceita';
+      case 'rejected': return 'Contestação não aceita';
+    }
+  }
 
   setFilter(filter: ModerationFilter): void {
     this.activeFilter.set(filter);
