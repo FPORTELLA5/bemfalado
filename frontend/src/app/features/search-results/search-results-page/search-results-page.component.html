@@ -1,29 +1,92 @@
 <main class="results-page">
   <section class="results-heading" aria-labelledby="results-title">
-    <p class="results-eyebrow">Descubra boas experiências</p>
-    <h1 id="results-title">Resultados da busca</h1>
-
-    @if (term()) {
-      <p class="results-summary">Você pesquisou por <strong>{{ term() }}</strong>.</p>
-    } @else if (category()) {
-      <p class="results-summary">Categoria selecionada: <strong>{{ category() }}</strong>.</p>
-    } @else {
-      <p class="results-summary">Explore negócios e serviços recomendados pela comunidade.</p>
-    }
-
-    @if (location()) {
-      <p class="results-location">Região: {{ location() }}</p>
-    }
+    <div class="results-heading-copy">
+      <p class="results-eyebrow">Descubra boas experiências</p>
+      <h1 id="results-title">Encontre quem é bem falado.</h1>
+      <p class="results-summary">
+        @if (term()) {
+          Resultados para <strong>“{{ term() }}”</strong>
+        } @else if (category()) {
+          Categoria: <strong>{{ category() }}</strong>
+        } @else {
+          Negócios que estão sendo reconhecidos pela comunidade.
+        }
+        @if (location()) {
+          <span> em <strong>{{ location() }}</strong></span>
+        }
+      </p>
+    </div>
+    <a class="back-link" routerLink="/">← Voltar ao início</a>
   </section>
 
-  <section class="results-empty" aria-labelledby="empty-title">
-    <div class="results-empty-icon" aria-hidden="true">⌕</div>
-    <h2 id="empty-title">Estamos preparando esta busca</h2>
-    <p>
-      A pesquisa já está encaminhada. Nesta etapa, estamos construindo a experiência
-      de resultados; os negócios serão exibidos quando a consulta estiver conectada
-      à base real do BemFalado.
-    </p>
-    <a class="button button-primary" routerLink="/">Voltar para o início</a>
+  <div class="demo-notice" role="status">
+    <span class="demo-indicator" aria-hidden="true"></span>
+    <span><strong>Modo demonstração:</strong> os negócios e indicadores exibidos são fictícios e serão substituídos por dados reais.</span>
+  </div>
+
+  <section class="results-toolbar" aria-label="Controles dos resultados">
+    <div>
+      <p class="results-count"><strong>{{ results().length }}</strong> negócios encontrados</p>
+      <p class="results-caption">Experiências positivas compartilhadas pela comunidade</p>
+    </div>
+    <label class="sort-control">
+      <span>Ordenar por</span>
+      <select [value]="sortOption()" (change)="onSortChange($event)">
+        <option value="most-praised">Mais elogiados</option>
+        <option value="recognition">Maior índice de reconhecimento</option>
+      </select>
+    </label>
   </section>
+
+  @if (results().length > 0) {
+    <section class="business-list" aria-label="Lista de negócios">
+      @for (business of results(); track business.id) {
+        <article class="business-card">
+          <div class="business-identity">
+            <div class="business-avatar" [class]="'business-avatar accent-' + business.accent" aria-hidden="true">
+              {{ business.initials }}
+            </div>
+            <div class="business-main">
+              <span class="business-category">{{ business.category }}</span>
+              <h2>{{ business.name }}</h2>
+              <p class="business-location">
+                <span aria-hidden="true">⌖</span>
+                {{ business.neighborhood }}, {{ business.city }}
+              </p>
+            </div>
+            <span class="business-arrow" aria-hidden="true">↗</span>
+          </div>
+
+          <p class="business-description">{{ business.description }}</p>
+
+          <div class="business-qualities" aria-label="Qualidades mais elogiadas">
+            @for (quality of business.praisedQualities; track quality) {
+              <span class="quality-tag">{{ quality }}</span>
+            }
+          </div>
+
+          <div class="business-metrics">
+            <div class="praise-metric">
+              <strong>{{ business.praiseCount }}</strong>
+              <span>elogios</span>
+            </div>
+            <div class="recognition-metric">
+              <strong>{{ business.recognitionIndex }}%</strong>
+              <span>índice de reconhecimento</span>
+              <small>Base: {{ business.experienceCount }} experiências</small>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+  } @else {
+    <section class="no-results" aria-live="polite">
+      <div class="no-results-icon" aria-hidden="true">⌕</div>
+      <h2>Nenhum negócio encontrado</h2>
+      <p>Tente buscar por outro nome, categoria ou região.</p>
+      <a class="button button-primary" routerLink="/">Nova busca</a>
+    </section>
+  }
+
+  <p class="results-disclaimer">Os dados desta tela são exclusivamente demonstrativos. O índice de reconhecimento real será exibido com sua base de experiências e período de cálculo.</p>
 </main>
