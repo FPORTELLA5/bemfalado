@@ -1,9 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, signal } from '@angular/core';
-
-export interface SearchCriteria {
-  readonly term: string;
-  readonly location: string;
-}
+import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import type { SearchCriteria } from '../../../shared/models/search-criteria.type';
 
 @Component({
   selector: 'bf-hero-search',
@@ -12,7 +8,7 @@ export interface SearchCriteria {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroSearchComponent {
-  @Output() readonly searchRequested = new EventEmitter<SearchCriteria>();
+  readonly searchRequested = output<SearchCriteria>();
   readonly searchTerm = signal('');
   readonly locationTerm = signal('');
   readonly searchFeedback = signal('');
