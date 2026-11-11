@@ -1,0 +1,157 @@
+<main class="moderation-page">
+  <div class="moderation-container">
+    <a class="moderation-back-link" routerLink="/">← Voltar ao BemFalado</a>
+
+    <header class="moderation-header">
+      <div>
+        <p class="moderation-eyebrow">Área interna · demonstração</p>
+        <h1>Central de moderação</h1>
+        <p class="moderation-subtitle">
+          Analise sinalizações da comunidade e registre decisões de forma consistente.
+        </p>
+      </div>
+      <span class="demo-status">Dados fictícios</span>
+    </header>
+
+    <section class="moderation-warning" role="note">
+      <strong>Protótipo sem controle de acesso.</strong>
+      Esta tela não está protegida por autenticação ou permissões e não deve receber denúncias reais.
+      As decisões ficam somente na memória desta demonstração; ainda não existe auditoria persistente.
+    </section>
+
+    <section class="moderation-stats" aria-label="Resumo da fila">
+      <article class="moderation-stat">
+        <span>Pendentes</span>
+        <strong>{{ moderation.pendingCount() }}</strong>
+      </article>
+      <article class="moderation-stat">
+        <span>Prioridade urgente</span>
+        <strong>{{ moderation.urgentCount() }}</strong>
+      </article>
+      <article class="moderation-stat">
+        <span>Registros na fila</span>
+        <strong>{{ moderation.queue().length }}</strong>
+      </article>
+    </section>
+
+    <section class="moderation-workspace" aria-label="Fila e análise de denúncias">
+      <div class="moderation-list-panel">
+        <div class="moderation-list-heading">
+          <div>
+            <h2>Denúncias</h2>
+            <span>{{ filteredItems().length }} registro(s)</span>
+          </div>
+          <div class="moderation-filters" aria-label="Filtrar denúncias">
+            <button type="button" [class.is-active]="activeFilter() === 'pending'" [attr.aria-pressed]="activeFilter() === 'pending'" (click)="setFilter('pending')">Pendentes</button>
+            <button type="button" [class.is-active]="activeFilter() === 'decided'" [attr.aria-pressed]="activeFilter() === 'decided'" (click)="setFilter('decided')">Analisadas</button>
+            <button type="button" [class.is-active]="activeFilter() === 'all'" [attr.aria-pressed]="activeFilter() === 'all'" (click)="setFilter('all')">Todas</button>
+          </div>
+        </div>
+
+        <div class="moderation-list">
+          @for (item of filteredItems(); track item.id) {
+            <button
+              class="moderation-list-item"
+              type="button"
+              [class.is-selected]="selectedItem()?.id === item.id"
+              [attr.aria-pressed]="selectedItem()?.id === item.id"
+              (click)="selectReport(item.id)"
+            >
+              <span class="list-item-topline">
+                <span class="priority-dot" [attr.data-priority]="item.priority"></span>
+                <span>{{ moderation.priorityLabel(item.priority) }}</span>
+                <time>{{ formatDate(item.reportedAt) }}</time>
+              </span>
+              <strong>{{ item.businessName }}</strong>
+              <span class="list-item-title">{{ item.praiseTitle }}</span>
+              <span class="list-item-reason">{{ moderation.reasonLabel(item.reason) }}</span>
+              <span class="list-item-status" [attr.data-status]="item.status">{{ moderation.statusLabel(item.status) }}</span>
+            </button>
+          } @empty {
+            <div class="moderation-empty">
+              <span aria-hidden="true">✓</span>
+              <strong>Nenhuma denúncia nesta lista</strong>
+              <p>Quando houver registros para este filtro, eles aparecerão aqui.</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <section class="moderation-detail-panel" aria-labelledby="report-detail-title">
+        @if (selectedItem(); as item) {
+          <div class="detail-panel-heading">
+            <div>
+              <p class="moderation-eyebrow">Registro {{ item.id }}</p>
+              <h2 id="report-detail-title">Análise do conteúdo</h2>
+            </div>
+            <span class="detail-status" [attr.data-status]="item.status">{{ moderation.statusLabel(item.status) }}</span>
+          </div>
+
+          <div class="report-metadata">
+            <div><span>Estabelecimento</span><strong>{{ item.businessName }}</strong></div>
+            <div><span>Autor do elogio</span><strong>{{ item.praiseAuthor }}</strong></div>
+            <div><span>Recebida em</span><strong>{{ formatDate(item.reportedAt) }}</strong></div>
+            <div><span>Motivo informado</span><strong>{{ moderation.reasonLabel(item.reason) }}</strong></div>
+          </div>
+
+          <div class="privacy-boundary">
+            <span aria-hidden="true">◈</span>
+            Identidade de quem denunciou não é exibida nesta fila nem ao estabelecimento.
+          </div>
+
+          <section class="reported-content">
+            <span class="content-label">Elogio sinalizado</span>
+            <h3>{{ item.praiseTitle }}</h3>
+            <p>{{ item.praiseContent }}</p>
+          </section>
+
+          <section class="reporter-context">
+            <span class="content-label">Detalhes enviados na denúncia</span>
+            <p>{{ item.details }}</p>
+          </section>
+
+          @if (item.status === 'pending') {
+            <section class="decision-section" aria-labelledby="decision-title">
+              <h3 id="decision-title">Registrar decisão</h3>
+              <label for="decision-note">Justificativa obrigatória</label>
+              <textarea
+                id="decision-note"
+                rows="4"
+                maxlength="500"
+                [value]="decisionNote()"
+                (input)="onDecisionNoteInput($event)"
+                placeholder="Registre o que foi analisado e por que esta decisão foi tomada."
+              ></textarea>
+              <span class="decision-character-count">{{ decisionNote().length }}/{{ maxDecisionNoteLength }} caracteres · mínimo de 10</span>
+              <p class="decision-guidance">
+                Uma denúncia não comprova uma violação por si só. Avalie o conteúdo e o contexto antes de decidir.
+              </p>
+              <div class="decision-actions">
+                <button type="button" class="decision-button decision-keep" [disabled]="decisionNote().trim().length < 10" (click)="decide('maintained')">Manter publicado</button>
+                <button type="button" class="decision-button decision-hide" [disabled]="decisionNote().trim().length < 10" (click)="decide('hidden')">Ocultar temporariamente</button>
+                <button type="button" class="decision-button decision-remove" [disabled]="decisionNote().trim().length < 10" (click)="decide('removed')">Remover publicação</button>
+              </div>
+            </section>
+          } @else {
+            <section class="decision-record" aria-labelledby="decision-record-title">
+              <h3 id="decision-record-title">Decisão registrada nesta demonstração</h3>
+              <p>{{ item.decisionNote }}</p>
+              <span>{{ item.decidedBy }} · {{ item.decidedAt ? formatDate(item.decidedAt) : '' }}</span>
+            </section>
+          }
+        } @else {
+          <div class="moderation-empty detail-empty">
+            <span aria-hidden="true">⌕</span>
+            <strong>Selecione uma denúncia</strong>
+            <p>Escolha um registro na lista para consultar o conteúdo e analisar o caso.</p>
+          </div>
+        }
+      </section>
+    </section>
+
+    <p class="moderation-footnote">
+      A fila real exigirá autenticação, autorização por função, trilha de auditoria imutável,
+      política de retenção, proteção contra abuso e mecanismo de revisão das decisões.
+    </p>
+  </div>
+</main>
