@@ -1,0 +1,57 @@
+<main class="favorites-page">
+  <div class="favorites-container">
+    <a class="favorites-back-link" routerLink="/minha-conta">← Voltar para minha conta</a>
+
+    <header class="favorites-heading">
+      <p class="favorites-eyebrow">Sua lista pessoal</p>
+      <h1>Estabelecimentos salvos</h1>
+      <p>Guarde lugares que você quer conhecer, revisitar ou recomendar para alguém.</p>
+    </header>
+
+    <div class="favorites-demo-notice" role="note">
+      <span aria-hidden="true">ⓘ</span>
+      <p>Prévia demonstrativa: os favoritos são fictícios e ficam apenas nesta sessão. Na versão completa, serão vinculados à sua conta.</p>
+    </div>
+
+    <section class="favorites-summary" aria-live="polite">
+      <strong>{{ favorites.count() }}</strong>
+      <span>{{ favorites.count() === 1 ? 'estabelecimento salvo' : 'estabelecimentos salvos' }}</span>
+    </section>
+
+    @if (favorites.businesses().length > 0) {
+      <section class="favorites-list" aria-label="Estabelecimentos favoritos">
+        @for (business of favorites.businesses(); track business.id) {
+          <article class="favorite-card">
+            <div class="favorite-avatar" [attr.data-accent]="business.accent" aria-hidden="true">{{ business.initials }}</div>
+            <div class="favorite-content">
+              <span class="favorite-category">{{ business.category }}</span>
+              <h2>{{ business.name }}</h2>
+              <p class="favorite-location">⌖ {{ business.neighborhood }}, {{ business.city }}</p>
+              <p class="favorite-description">{{ business.description }}</p>
+              <div class="favorite-metrics">
+                <strong>{{ business.praiseCount }} elogios</strong>
+                <span>{{ business.recognitionIndex }}% de índice de reconhecimento</span>
+              </div>
+              <a [routerLink]="['/negocio', business.id]" class="favorite-profile-link">Ver perfil <span aria-hidden="true">→</span></a>
+            </div>
+            <button
+              type="button"
+              class="favorite-remove-button"
+              [attr.aria-label]="'Remover ' + business.name + ' dos favoritos'"
+              (click)="favorites.remove(business.id)"
+            >Remover</button>
+          </article>
+        }
+      </section>
+    } @else {
+      <section class="favorites-empty" aria-live="polite">
+        <span aria-hidden="true">♡</span>
+        <h2>Sua lista está vazia</h2>
+        <p>Quando encontrar um estabelecimento que queira guardar, abra o perfil e selecione “Salvar nos favoritos”.</p>
+        <a routerLink="/buscar">Explorar estabelecimentos</a>
+      </section>
+    }
+
+    <p class="favorites-privacy-note">Sua lista de favoritos é privada. Salvar um estabelecimento não publica um elogio, não representa uma avaliação e não altera o índice de reconhecimento.</p>
+  </div>
+</main>
