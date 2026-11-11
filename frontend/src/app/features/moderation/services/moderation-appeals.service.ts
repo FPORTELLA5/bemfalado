@@ -1,4 +1,5 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { NotificationsService } from '../../notifications/services/notifications.service';
 import type {
   CreateModerationAppealInput,
   DecideModerationAppealInput,
@@ -7,6 +8,7 @@ import type {
 
 @Injectable({ providedIn: 'root' })
 export class ModerationAppealsService {
+  private readonly notifications = inject(NotificationsService);
   private readonly appealRecords = signal<readonly ModerationAppeal[]>([]);
   readonly appeals = this.appealRecords.asReadonly();
   readonly pendingCount = computed<number>(() => (
@@ -32,6 +34,13 @@ export class ModerationAppealsService {
     };
 
     this.appealRecords.update((current) => [appeal, ...current]);
+    this.notifications.addNotification({
+      type: 'moderation-update',
+      title: 'Contestação recebida',
+      message: 'Sua solicitação de revisão foi registrada e está aguardando análise.',
+      actionLabel: 'Acompanhar solicitação',
+      actionRoute: '/minha-conta'
+    });
     return true;
   }
 
@@ -42,6 +51,7 @@ export class ModerationAppealsService {
       return;
     }
 
+    const reviewedAppeal = this.appealRecords().find((appeal) => appeal.id === input.appealId);
     this.appealRecords.update((current) => current.map((appeal) => (
       appeal.id === input.appealId && appeal.status === 'pending'
         ? {
@@ -52,6 +62,17 @@ export class ModerationAppealsService {
           }
         : appeal
     )));
+    if (reviewedAppeal?.status === 'pending') {
+      this.notifications.addNotification({
+        type: 'moderation-update',
+        title: input.status === 'accepted' ? 'Contestação aceita' : 'Revisão concluída',
+        message: input.status === 'accepted'
+          ? 'Sua contestação foi aceita. Consulte o status atualizado na sua conta.'
+          : 'A equipe concluiu a revisão da sua contestação. Consulte o retorno na sua conta.',
+        actionLabel: 'Ver retorno',
+        actionRoute: '/minha-conta'
+      });
+    }
   }
 
   findByPraiseId(praiseId: string): ModerationAppeal | undefined {
