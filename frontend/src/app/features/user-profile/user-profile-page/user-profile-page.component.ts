@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MOCK_PRIVATE_EXPERIENCES, MOCK_USER_PRAISES, MOCK_USER_PROFILE } from '../data/mock-user-profile';
 import { NotificationsService } from '../../notifications/services/notifications.service';
@@ -16,7 +16,7 @@ type ProfileField = 'displayName' | 'city' | 'bio';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfilePageComponent {
-  readonly notifications = new NotificationsService();
+  readonly notifications = inject(NotificationsService);
   readonly activeSection = signal<ProfileSection>('overview');
   readonly profile = signal<UserProfile>(MOCK_USER_PROFILE);
   readonly praises = MOCK_USER_PRAISES;
