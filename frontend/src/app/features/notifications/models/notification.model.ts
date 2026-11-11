@@ -1,4 +1,4 @@
-export type NotificationType = 'praise-published' | 'praise-useful' | 'favorite-update' | 'account';
+export type NotificationType = 'praise-published' | 'praise-useful' | 'favorite-update' | 'account' | 'moderation-update';
 
 export interface UserNotification {
   readonly id: string;
