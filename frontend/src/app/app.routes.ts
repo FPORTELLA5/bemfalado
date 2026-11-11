@@ -7,6 +7,7 @@ import { PasswordRecoveryPageComponent } from './features/auth/password-recovery
 import { PraiseComposerPageComponent } from './features/praise-composer/praise-composer-page/praise-composer-page.component';
 import { SearchResultsPageComponent } from './features/search-results/search-results-page/search-results-page.component';
 import { UserProfilePageComponent } from './features/user-profile/user-profile-page/user-profile-page.component';
+import { FavoritesPageComponent } from './features/favorites/favorites-page/favorites-page.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     path: 'minha-conta',
     component: UserProfilePageComponent,
     title: 'Meu perfil | BemFalado'
+  },
+  {
+    path: 'favoritos',
+    component: FavoritesPageComponent,
+    title: 'Estabelecimentos salvos | BemFalado'
   },
   {
     path: 'entrar',
