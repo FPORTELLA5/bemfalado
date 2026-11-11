@@ -29,6 +29,13 @@
         </div>
 
         <div class="profile-actions">
+          <button
+            type="button"
+            class="profile-favorite-button"
+            [class.is-saved]="favorites.isFavorite(item.id)"
+            [attr.aria-pressed]="favorites.isFavorite(item.id)"
+            (click)="toggleFavorite(item.id)"
+          >{{ favorites.isFavorite(item.id) ? '♥ Salvo nos favoritos' : '♡ Salvar nos favoritos' }}</button>
           <a class="profile-praise-link" routerLink="/compartilhar" [queryParams]="{ businessId: item.id }">
             Compartilhar uma experiência positiva
             <span aria-hidden="true">→</span>
