@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessSortOption, BusinessResult } from '../models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
 
@@ -35,22 +34,20 @@ export class SearchResultsPageComponent {
       ].join(' ').toLocaleLowerCase('pt-BR');
 
       const matchesTerm = !normalizedTerm || searchableText.includes(normalizedTerm);
-      const matchesLocation = !normalizedLocation
-        || `${business.neighborhood} ${business.city}`.toLocaleLowerCase('pt-BR').includes(normalizedLocation);
+      const businessLocation = `${business.neighborhood} ${business.city}`.toLocaleLowerCase('pt-BR');
+      const matchesLocation = !normalizedLocation || businessLocation.includes(normalizedLocation);
       const matchesCategory = !normalizedCategory
         || business.category.toLocaleLowerCase('pt-BR') === normalizedCategory;
 
       return matchesTerm && matchesLocation && matchesCategory;
     });
 
-    return [...filteredResults].sort((first: BusinessResult, second: BusinessResult) => {
-      return this.sortOption() === 'recognition'
+    return [...filteredResults].sort((first: BusinessResult, second: BusinessResult) => (
+      this.sortOption() === 'recognition'
         ? second.recognitionIndex - first.recognitionIndex
-        : second.praiseCount - first.praiseCount;
-    });
+        : second.praiseCount - first.praiseCount
+    ));
   });
-
-  readonly isUsingMockData = true;
 
   onSortChange(event: Event): void {
     const target = event.target;
@@ -60,9 +57,5 @@ export class SearchResultsPageComponent {
     if (value === 'most-praised' || value === 'recognition') {
       this.sortOption.set(value);
     }
-  }
-
-  trackBusiness(_index: number, business: BusinessResult): string {
-    return business.id;
   }
 }
