@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MOCK_PRIVATE_EXPERIENCES, MOCK_USER_PRAISES, MOCK_USER_PROFILE } from '../data/mock-user-profile';
+import { MOCK_MODERATED_PRAISE, MOCK_PRIVATE_EXPERIENCES, MOCK_USER_PRAISES, MOCK_USER_PROFILE } from '../data/mock-user-profile';
 import { NotificationsService } from '../../notifications/services/notifications.service';
-import type { UserProfile } from '../models/user-profile.model';
+import { ModerationAppealsService } from '../../moderation/services/moderation-appeals.service';
+import type { ModeratedPraiseNotice, UserProfile } from '../models/user-profile.model';
 
 type ProfileSection = 'overview' | 'praises' | 'private' | 'account';
 type ProfileField = 'displayName' | 'city' | 'bio';
@@ -17,6 +18,12 @@ type ProfileField = 'displayName' | 'city' | 'bio';
 })
 export class UserProfilePageComponent {
   readonly notifications = inject(NotificationsService);
+  readonly appeals = inject(ModerationAppealsService);
+  readonly moderatedPraise: ModeratedPraiseNotice = MOCK_MODERATED_PRAISE;
+  readonly appealJustification = signal<string>('');
+  readonly appealSubmittedNotice = signal<boolean>(false);
+  readonly maxAppealLength = 1000;
+  readonly existingAppeal = computed(() => this.appeals.findByPraiseId(this.moderatedPraise.id));
   readonly activeSection = signal<ProfileSection>('overview');
   readonly profile = signal<UserProfile>(MOCK_USER_PROFILE);
   readonly praises = MOCK_USER_PRAISES;
@@ -33,6 +40,31 @@ export class UserProfilePageComponent {
 
   readonly publishedPraiseCount = computed<number>(() => this.praises.length);
   readonly privateExperienceCount = computed<number>(() => this.privateExperiences.length);
+
+  onAppealJustificationInput(event: Event): void {
+    const target = event.target;
+    if (target instanceof HTMLTextAreaElement) {
+      this.appealJustification.set(target.value.slice(0, this.maxAppealLength));
+      this.appealSubmittedNotice.set(false);
+    }
+  }
+
+  submitAppeal(): void {
+    const submitted = this.appeals.submit({
+      praiseId: this.moderatedPraise.id,
+      businessName: this.moderatedPraise.businessName,
+      praiseTitle: this.moderatedPraise.title,
+      authorName: this.profile().displayName,
+      originalStatus: this.moderatedPraise.status,
+      originalDecisionNote: this.moderatedPraise.decisionNote,
+      justification: this.appealJustification()
+    });
+
+    if (submitted) {
+      this.appealJustification.set('');
+      this.appealSubmittedNotice.set(true);
+    }
+  }
 
   setSection(section: ProfileSection): void {
     this.activeSection.set(section);
