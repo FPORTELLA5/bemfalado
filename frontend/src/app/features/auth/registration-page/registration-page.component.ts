@@ -44,7 +44,7 @@ export class RegistrationPageComponent {
   readonly canSubmit = computed<boolean>(() => {
     const values = this.form();
     return values.name.trim().length >= 2
-      && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())
+      && this.emailValid()
       && this.passwordLengthValid()
       && this.passwordsMatch()
       && this.acceptedTerms();
