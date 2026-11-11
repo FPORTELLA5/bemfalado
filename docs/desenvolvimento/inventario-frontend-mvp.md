@@ -22,7 +22,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Fluxo de publicação de elogio | Implementado — demonstração | Seleção de negócio, qualidades, título, relato, fotos e revisão. Não persiste nem envia dados. |
 | Busca de negócio no fluxo | Implementada — demonstração | Pesquisa local nos dados fictícios. |
 | Solicitação de inclusão de negócio | Implementada — demonstração | Formulário coleta dados comerciais públicos; não envia nem armazena solicitação. |
-| Validação de campos e fotos | Implementada parcialmente | Regras locais no navegador; precisam ser revistas para acessibilidade e integração futura. |
+| Validação de campos e fotos | Implementada parcialmente | Regras locais no navegador; precisam ser revistas para acessibilidade e integração futura. Primeira camada tipada de validação de texto adicionada ao compositor; regras determinísticas limitadas, sem análise contextual/IA e sem substituir backend. |
 | Registro privado de experiência sem elogio | Implementado — demonstração | Alternativa após selecionar o negócio, com explicação e confirmação explícita. Não armazena nem contabiliza dados; integração real exigirá autenticação, consentimento registrado, prevenção a duplicidade e regras de elegibilidade. |
 | Cadastro de usuário | Implementado — demonstração | Formulário tipado com nome, e-mail, senha, confirmação e ciência dos requisitos legais; opções visuais Google, Facebook e Apple; validações locais e estado de conclusão. Provedores ainda sem OAuth/backend: botões apenas informam que a integração será ativada posteriormente. Não cria conta nem envia dados. |
 | Login | Implementado — demonstração | Formulário tipado, validação local, exibição de senha e opções visuais Google/Facebook/Apple. Não autentica nem cria sessão; OAuth depende do backend e da configuração dos provedores. |
@@ -39,6 +39,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Área do representante do negócio | Fora do primeiro recorte / a decidir | A visão do produto posiciona recursos de representantes como fase posterior. Não antecipar painel pago completo no MVP. |
 | Reivindicação/verificação de perfil | Fase posterior | Não confundir perfil reivindicado com garantia de qualidade. |
 | Resposta a elogios pelo negócio | Fase posterior | Exige autenticação, autorização e regras de moderação. |
+| Validação inicial de texto | Implementada — demonstração | Serviço tipado valida links, padrão de CPF, algumas frases negativas explícitas, ameaças, termos ofensivos selecionados e repetição excessiva; bloqueia avanço no formulário quando há sinal. Não é classificador contextual completo nem validação de segurança no servidor. |
 | Denúncia de conteúdo | Especificada — implementação pendente | Política definida em `docs/produto/politica-publicacao-conteudo-moderacao.md`; formulário privado, motivos estruturados e confirmação ainda precisam ser implementados. |
 | Moderação básica | Especificada — implementação pendente | Política define validações, níveis de tratamento, fila humana, decisões, auditoria e contestação. Backend deverá impor autorização e validação definitiva. |
 | Gestão administrativa de negócios | Pendente | Inclui análise das solicitações de inclusão e atualização de status. |
