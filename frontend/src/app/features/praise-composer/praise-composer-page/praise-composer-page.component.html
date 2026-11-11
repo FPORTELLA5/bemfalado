@@ -209,12 +209,22 @@
               <span>Título do elogio</span>
               <input type="text" maxlength="90" [value]="title()" (input)="onTextInput($event, 'title')" placeholder="Ex.: Atendimento que faz a diferença">
               <small>{{ title().length }}/90 caracteres · mínimo de 5</small>
+              @if (titleModeration().message) {
+                <span class="moderation-feedback" role="alert">{{ titleModeration().message }}</span>
+              }
             </label>
             <label class="composer-field">
               <span>Seu relato</span>
               <textarea rows="6" maxlength="1200" [value]="content()" (input)="onTextInput($event, 'content')" placeholder="Conte o que aconteceu e por que sua experiência foi positiva..."></textarea>
               <small>{{ content().length }}/1200 caracteres · mínimo de 30</small>
+              @if (contentModeration().message) {
+                <span class="moderation-feedback" role="alert">{{ contentModeration().message }}</span>
+              }
             </label>
+
+            @if (hasTextModerationIssues()) {
+              <p class="moderation-summary" role="status">Corrija os pontos indicados antes de continuar. A validação desta tela é uma orientação inicial; a publicação real também será verificada no servidor.</p>
+            }
 
             <div class="photo-upload">
               <div class="photo-upload-heading">
