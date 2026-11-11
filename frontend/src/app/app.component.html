@@ -1,16 +1,6 @@
 <bf-header [themePreference]="themePreference()" (themeChange)="setTheme($event)" />
 
-<main>
-  <bf-hero-search (searchRequested)="onSearchRequested($event)" />
-
-  <bf-category-grid (categorySelected)="onCategorySelected($event)" />
-
-  <bf-discovery-section />
-
-  <bf-how-it-works />
-
-  <bf-community-cta />
-</main>
+<router-outlet />
 
 <bf-footer />
 
