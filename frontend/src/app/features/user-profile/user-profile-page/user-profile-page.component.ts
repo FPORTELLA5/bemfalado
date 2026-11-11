@@ -52,6 +52,7 @@ export class UserProfilePageComponent {
   submitAppeal(): void {
     const submitted = this.appeals.submit({
       praiseId: this.moderatedPraise.id,
+      decisionId: this.moderatedPraise.decisionId,
       businessName: this.moderatedPraise.businessName,
       praiseTitle: this.moderatedPraise.title,
       authorName: this.profile().displayName,
