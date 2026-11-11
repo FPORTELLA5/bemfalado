@@ -47,6 +47,22 @@ export class SearchResultsPageComponent {
     });
   }
 
+  readonly noResultsTitle = computed<string>(() => {
+    if (this.term()) return 'Não encontramos esse negócio.';
+    if (this.location() || this.category()) return 'Nenhum negócio corresponde a esses filtros.';
+    return 'Ainda não há negócios para exibir.';
+  });
+
+  readonly noResultsDescription = computed<string>(() => {
+    if (this.term()) {
+      return 'Confira se o nome está correto ou limpe a busca para explorar todos os negócios disponíveis.';
+    }
+    if (this.location() || this.category()) {
+      return 'Experimente ampliar a região ou escolher outra categoria.';
+    }
+    return 'Novos negócios e experiências serão exibidos aqui quando estiverem disponíveis.';
+  });
+
   readonly results = computed<readonly BusinessResult[]>(() => {
     const normalizedTerm = this.normalizeSearchTerm(this.term());
     const normalizedLocation = this.normalizeSearchTerm(this.location());
@@ -114,6 +130,21 @@ export class SearchResultsPageComponent {
     void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
+        location: null,
+        category: null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  clearSearch(): void {
+    this.filterLocation.set('');
+    this.filterCategory.set('');
+
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        q: null,
         location: null,
         category: null
       },
