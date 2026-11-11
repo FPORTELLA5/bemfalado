@@ -1,11 +1,13 @@
 # Direção visual da marca
 
-Status: direção visual aprovada como base inicial; logotipo e nome ainda não definidos.
+Status: direção visual aprovada como base inicial; nome escolhido: BemFalado. Disponibilidade de marca, domínio e redes sociais ainda pendente de validação.
 
 ## Personalidade
 
-- Minimalista, elegante e contemporânea.
-- Transmitir confiança, reconhecimento e boas experiências.
+- Inicialmente descontraída, próxima e fácil de entender; deve transmitir confiança.
+- Evoluir para uma marca de referência em busca de estabelecimentos, empresas e serviços recomendados por usuários reais.
+- Minimalista, contemporânea e confiável.
+- Transmitir reconhecimento e boas experiências.
 - Evitar associação visual com plataformas de reclamação ou aplicativos genéricos de avaliações.
 - Priorizar legibilidade, simplicidade e uso consistente em web, mobile e redes sociais.
 
@@ -32,4 +34,4 @@ A paleta evita o verde como cor predominante para diferenciar a identidade visua
 
 O conceito do logotipo ainda será explorado. A preferência inicial é por uma solução tipográfica simples, com símbolo discreto apenas se agregar reconhecimento.
 
-A definição final do logotipo depende da escolha e validação do nome da marca. O nome “Elogie Aqui” permanece provisório até a análise de diferenciação e disponibilidade.
+O nome escolhido para a marca é **BemFalado**. A chamada **Elogiaê** poderá ser usada na interface como convite para publicar um elogio. O logotipo será desenvolvido a partir do nome BemFalado, após a verificação de disponibilidade no INPI, domínio e redes sociais.
