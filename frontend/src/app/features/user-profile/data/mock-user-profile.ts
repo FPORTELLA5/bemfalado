@@ -1,4 +1,4 @@
-import type { PrivateExperienceSummary, UserPraiseSummary, UserProfile } from '../models/user-profile.model';
+import type { ModeratedPraiseNotice, PrivateExperienceSummary, UserPraiseSummary, UserProfile } from '../models/user-profile.model';
 
 export const MOCK_USER_PROFILE: UserProfile = {
   id: 'user-demo-001',
@@ -57,3 +57,13 @@ export const MOCK_PRIVATE_EXPERIENCES: readonly PrivateExperienceSummary[] = [
     recordedAt: '2026-07-22'
   }
 ];
+
+/** Conteúdo fictício usado para demonstrar o direito de contestação. */
+export const MOCK_MODERATED_PRAISE: ModeratedPraiseNotice = {
+  id: 'user-praise-moderated-demo',
+  businessName: 'Mercado do Bairro',
+  title: 'Atendimento atencioso e entrega organizada',
+  status: 'removed',
+  decisionNote: 'A publicação foi removida nesta demonstração porque precisa de revisão adicional sobre o contexto apresentado.',
+  decidedAt: '2026-11-09T14:30:00-03:00'
+};
