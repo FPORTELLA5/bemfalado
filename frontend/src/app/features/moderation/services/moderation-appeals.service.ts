@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { NotificationsService } from '../../notifications/services/notifications.service';
+import { ModerationAuditService } from './moderation-audit.service';
 import type {
   CreateModerationAppealInput,
   DecideModerationAppealInput,
@@ -9,6 +10,7 @@ import type {
 @Injectable({ providedIn: 'root' })
 export class ModerationAppealsService {
   private readonly notifications = inject(NotificationsService);
+  private readonly audit = inject(ModerationAuditService);
   private readonly appealRecords = signal<readonly ModerationAppeal[]>([]);
   readonly appeals = this.appealRecords.asReadonly();
   readonly pendingCount = computed<number>(() => (
@@ -34,6 +36,18 @@ export class ModerationAppealsService {
     };
 
     this.appealRecords.update((current) => [appeal, ...current]);
+    this.audit.append({
+      entityType: 'appeal',
+      entityId: appeal.id,
+      praiseId: appeal.praiseId,
+      action: 'appeal-submitted',
+      actorId: 'praise-author-demo',
+      actorLabel: appeal.authorName,
+      previousState: null,
+      newState: 'pending',
+      justification,
+      summary: 'O autor solicitou revisão da decisão de moderação.'
+    });
     this.notifications.addNotification({
       type: 'moderation-update',
       title: 'Contestação recebida',
@@ -46,33 +60,47 @@ export class ModerationAppealsService {
 
   decide(input: DecideModerationAppealInput): void {
     const reviewNote = input.reviewNote.trim();
+    const reviewedAppeal = this.appealRecords().find((appeal) => appeal.id === input.appealId);
 
-    if (reviewNote.length < 10) {
+    if (!reviewedAppeal || reviewedAppeal.status !== 'pending' || reviewNote.length < 10) {
       return;
     }
 
-    const reviewedAppeal = this.appealRecords().find((appeal) => appeal.id === input.appealId);
+    const reviewedAt = new Date().toISOString();
     this.appealRecords.update((current) => current.map((appeal) => (
-      appeal.id === input.appealId && appeal.status === 'pending'
+      appeal.id === input.appealId
         ? {
             ...appeal,
             status: input.status,
             reviewNote,
-            reviewedAt: new Date().toISOString()
+            reviewedAt
           }
         : appeal
     )));
-    if (reviewedAppeal?.status === 'pending') {
-      this.notifications.addNotification({
-        type: 'moderation-update',
-        title: input.status === 'accepted' ? 'Contestação aceita' : 'Revisão concluída',
-        message: input.status === 'accepted'
-          ? 'Sua contestação foi aceita. Consulte o status atualizado na sua conta.'
-          : 'A equipe concluiu a revisão da sua contestação. Consulte o retorno na sua conta.',
-        actionLabel: 'Ver retorno',
-        actionRoute: '/minha-conta'
-      });
-    }
+    this.audit.append({
+      entityType: 'appeal',
+      entityId: reviewedAppeal.id,
+      praiseId: reviewedAppeal.praiseId,
+      action: 'appeal-decision',
+      actorId: 'moderator-review-demo',
+      actorLabel: 'Equipe de revisão (demonstração)',
+      previousState: reviewedAppeal.status,
+      newState: input.status,
+      justification: reviewNote,
+      summary: input.status === 'accepted'
+        ? 'A contestação foi aceita; o status da publicação exige decisão específica.'
+        : 'A contestação foi analisada e não foi aceita.'
+    });
+
+    this.notifications.addNotification({
+      type: 'moderation-update',
+      title: input.status === 'accepted' ? 'Contestação aceita' : 'Revisão concluída',
+      message: input.status === 'accepted'
+        ? 'Sua contestação foi aceita. Consulte o status atualizado na sua conta.'
+        : 'A equipe concluiu a revisão da sua contestação. Consulte o retorno na sua conta.',
+      actionLabel: 'Ver retorno',
+      actionRoute: '/minha-conta'
+    });
   }
 
   findByPraiseId(praiseId: string): ModerationAppeal | undefined {
