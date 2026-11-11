@@ -1,4 +1,5 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { ModerationAuditService } from './moderation-audit.service';
 import { MOCK_BUSINESS_PRAISES } from '../../business-detail/data/mock-business-praises';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import { PRAISE_REPORT_REASONS } from '../../business-detail/models/praise-report.model';
@@ -62,6 +63,7 @@ const DEMO_QUEUE_ITEMS: readonly ModerationQueueItem[] = [
 
 @Injectable({ providedIn: 'root' })
 export class ModerationQueueService {
+  private readonly audit = inject(ModerationAuditService);
   private readonly queueRecords = signal<readonly ModerationQueueItem[]>(DEMO_QUEUE_ITEMS);
   readonly queue = this.queueRecords.asReadonly();
   readonly pendingCount = computed<number>(() => (
@@ -98,22 +100,52 @@ export class ModerationQueueService {
     };
 
     this.queueRecords.update((items) => [queueItem, ...items]);
+    this.audit.append({
+      entityType: 'report',
+      entityId: report.id,
+      praiseId: report.praiseId,
+      action: 'report-received',
+      actorId: 'community-user-demo',
+      actorLabel: 'Usuário da comunidade (demonstração)',
+      previousState: null,
+      newState: 'pending',
+      justification: report.details || reasonLabel || 'Denúncia enviada sem detalhes adicionais.',
+      summary: 'Uma denúncia privada foi recebida e adicionada à fila de moderação.'
+    });
   }
 
   decide(input: ModerationDecisionInput): void {
-    const decisionDate = new Date().toISOString();
+    const currentItem = this.queueRecords().find((item) => item.id === input.reportId);
+    const decisionNote = input.decisionNote.trim();
 
+    if (!currentItem || currentItem.status !== 'pending' || decisionNote.length < 10) {
+      return;
+    }
+
+    const decisionDate = new Date().toISOString();
     this.queueRecords.update((items) => items.map((item) => (
       item.id === input.reportId
         ? {
             ...item,
             status: input.status,
-            decisionNote: input.decisionNote.trim(),
+            decisionNote,
             decidedAt: decisionDate,
             decidedBy: 'Equipe de moderação (demonstração)'
           }
         : item
     )));
+    this.audit.append({
+      entityType: 'report',
+      entityId: currentItem.id,
+      praiseId: currentItem.praiseId,
+      action: 'report-decision',
+      actorId: 'moderator-demo',
+      actorLabel: 'Equipe de moderação (demonstração)',
+      previousState: currentItem.status,
+      newState: input.status,
+      justification: decisionNote,
+      summary: `A denúncia foi analisada. Resultado: ${this.statusLabel(input.status)}.`
+    });
   }
 
   reasonLabel(reason: PraiseReportReason): string {
