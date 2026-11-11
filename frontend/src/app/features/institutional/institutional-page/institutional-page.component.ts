@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 
 interface InstitutionalSection {
@@ -121,15 +121,12 @@ function isInstitutionalPageKey(value: string | undefined): value is Institution
 })
 export class InstitutionalPageComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
   private readonly routeSegments = toSignal(this.route.url.pipe(map((segments) => segments[0]?.path)), {
     initialValue: this.route.snapshot.url[0]?.path
   });
 
   readonly page = computed<InstitutionalPageContent>(() => {
     const slug = this.routeSegments();
-    if (isInstitutionalPageKey(slug)) return INSTITUTIONAL_PAGES[slug];
-    void this.router.navigateByUrl('/');
-    return INSTITUTIONAL_PAGES.sobre;
+    return isInstitutionalPageKey(slug) ? INSTITUTIONAL_PAGES[slug] : INSTITUTIONAL_PAGES.sobre;
   });
 }
