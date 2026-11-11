@@ -28,7 +28,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Login | Implementado — demonstração | Formulário tipado, validação local, exibição de senha e opções visuais Google/Facebook/Apple. Não autentica nem cria sessão; OAuth depende do backend e da configuração dos provedores. |
 | Recuperação de senha | Implementada — demonstração | Formulário de e-mail e resposta neutra para evitar enumeração de contas. Não envia e-mail; serviço real depende do backend. |
 | Confirmação de e-mail | Pendente | Fluxo real depende de token de confirmação, backend e serviço de envio. |
-| Perfil do usuário | Pendente | Dados pessoais, preferências, publicações próprias e ações sobre a conta. |
+| Perfil do usuário | Implementado — demonstração | Rota /minha-conta com visão geral, elogios publicados, registros privados e dados básicos editáveis localmente. Dados fictícios; sem persistência, autenticação ou gestão real de conta. |
 | Favoritos e interações | Pendente | Definir o conjunto mínimo do MVP e implementar estados de visitante/autenticado. |
 
 ## 3. Negócios e moderação
@@ -63,7 +63,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 1. **Fechar a experiência pública de busca:** filtros essenciais, estados vazios, ordenação explicável e navegação consistente.
 2. **Fechar o perfil público do negócio:** apresentação dos indicadores, elogios, ausência de dados e ações disponíveis.
 3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
-4. **Completar autenticação e conta:** confirmação de e-mail, perfil do usuário e revisão dos fluxos visuais de cadastro, login e recuperação antes da integração.
+4. **Completar autenticação e conta:** confirmação de e-mail, preferências, segurança e ações de conta; revisar os fluxos visuais de cadastro, login, recuperação e perfil antes da integração.
 5. **Implementar denúncia e moderação básica:** incluindo gestão das solicitações de inclusão de negócios.
 6. **Completar páginas institucionais e legais.**
 7. **Fazer a revisão transversal:** responsividade, temas, acessibilidade, idiomas, SEO, segurança e testes.
