@@ -25,3 +25,12 @@ export interface PrivateExperienceSummary {
   readonly businessCategory: string;
   readonly recordedAt: string;
 }
+
+export interface ModeratedPraiseNotice {
+  readonly id: string;
+  readonly businessName: string;
+  readonly title: string;
+  readonly status: 'hidden' | 'removed';
+  readonly decisionNote: string;
+  readonly decidedAt: string;
+}
