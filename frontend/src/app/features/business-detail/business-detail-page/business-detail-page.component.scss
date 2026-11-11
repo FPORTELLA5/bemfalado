@@ -15,6 +15,13 @@
   color: var(--color-brand);
   font-size: .84rem;
   font-weight: 650;
+  text-decoration: none;
+}
+
+.detail-back-link:hover,
+.detail-back-link:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .detail-demo-notice {
@@ -96,6 +103,7 @@
   font-size: clamp(1.7rem, 4vw, 2.45rem);
   letter-spacing: -.045em;
   line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .profile-location {
@@ -126,6 +134,41 @@
   background: var(--color-bg);
   color: var(--color-text-muted);
   font-size: .7rem;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.profile-praise-link,
+.praises-empty a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 11px 16px;
+  border-radius: 8px;
+  background: var(--color-brand);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 160ms ease;
+}
+
+.profile-praise-link:hover,
+.praises-empty a:hover {
+  opacity: .88;
+}
+
+.profile-praise-link:focus-visible,
+.praises-empty a:focus-visible,
+.detail-primary-link:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .recognition-panel {
@@ -212,6 +255,7 @@
 .praises-total {
   color: var(--color-text-muted);
   font-size: .72rem;
+  text-align: right;
 }
 
 .praise-list { display: grid; gap: 12px; }
@@ -251,12 +295,28 @@
 }
 
 .praises-empty {
-  padding: 24px;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 32px 24px;
   border: 1px dashed var(--color-border-strong);
   border-radius: 10px;
-  color: var(--color-text-muted);
-  font-size: .85rem;
   text-align: center;
+}
+
+.praises-empty h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+}
+
+.praises-empty p {
+  max-width: 430px;
+  margin: 0 0 10px;
+  color: var(--color-text-muted);
+  font-size: .82rem;
+  line-height: 1.6;
 }
 
 .detail-disclaimer {
@@ -300,16 +360,21 @@
   color: #fff;
   font-size: .8rem;
   font-weight: 700;
+  text-decoration: none;
 }
 
 @media (max-width: 620px) {
   .business-detail-page { padding-inline: 17px; }
+  .profile-heading { align-items: flex-start; gap: 13px; }
+  .profile-avatar { width: 56px; height: 56px; border-radius: 13px; }
   .recognition-panel { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
   .recognition-primary { padding: 0 0 17px; border-right: 0; border-bottom: 1px solid var(--color-border); }
   .recognition-secondary { gap: 10px; }
   .praise-card { padding: 18px 16px; }
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .praises-total { text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .business-detail-page * { scroll-behavior: auto; }
+  .business-detail-page * { scroll-behavior: auto; transition-duration: 0.01ms !important; }
 }
