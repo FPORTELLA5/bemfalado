@@ -29,7 +29,7 @@
         </div>
 
         <div class="profile-actions">
-          <a class="profile-praise-link" routerLink="/compartilhar">
+          <a class="profile-praise-link" routerLink="/compartilhar" [queryParams]="{ businessId: item.id }">
             Compartilhar uma experiência positiva
             <span aria-hidden="true">→</span>
           </a>
@@ -64,10 +64,11 @@
             <h2 id="praises-title">O que estão falando</h2>
           </div>
           <span class="praises-total">
-            {{ praises().length }} {{ praises().length === 1 ? 'elogio nesta demonstração' : 'elogios nesta demonstração' }}
+            Exibindo {{ praises().length }} de {{ item.praiseCount }} elogios publicados
           </span>
         </div>
 
+        <p class="praises-sample-note">Relatos ilustrativos exibidos para demonstrar o perfil. A contagem acima representa o total agregado de elogios.</p>
         <div class="praise-list">
           @for (praise of praises(); track praise.id) {
             <article class="praise-card">
@@ -85,9 +86,9 @@
             </article>
           } @empty {
             <div class="praises-empty">
-              <h3>Este perfil ainda não recebeu elogios.</h3>
-              <p>Se você teve uma boa experiência, pode ser a primeira pessoa a compartilhá-la.</p>
-              <a routerLink="/compartilhar">Compartilhar experiência</a>
+              <h3>Ainda não há relatos de exemplo para este perfil.</h3>
+              <p>Na versão real, os elogios publicados neste estabelecimento serão exibidos aqui.</p>
+              <a routerLink="/compartilhar" [queryParams]="{ businessId: item.id }">Compartilhar experiência</a>
             </div>
           }
         </div>
