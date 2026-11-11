@@ -9,60 +9,23 @@ import { SearchResultsPageComponent } from './features/search-results/search-res
 import { UserProfilePageComponent } from './features/user-profile/user-profile-page/user-profile-page.component';
 import { FavoritesPageComponent } from './features/favorites/favorites-page/favorites-page.component';
 import { NotificationsPageComponent } from './features/notifications/notifications-page/notifications-page.component';
+import { ModerationQueuePageComponent } from './features/moderation/moderation-queue-page/moderation-queue-page.component';
 
 export const routes: Routes = [
+  { path: '', component: HomePageComponent, title: 'BemFalado | Boas experiências merecem ser compartilhadas' },
+  { path: 'buscar', component: SearchResultsPageComponent, title: 'Buscar | BemFalado' },
+  { path: 'negocio/:id', component: BusinessDetailPageComponent, title: 'Perfil do estabelecimento | BemFalado' },
+  { path: 'minha-conta', component: UserProfilePageComponent, title: 'Meu perfil | BemFalado' },
+  { path: 'favoritos', component: FavoritesPageComponent, title: 'Estabelecimentos salvos | BemFalado' },
+  { path: 'notificacoes', component: NotificationsPageComponent, title: 'Notificações | BemFalado' },
+  { path: 'entrar', component: LoginPageComponent, title: 'Entrar | BemFalado' },
+  { path: 'recuperar-senha', component: PasswordRecoveryPageComponent, title: 'Recuperar senha | BemFalado' },
+  { path: 'criar-conta', component: RegistrationPageComponent, title: 'Criar conta | BemFalado' },
+  { path: 'compartilhar', component: PraiseComposerPageComponent, title: 'Compartilhar experiência | BemFalado' },
   {
-    path: '',
-    component: HomePageComponent,
-    title: 'BemFalado | Boas experiências merecem ser compartilhadas'
+    path: 'demonstracao/moderacao',
+    component: ModerationQueuePageComponent,
+    title: 'Central de moderação — demonstração | BemFalado'
   },
-  {
-    path: 'buscar',
-    component: SearchResultsPageComponent,
-    title: 'Buscar | BemFalado'
-  },
-  {
-    path: 'negocio/:id',
-    component: BusinessDetailPageComponent,
-    title: 'Perfil do estabelecimento | BemFalado'
-  },
-  {
-    path: 'minha-conta',
-    component: UserProfilePageComponent,
-    title: 'Meu perfil | BemFalado'
-  },
-  {
-    path: 'favoritos',
-    component: FavoritesPageComponent,
-    title: 'Estabelecimentos salvos | BemFalado'
-  },
-  {
-    path: 'notificacoes',
-    component: NotificationsPageComponent,
-    title: 'Notificações | BemFalado'
-  },
-  {
-    path: 'entrar',
-    component: LoginPageComponent,
-    title: 'Entrar | BemFalado'
-  },
-  {
-    path: 'recuperar-senha',
-    component: PasswordRecoveryPageComponent,
-    title: 'Recuperar senha | BemFalado'
-  },
-  {
-    path: 'criar-conta',
-    component: RegistrationPageComponent,
-    title: 'Criar conta | BemFalado'
-  },
-  {
-    path: 'compartilhar',
-    component: PraiseComposerPageComponent,
-    title: 'Compartilhar experiência | BemFalado'
-  },
-  {
-    path: '**',
-    redirectTo: ''
-  }
+  { path: '**', redirectTo: '' }
 ];
