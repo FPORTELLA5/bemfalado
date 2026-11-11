@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { ThemePreference } from '../../../shared/models/theme-preference.type';
+import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import type { ThemePreference } from '../../../shared/models/theme-preference.type';
 
 @Component({
   selector: 'bf-header',
@@ -8,8 +8,8 @@ import { ThemePreference } from '../../../shared/models/theme-preference.type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  @Input({ required: true }) themePreference!: ThemePreference;
-  @Output() readonly themeChange = new EventEmitter<ThemePreference>();
+  readonly themePreference = input.required<ThemePreference>();
+  readonly themeChange = output<ThemePreference>();
 
   readonly mobileMenuOpen = signal(false);
 
