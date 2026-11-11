@@ -1,8 +1,14 @@
-# Visão geral do produto — Elogie Aqui
+# Visão geral do produto — BemFalado
 
-## Propósito
+## Marca e propósito
 
-O Elogie Aqui é uma plataforma para descobrir e valorizar experiências positivas com estabelecimentos, empresas e serviços. A proposta é transformar elogios e recomendações em informação útil para outras pessoas.
+Nome escolhido para a marca: **BemFalado**. O nome foi definido como direção de marca do projeto; a disponibilidade jurídica, de domínio e de redes sociais ainda precisa ser verificada antes do lançamento.
+
+Personalidade: inicialmente descontraída, próxima e fácil de entender, mas com confiança. A ambição da segunda fase é tornar o BemFalado uma referência para pesquisar estabelecimentos, empresas e serviços a partir de elogios de usuários reais.
+
+A expressão **Elogiaê** poderá ser usada como chamada ou ação para incentivar a publicação de um elogio, sem substituir o nome principal da plataforma.
+
+O BemFalado é uma plataforma para descobrir e valorizar experiências positivas com estabelecimentos, empresas e serviços. A proposta é transformar elogios e recomendações em informação útil para outras pessoas.
 
 ## Tipos de usuário
 
@@ -55,7 +61,7 @@ A pesquisa deverá permitir localizar negócios por nome, categoria, cidade, bai
 
 ## Avaliações e elogios
 
-Diretriz definida: o Elogie Aqui aceitará exclusivamente elogios e relatos de experiências positivas. Não será uma plataforma de reclamações nem um espaço para avaliações negativas.
+Diretriz definida: o BemFalado aceitará exclusivamente elogios e relatos de experiências positivas. Não será uma plataforma de reclamações nem um espaço para avaliações negativas.
 
 Proposta inicial de publicação:
 - Selecionar um estabelecimento, empresa ou serviço oferecido por uma empresa;
