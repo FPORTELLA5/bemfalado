@@ -92,6 +92,49 @@
               </article>
             }
           </div>
+
+          <section class="moderated-praise-card" aria-labelledby="moderated-praise-title">
+            <div class="moderated-praise-heading">
+              <div>
+                <p class="profile-eyebrow">Revisão de moderação</p>
+                <h3 id="moderated-praise-title">{{ moderatedPraise.title }}</h3>
+                <p>{{ moderatedPraise.businessName }}</p>
+              </div>
+              <span class="moderated-praise-status">{{ moderatedPraise.status === 'removed' ? 'Removido' : 'Ocultado' }}</span>
+            </div>
+            <p class="moderated-praise-explanation">{{ moderatedPraise.decisionNote }}</p>
+            @if (existingAppeal(); as appeal) {
+              <div class="appeal-status-panel" role="status">
+                <strong>
+                  @if (appeal.status === 'pending') { Contestação enviada · aguardando análise }
+                  @else if (appeal.status === 'accepted') { Contestação aceita }
+                  @else { Contestação não aceita }
+                </strong>
+                <p>{{ appeal.justification }}</p>
+                @if (appeal.reviewNote) { <small>Retorno da moderação: {{ appeal.reviewNote }}</small> }
+              </div>
+            } @else {
+              <form class="appeal-form" (submit)="$event.preventDefault(); submitAppeal()">
+                <label for="appeal-justification">Por que você acredita que a decisão deve ser revista?</label>
+                <textarea
+                  id="appeal-justification"
+                  rows="4"
+                  maxlength="1000"
+                  [value]="appealJustification()"
+                  (input)="onAppealJustificationInput($event)"
+                  placeholder="Explique o contexto ou apresente informações que ajudem na revisão."
+                  required
+                ></textarea>
+                <div class="appeal-form-footer">
+                  <small>{{ appealJustification().length }}/{{ maxAppealLength }} caracteres · mínimo de 20</small>
+                  <button type="submit" class="profile-primary-action" [disabled]="appealJustification().trim().length < 20">Solicitar revisão</button>
+                </div>
+                @if (appealSubmittedNotice()) {
+                  <p class="appeal-success" role="status">Solicitação registrada nesta demonstração. A publicação não será restaurada automaticamente.</p>
+                }
+              </form>
+            }
+          </section>
         }
 
         @if (activeSection() === 'private') {
