@@ -80,8 +80,59 @@
               <div class="business-empty-state">
                 <strong>Não encontramos esse estabelecimento.</strong>
                 <p>Confira a escrita ou tente buscar por outro nome, categoria ou bairro.</p>
-                <span>O cadastro de um novo estabelecimento será uma etapa própria, com validação, em uma próxima versão.</span>
+                <span>Você pode solicitar a inclusão. A equipe deverá validar os dados antes de disponibilizar o estabelecimento.</span>
+                @if (!showBusinessRequestForm()) {
+                  <button class="button-secondary request-open-button" type="button" (click)="openBusinessRequest()">Solicitar inclusão</button>
+                }
               </div>
+
+              @if (showBusinessRequestForm() && !businessRequestSubmitted()) {
+                <form class="business-request-form" (submit)="$event.preventDefault(); submitBusinessRequest()">
+                  <div class="request-form-heading">
+                    <strong>Solicitar inclusão de estabelecimento</strong>
+                    <p>Informe os dados básicos para ajudar a identificar o negócio.</p>
+                  </div>
+                  <label class="composer-field">
+                    <span>Nome do estabelecimento *</span>
+                    <input type="text" maxlength="120" required [value]="businessRequest().businessName" (input)="onBusinessRequestInput($event, 'businessName')" placeholder="Nome conhecido do negócio">
+                  </label>
+                  <label class="composer-field">
+                    <span>Categoria *</span>
+                    <select required [value]="businessRequest().category" (change)="onBusinessRequestInput($event, 'category')">
+                      <option value="">Selecione uma categoria</option>
+                      @for (category of businessRequestCategories; track category) {
+                        <option [value]="category">{{ category }}</option>
+                      }
+                    </select>
+                  </label>
+                  <div class="request-form-location">
+                    <label class="composer-field">
+                      <span>Cidade *</span>
+                      <input type="text" maxlength="80" required [value]="businessRequest().city" (input)="onBusinessRequestInput($event, 'city')" placeholder="Ex.: Rio de Janeiro">
+                    </label>
+                    <label class="composer-field">
+                      <span>Bairro</span>
+                      <input type="text" maxlength="80" [value]="businessRequest().neighborhood" (input)="onBusinessRequestInput($event, 'neighborhood')" placeholder="Ex.: Tijuca">
+                    </label>
+                  </div>
+                  <label class="composer-field">
+                    <span>Site ou perfil público (opcional)</span>
+                    <input type="url" maxlength="200" [value]="businessRequest().website" (input)="onBusinessRequestInput($event, 'website')" placeholder="https://...">
+                  </label>
+                  <p class="request-form-note">Esta solicitação é apenas demonstrativa. Nenhum dado será enviado ou armazenado.</p>
+                  <div class="request-form-actions">
+                    <button class="button-secondary" type="button" (click)="closeBusinessRequest()">Cancelar</button>
+                    <button class="button-primary" type="submit" [disabled]="!canSubmitBusinessRequest()">Enviar solicitação</button>
+                  </div>
+                </form>
+              }
+
+              @if (businessRequestSubmitted()) {
+                <div class="request-success" role="status">
+                  <strong>Solicitação simulada com sucesso.</strong>
+                  <p>Em uma versão conectada, os dados seriam encaminhados para validação antes da inclusão no BemFalado. Nesta demonstração, nada foi enviado ou salvo.</p>
+                </div>
+              }
             }
             <p class="field-hint">Os estabelecimentos exibidos nesta demonstração são fictícios.</p>
           }
