@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessSortOption, BusinessResult } from '../models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
@@ -14,30 +15,36 @@ import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
 export class SearchResultsPageComponent {
   private readonly route = inject(ActivatedRoute);
 
-  readonly term = signal(this.route.snapshot.queryParamMap.get('q') ?? '');
-  readonly location = signal(this.route.snapshot.queryParamMap.get('location') ?? '');
-  readonly category = signal(this.route.snapshot.queryParamMap.get('category') ?? '');
+  private readonly queryParams = toSignal(this.route.queryParamMap, {
+    initialValue: this.route.snapshot.queryParamMap
+  });
+
+  readonly term = computed<string>(() => this.queryParams().get('q') ?? '');
+  readonly location = computed<string>(() => this.queryParams().get('location') ?? '');
+  readonly category = computed<string>(() => this.queryParams().get('category') ?? '');
   readonly sortOption = signal<BusinessSortOption>('most-praised');
 
   readonly results = computed<readonly BusinessResult[]>(() => {
-    const normalizedTerm = this.term().trim().toLocaleLowerCase('pt-BR');
-    const normalizedLocation = this.location().trim().toLocaleLowerCase('pt-BR');
-    const normalizedCategory = this.category().trim().toLocaleLowerCase('pt-BR');
+    const normalizedTerm = this.normalizeSearchTerm(this.term());
+    const normalizedLocation = this.normalizeSearchTerm(this.location());
+    const normalizedCategory = this.normalizeSearchTerm(this.category());
 
     const filteredResults = MOCK_BUSINESS_RESULTS.filter((business: BusinessResult) => {
-      const searchableText = [
+      const searchableText = this.normalizeSearchTerm([
         business.name,
         business.category,
         business.description,
         business.neighborhood,
         business.city
-      ].join(' ').toLocaleLowerCase('pt-BR');
+      ].join(' '));
 
       const matchesTerm = !normalizedTerm || searchableText.includes(normalizedTerm);
-      const businessLocation = `${business.neighborhood} ${business.city}`.toLocaleLowerCase('pt-BR');
+      const businessLocation = this.normalizeSearchTerm(
+        `${business.neighborhood} ${business.city}`
+      );
       const matchesLocation = !normalizedLocation || businessLocation.includes(normalizedLocation);
       const matchesCategory = !normalizedCategory
-        || business.category.toLocaleLowerCase('pt-BR') === normalizedCategory;
+        || this.normalizeSearchTerm(business.category) === normalizedCategory;
 
       return matchesTerm && matchesLocation && matchesCategory;
     });
@@ -57,5 +64,13 @@ export class SearchResultsPageComponent {
     if (value === 'most-praised' || value === 'recognition') {
       this.sortOption.set(value);
     }
+  }
+
+  private normalizeSearchTerm(value: string): string {
+    return value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim()
+      .toLocaleLowerCase('pt-BR');
   }
 }
