@@ -86,3 +86,12 @@ O frontend será considerado concluído para iniciar a integração com o backen
 ## 7. Limites deste inventário
 
 Esta revisão é documental e baseada no estado do repositório consultado. Não substitui execução local, testes manuais em navegador, auditoria de acessibilidade nem validação com usuários. Nenhum build ou teste é declarado aprovado nesta revisão.
+
+
+### Contestação de decisões de moderação
+- Perfil do usuário: demonstração de publicação removida/ocultada com justificativa e formulário de contestação (20 a 1.000 caracteres).
+- Serviço tipado de contestações em memória, impedindo mais de uma solicitação por publicação nesta demonstração.
+- Central de moderação: lista e análise das contestações, com decisão justificada (mínimo de 10 caracteres).
+- Notificações internas demonstrativas no envio e na conclusão da revisão.
+- A aceitação da contestação não republica automaticamente o elogio; a decisão sobre o status do conteúdo deve ser registrada separadamente.
+- Limitações: dados em memória, sem autenticação/autorização, sem persistência, sem atribuição de revisor independente e sem auditoria. Não utilizar com denúncias ou contestações reais.
