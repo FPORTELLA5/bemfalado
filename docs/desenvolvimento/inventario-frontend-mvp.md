@@ -11,7 +11,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Página inicial | Implementada — primeira versão | Componentes standalone; precisa de revisão visual, responsividade, acessibilidade e estados finais. |
 | Busca e resultados | Implementada — demonstração | Usa quatro negócios fictícios; filtros e ordenação são locais. Faltam refinamentos de filtros, paginação/rolagem, sugestões e estados completos. |
 | Perfil público do negócio | Implementado — demonstração | Usa dados e elogios fictícios. Faltam estados reais de conteúdo, ações de interação e validação de informações. |
-| Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio e compartilhamento. Precisa validar navegação, histórico, links e rota inexistente. |
+| Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio, compartilhamento, cadastro, login e recuperação de senha. Precisa validar navegação, histórico, links e rota inexistente. |
 | Páginas institucionais | Pendente | Sobre, como funciona, diretrizes da comunidade, contato e informações institucionais. |
 | Páginas legais | Pendente | Termos de uso, política de privacidade/LGPD e regras de publicação/moderação. |
 
@@ -25,7 +25,9 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Validação de campos e fotos | Implementada parcialmente | Regras locais no navegador; precisam ser revistas para acessibilidade e integração futura. |
 | Registro privado de experiência sem elogio | Implementado — demonstração | Alternativa após selecionar o negócio, com explicação e confirmação explícita. Não armazena nem contabiliza dados; integração real exigirá autenticação, consentimento registrado, prevenção a duplicidade e regras de elegibilidade. |
 | Cadastro de usuário | Implementado — demonstração | Formulário tipado com nome, e-mail, senha, confirmação e ciência dos requisitos legais; opções visuais Google, Facebook e Apple; validações locais e estado de conclusão. Provedores ainda sem OAuth/backend: botões apenas informam que a integração será ativada posteriormente. Não cria conta nem envia dados. |
-| Login, recuperação de senha e confirmação de e-mail | Pendente | Fluxos reais dependem do backend, envio de e-mail e gestão segura de sessão. |
+| Login | Implementado — demonstração | Formulário tipado, validação local, exibição de senha e opções visuais Google/Facebook/Apple. Não autentica nem cria sessão; OAuth depende do backend e da configuração dos provedores. |
+| Recuperação de senha | Implementada — demonstração | Formulário de e-mail e resposta neutra para evitar enumeração de contas. Não envia e-mail; serviço real depende do backend. |
+| Confirmação de e-mail | Pendente | Fluxo real depende de token de confirmação, backend e serviço de envio. |
 | Perfil do usuário | Pendente | Dados pessoais, preferências, publicações próprias e ações sobre a conta. |
 | Favoritos e interações | Pendente | Definir o conjunto mínimo do MVP e implementar estados de visitante/autenticado. |
 
@@ -61,7 +63,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 1. **Fechar a experiência pública de busca:** filtros essenciais, estados vazios, ordenação explicável e navegação consistente.
 2. **Fechar o perfil público do negócio:** apresentação dos indicadores, elogios, ausência de dados e ações disponíveis.
 3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
-4. **Implementar autenticação e conta:** cadastro, login, recuperação de senha e perfil do usuário.
+4. **Completar autenticação e conta:** confirmação de e-mail, perfil do usuário e revisão dos fluxos visuais de cadastro, login e recuperação antes da integração.
 5. **Implementar denúncia e moderação básica:** incluindo gestão das solicitações de inclusão de negócios.
 6. **Completar páginas institucionais e legais.**
 7. **Fazer a revisão transversal:** responsividade, temas, acessibilidade, idiomas, SEO, segurança e testes.
