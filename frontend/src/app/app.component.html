@@ -1,7 +1,11 @@
 <bf-header [themePreference]="themePreference()" (themeChange)="setTheme($event)" />
 
 <main>
-  <bf-hero-search (searchRequested)="onSearchRequested($event)" /> <bf-category-grid (categorySelected)="onCategorySelected($event)" /> <section class="discovery-section">
+  <bf-hero-search (searchRequested)="onSearchRequested($event)" />
+
+  <bf-category-grid (categorySelected)="onCategorySelected($event)" />
+
+  <section class="discovery-section">
     <div class="container discovery-inner">
       <div class="discovery-copy">
         <div class="eyebrow">Feito de experiências reais</div>
@@ -70,3 +74,4 @@
 
 <bf-footer />
 
+<a class="mobile-share" href="/criar-conta">Compartilhar experiência <span>→</span></a>
