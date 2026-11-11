@@ -102,12 +102,20 @@ export class TextModerationService {
     }
 
     const excessiveEmojiSequence = /(?:\p{Extended_Pictographic}|\p{Emoji_Presentation}){9,}/u.test(value);
+    if (excessiveEmojiSequence) {
+      issues.push({
+        code: 'emoji-spam',
+        status: 'correction',
+        message: 'Há uma sequência muito longa de emojis. Mantenha apenas os que ajudam a expressar o elogio.'
+      });
+    }
+
     const excessiveRepeatedPunctuation = /([!?.,])\1{5,}/.test(value);
-    if (excessiveEmojiSequence || excessiveRepeatedPunctuation) {
+    if (excessiveRepeatedPunctuation) {
       issues.push({
         code: 'excessive-repetition',
         status: 'correction',
-        message: 'Reduza a repetição de emojis ou sinais de pontuação.'
+        message: 'Reduza a repetição de sinais de pontuação.'
       });
     }
 
