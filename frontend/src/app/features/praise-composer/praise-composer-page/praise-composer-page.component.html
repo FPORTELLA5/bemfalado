@@ -116,10 +116,22 @@
                     </label>
                   </div>
                   <label class="composer-field">
-                    <span>Site ou perfil público (opcional)</span>
+                    <span>Telefone ou WhatsApp comercial (opcional)</span>
+                    <input type="tel" maxlength="30" [value]="businessRequest().businessPhone" (input)="onBusinessRequestInput($event, 'businessPhone')" placeholder="(21) 99999-9999">
+                  </label>
+                  <label class="composer-field">
+                    <span>E-mail comercial (opcional)</span>
+                    <input type="email" maxlength="160" [value]="businessRequest().businessEmail" (input)="onBusinessRequestInput($event, 'businessEmail')" placeholder="contato@empresa.com.br">
+                  </label>
+                  <label class="composer-field">
+                    <span>Instagram do estabelecimento (opcional)</span>
+                    <input type="url" maxlength="200" [value]="businessRequest().instagramProfile" (input)="onBusinessRequestInput($event, 'instagramProfile')" placeholder="https://instagram.com/empresa">
+                  </label>
+                  <label class="composer-field">
+                    <span>Site oficial (opcional)</span>
                     <input type="url" maxlength="200" [value]="businessRequest().website" (input)="onBusinessRequestInput($event, 'website')" placeholder="https://...">
                   </label>
-                  <p class="request-form-note">Esta solicitação é apenas demonstrativa. Nenhum dado será enviado ou armazenado.</p>
+                  <p class="request-form-note">Informe apenas canais comerciais ou informações públicas do estabelecimento. Esta demonstração não envia nem armazena os dados.</p>
                   <div class="request-form-actions">
                     <button class="button-secondary" type="button" (click)="closeBusinessRequest()">Cancelar</button>
                     <button class="button-primary" type="submit" [disabled]="!canSubmitBusinessRequest()">Enviar solicitação</button>
