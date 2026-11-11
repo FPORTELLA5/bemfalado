@@ -45,6 +45,7 @@
                 required
                 minlength="2"
                 [value]="form().name"
+                (input)="onFieldInput($event, 'name')"
                 [attr.aria-invalid]="submitted() && form().name.trim().length < 2"
                 aria-describedby="name-hint">
               <small id="name-hint">Como você gostaria de ser identificado?</small>
@@ -59,6 +60,7 @@
                 maxlength="160"
                 required
                 [value]="form().email"
+                (input)="onFieldInput($event, 'email')"
                 [attr.aria-invalid]="submitted() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form().email.trim())"
                 aria-describedby="email-hint">
               <small id="email-hint">Usaremos seu e-mail para acesso e confirmação da conta.</small>
@@ -75,6 +77,7 @@
                   minlength="10"
                   required
                   [value]="form().password"
+                  (input)="onFieldInput($event, 'password')"
                   [attr.aria-invalid]="submitted() && !passwordLengthValid()"
                   aria-describedby="password-hint">
                 <button type="button" class="password-toggle" (click)="togglePasswordVisibility()" [attr.aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'">
@@ -94,6 +97,7 @@
                   autocomplete="new-password"
                   required
                   [value]="form().passwordConfirmation"
+                  (input)="onFieldInput($event, 'passwordConfirmation')"
                   [attr.aria-invalid]="submitted() && !passwordsMatch()"
                   aria-describedby="confirmation-hint">
                 <button type="button" class="password-toggle" (click)="toggleConfirmationVisibility()" [attr.aria-label]="confirmationVisible() ? 'Ocultar confirmação de senha' : 'Mostrar confirmação de senha'">
