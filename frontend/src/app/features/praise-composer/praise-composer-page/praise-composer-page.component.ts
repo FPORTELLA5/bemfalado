@@ -66,12 +66,36 @@ export class PraiseComposerPageComponent {
 
   nextStep(): void {
     if (!this.canContinue() || this.step() === 4) return;
-    this.step.update((current: ComposerStep) => (current + 1) as ComposerStep);
+    switch (this.step()) {
+      case 1:
+        this.step.set(2);
+        break;
+      case 2:
+        this.step.set(3);
+        break;
+      case 3:
+        this.step.set(4);
+        break;
+      case 4:
+        break;
+    }
   }
 
   previousStep(): void {
     if (this.step() === 1) return;
-    this.step.update((current: ComposerStep) => (current - 1) as ComposerStep);
+    switch (this.step()) {
+      case 1:
+        break;
+      case 2:
+        this.step.set(1);
+        break;
+      case 3:
+        this.step.set(2);
+        break;
+      case 4:
+        this.step.set(3);
+        break;
+    }
   }
 
   finishDemo(): void {
