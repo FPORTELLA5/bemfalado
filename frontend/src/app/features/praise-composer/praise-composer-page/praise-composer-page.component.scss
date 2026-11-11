@@ -34,6 +34,14 @@
 .selected-business-summary > span { color: var(--color-brand); font-size: .64rem; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
 .selected-business-summary strong { color: var(--color-text); font-size: .82rem; }
 .selected-business-summary small { color: var(--color-text-muted); font-size: .7rem; }
+.private-experience-option { display: grid; gap: 12px; margin-top: 16px; padding: 17px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-bg); }
+.private-experience-option h3 { margin: 0; color: var(--color-text); font-size: .82rem; }
+.private-experience-option > div:first-child p { margin: 5px 0 0; color: var(--color-text-muted); font-size: .72rem; line-height: 1.6; }
+.private-experience-trigger { justify-self: start; }
+.private-experience-confirmation { display: grid; gap: 12px; padding-top: 12px; border-top: 1px solid var(--color-border); }
+.private-experience-confirmation > p { margin: 0; color: var(--color-text-muted); font-size: .72rem; line-height: 1.65; }
+.private-experience-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; }
+.private-experience-disclaimer { max-width: 470px; padding: 12px 14px; border: 1px solid var(--color-border); border-radius: 8px; color: var(--color-text-muted); font-size: .72rem; line-height: 1.6; }
 .business-results-heading { display: flex; justify-content: space-between; gap: 10px; margin: 22px 0 10px; color: var(--color-text); font-size: .74rem; font-weight: 700; }
 .business-results-heading small { color: var(--color-text-muted); font-size: .68rem; font-weight: 500; }
 .business-options { display: grid; gap: 10px; }
@@ -121,6 +129,8 @@
   .progress-step small { font-size: .61rem; }
   .composer-card { padding: 19px 16px; }
   .business-option { padding: 10px; }
+  .private-experience-actions { flex-direction: column-reverse; }
+  .private-experience-actions button { width: 100%; }
   .request-form-location { grid-template-columns: 1fr; gap: 0; }
   .request-form-actions { flex-wrap: wrap; }
   .request-form-actions button { flex: 1; }
