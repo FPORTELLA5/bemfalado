@@ -59,7 +59,14 @@
 
   <section class="results-toolbar" aria-label="Controles dos resultados">
     <div>
-      <p class="results-count"><strong>{{ results().length }}</strong> negócios encontrados</p>
+      <p class="results-count">
+        <strong>{{ results().length }}</strong>
+        @if (results().length === 1) {
+          negócio encontrado
+        } @else {
+          negócios encontrados
+        }
+      </p>
       <p class="results-caption">Experiências positivas compartilhadas pela comunidade</p>
     </div>
     <label class="sort-control">
@@ -106,7 +113,9 @@
             <div class="recognition-metric">
               <strong>{{ business.recognitionIndex }}%</strong>
               <span>índice de reconhecimento</span>
-              <small>Base: {{ business.experienceCount }} experiências</small>
+              <small>
+                {{ business.praiseCount }} de {{ business.experienceCount }} experiências resultaram em elogio
+              </small>
             </div>
           </div>
           <span class="business-card-action">Ver perfil completo <span aria-hidden="true">→</span></span>
@@ -116,9 +125,14 @@
   } @else {
     <section class="no-results" aria-live="polite">
       <div class="no-results-icon" aria-hidden="true">⌕</div>
-      <h2>Nenhum negócio encontrado</h2>
-      <p>Tente alterar a localização ou selecionar outra categoria.</p>
-      <button class="clear-empty-filters" type="button" (click)="clearFilters()">Limpar filtros</button>
+      <h2>{{ noResultsTitle() }}</h2>
+      <p>{{ noResultsDescription() }}</p>
+      <div class="no-results-actions">
+        <button class="clear-empty-filters" type="button" (click)="clearSearch()">
+          Limpar busca e filtros
+        </button>
+        <a class="no-results-home" routerLink="/">Voltar ao início</a>
+      </div>
     </section>
   }
 
