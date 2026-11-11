@@ -39,6 +39,7 @@ export class RegistrationPageComponent {
   });
 
   readonly passwordLengthValid = computed<boolean>(() => this.form().password.length >= 10);
+  readonly emailValid = computed<boolean>(() => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(this.form().email.trim()));
 
   readonly canSubmit = computed<boolean>(() => {
     const values = this.form();
@@ -53,10 +54,14 @@ export class RegistrationPageComponent {
     const target = event.target;
     if (!(target instanceof HTMLInputElement)) return;
 
-    this.form.update((current: RegistrationForm) => ({
-      ...current,
-      [field]: target.value
-    }));
+    this.form.update((current: RegistrationForm) => {
+      switch (field) {
+        case 'name': return { ...current, name: target.value };
+        case 'email': return { ...current, email: target.value };
+        case 'password': return { ...current, password: target.value };
+        case 'passwordConfirmation': return { ...current, passwordConfirmation: target.value };
+      }
+    });
   }
 
   onTermsChange(event: Event): void {
