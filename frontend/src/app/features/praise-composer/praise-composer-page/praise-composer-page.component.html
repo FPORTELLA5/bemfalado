@@ -2,7 +2,19 @@
   <div class="composer-container">
     <a class="composer-back-link" routerLink="/">← Voltar ao início</a>
 
-    @if (!isFinished()) {
+    @if (isPrivateExperienceFinished()) {
+      <section class="composer-success private-experience-success" aria-labelledby="private-experience-title">
+        <span class="success-mark" aria-hidden="true">✓</span>
+        <p class="composer-eyebrow">Demonstração concluída</p>
+        <h1 id="private-experience-title">Sua experiência foi registrada de forma privada.</h1>
+        @if (selectedBusiness(); as business) {
+          <p>Estabelecimento: <strong>{{ business.name }}</strong>.</p>
+        }
+        <p>Nenhum relato, motivo ou avaliação negativa será exibido publicamente. Na versão real, esse registro poderá compor a quantidade total de experiências usada no cálculo do Índice de reconhecimento.</p>
+        <p class="private-experience-disclaimer">Esta é apenas uma simulação: nenhum dado foi enviado, armazenado ou contabilizado.</p>
+        <a class="button-primary success-link" routerLink="/">Voltar à página inicial</a>
+      </section>
+    } @else if (!isFinished()) {
       <header class="composer-heading">
         <p class="composer-eyebrow">Compartilhe uma boa experiência</p>
         <h1>Uma boa experiência merece ser contada.</h1>
@@ -51,6 +63,24 @@
                 <strong>{{ selected.name }}</strong>
                 <small>{{ selected.category }} · {{ selected.neighborhood }}, {{ selected.city }}</small>
               </div>
+
+              <section class="private-experience-option" aria-labelledby="private-experience-heading">
+                <div>
+                  <h3 id="private-experience-heading">Prefere não publicar um elogio?</h3>
+                  <p>Você pode registrar apenas que teve uma experiência. Esse registro é privado e não gera conteúdo público.</p>
+                </div>
+                @if (!showPrivateExperienceConfirmation()) {
+                  <button class="button-secondary private-experience-trigger" type="button" (click)="openPrivateExperienceConfirmation()">Registrar experiência sem elogio</button>
+                } @else {
+                  <div class="private-experience-confirmation" role="group" aria-label="Confirmar registro privado">
+                    <p>Ao confirmar, você autoriza que essa experiência seja considerada apenas nos dados agregados do Índice de reconhecimento. O estabelecimento e outras pessoas não verão um registro individual nem o motivo.</p>
+                    <div class="private-experience-actions">
+                      <button class="button-secondary" type="button" (click)="cancelPrivateExperienceConfirmation()">Cancelar</button>
+                      <button class="button-primary" type="button" (click)="finishPrivateExperienceDemo()">Confirmar registro privado</button>
+                    </div>
+                  </div>
+                }
+              </section>
             }
 
             <div class="business-results-heading">
