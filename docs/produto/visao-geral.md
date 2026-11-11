@@ -106,6 +106,10 @@ O índice deverá ser apresentado junto da quantidade de experiências considera
 
 As limitações de acesso deverão ser validadas pelo backend, não apenas pela interface.
 
+## Aparência e temas
+
+A plataforma deverá oferecer tema claro e tema escuro, com opção de escolha manual pelo usuário e possibilidade de seguir a preferência do sistema operacional. A preferência selecionada deverá persistir entre sessões e ser aplicada de forma consistente em todas as telas.
+
 ## Idiomas e acessibilidade
 
 Idiomas planejados: Português (Brasil), Inglês e Espanhol.
