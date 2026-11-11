@@ -16,7 +16,7 @@ export class ModerationAppealsService {
   ));
 
   submit(input: CreateModerationAppealInput): boolean {
-    const alreadySubmitted = this.appealRecords().some((appeal) => appeal.praiseId === input.praiseId);
+    const alreadySubmitted = this.appealRecords().some((appeal) => appeal.decisionId === input.decisionId);
     const justification = input.justification.trim();
 
     if (alreadySubmitted || justification.length < 20 || justification.length > 1000) {
