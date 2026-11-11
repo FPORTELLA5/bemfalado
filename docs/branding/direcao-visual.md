@@ -30,8 +30,14 @@ A paleta evita o verde como cor predominante para diferenciar a identidade visua
 - Evitar excesso de cores, gradientes chamativos e elementos decorativos.
 - Garantir contraste e acessibilidade, validando as combinações antes da implementação.
 
-## Logotipo
+## Logotipo — direção escolhida
 
-O conceito do logotipo ainda será explorado. A preferência inicial é por uma solução tipográfica simples, com símbolo discreto apenas se agregar reconhecimento.
+Direção conceitual aprovada: símbolo de balão de conversa estilizado, com um traço curvo que sugere um sorriso. O símbolo deve comunicar conversa, boa experiência e recomendação, sem depender de personagem ou expressão facial detalhada.
 
-O nome escolhido para a marca é **BemFalado**. A chamada **Elogiaê** poderá ser usada na interface como convite para publicar um elogio. O logotipo será desenvolvido a partir do nome BemFalado, após a verificação de disponibilidade no INPI, domínio e redes sociais.
+- Azul profundo como base do símbolo e do lettering.
+- Terracota em detalhes pontuais do símbolo ou de uma parte do lettering.
+- Priorizar desenho simples, legível em tamanhos pequenos e reconhecível isoladamente.
+- Desenvolver versões horizontal, vertical, monocromática, negativa e ícone de aplicativo.
+- A imagem gerada durante a exploração é referência conceitual, não arte-final vetorial.
+
+O nome escolhido para a marca é **BemFalado**. A chamada **Elogiaê** poderá ser usada na interface como convite para publicar um elogio. A disponibilidade no INPI, domínio e redes sociais ainda precisa ser verificada antes do lançamento.
