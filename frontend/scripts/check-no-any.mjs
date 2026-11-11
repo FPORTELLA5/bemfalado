@@ -1,7 +1,8 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { extname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const sourceDirectory = new URL('../src/', import.meta.url);
+const sourceDirectory = fileURLToPath(new URL('../src/', import.meta.url));
 const allowedExtensions = new Set(['.ts', '.html']);
 const forbiddenPattern = /\bany\b|\$any\s*\(/;
 const violations = [];
