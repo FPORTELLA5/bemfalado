@@ -17,13 +17,15 @@
     </nav>
 
     <div class="header-actions">
-      <button class="theme-button" type="button" (click)="toggleTheme()" [attr.aria-label]="resolvedTheme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'" title="Alternar tema">
-        @if (resolvedTheme() === 'dark') {
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
-        } @else {
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z" /></svg>
-        }
-      </button>
+      <label class="theme-control">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+        <span class="sr-only">Tema da interface</span>
+        <select aria-label="Tema da interface" [value]="themePreference()" (change)="setTheme($any($event.target).value)">
+          <option value="system">Automático</option>
+          <option value="light">Claro</option>
+          <option value="dark">Escuro</option>
+        </select>
+      </label>
       <a class="login-link" href="/entrar">Entrar</a>
       <a class="button button-small button-primary header-cta" href="/criar-conta">Criar conta</a>
       <button class="mobile-menu-button" type="button" (click)="mobileMenuOpen.update(value => !value)" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" aria-label="Abrir menu">
@@ -70,6 +72,9 @@
             Buscar <span aria-hidden="true">→</span>
           </button>
         </form>
+        @if (searchFeedback()) {
+          <p class="search-feedback" role="status" aria-live="polite">{{ searchFeedback() }}</p>
+        }
         <div class="hero-footnote"><span class="footnote-dot"></span> Pesquise livremente. Não precisa criar uma conta.</div>
       </div>
 
