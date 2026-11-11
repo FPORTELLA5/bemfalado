@@ -2,6 +2,10 @@
 
 Status: proposta inicial de UX para o MVP. Conteúdo e hierarquia sujeitos a prototipação e testes com usuários.
 
+## Aparência
+
+A página inicial e toda a plataforma deverão oferecer tema claro e tema escuro, com opção para seguir a preferência do sistema operacional. A escolha manual deverá ser preservada entre visitas. O controle de tema deve estar disponível no cabeçalho ou menu de preferências, com nome acessível e sem depender apenas de um ícone.
+
 ## Objetivo da página
 
 Ajudar visitantes a entender a proposta do BemFalado, pesquisar estabelecimentos, empresas e serviços e descobrir elogios publicados por pessoas reais. A navegação e a pesquisa devem estar disponíveis sem exigir cadastro.
