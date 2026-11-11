@@ -66,7 +66,18 @@ A imagem conceitual criada na exploração serve como referência visual; a arte
 
 A terracota suave não deve ser usada como texto pequeno sobre off-white sem teste de contraste. Para textos e controles, priorizar combinações que atendam WCAG 2.2 AA.
 
-## 5. Tipografia
+## 5. Temas da interface
+
+A plataforma terá tema claro e tema escuro. A identidade da marca deverá funcionar nos dois contextos sem perder contraste, legibilidade ou reconhecimento.
+
+- Tema claro: usar off-white como base, azul profundo como cor institucional e grafite para textos.
+- Tema escuro: definir superfícies escuras e cores de texto claras, preservando o azul e a terracota como acentos adaptados ao contraste necessário.
+- Não aplicar simplesmente uma inversão automática de todas as cores; criar tokens semânticos próprios para fundo, superfície, texto, borda, ação e estados.
+- Permitir seleção manual entre claro e escuro e opção “seguir sistema”.
+- Salvar a preferência do usuário para as próximas visitas.
+- Validar contraste e estados interativos nos dois temas conforme WCAG 2.2 AA.
+
+## 6. Tipografia
 
 Direção recomendada para validação:
 - Títulos e chamadas: Manrope, com pesos semibold ou bold.
@@ -75,14 +86,14 @@ Direção recomendada para validação:
 
 A escolha final deverá considerar legibilidade em telas pequenas, acentuação em português e suporte a inglês e espanhol.
 
-## 6. Elementos gráficos
+## 7. Elementos gráficos
 
 - Usar curvas e formas derivadas do balão como elementos de apoio.
 - Ícones simples, preferencialmente lineares e com espessura consistente.
 - Espaçamento generoso e layouts limpos.
 - Evitar excesso de estrelas, medalhas e sinais que façam a plataforma parecer um sistema tradicional de notas.
 
-## 7. Aplicações prioritárias
+## 8. Aplicações prioritárias
 
 1. Ícone do aplicativo e favicon.
 2. Cabeçalho do site e versão responsiva.
@@ -90,7 +101,7 @@ A escolha final deverá considerar legibilidade em telas pequenas, acentuação 
 4. Cartões de compartilhamento de elogios.
 5. Templates para divulgação de estabelecimentos bem recomendados.
 
-## 8. Acessibilidade e consistência
+## 9. Acessibilidade e consistência
 
 - Validar contraste de texto, ícones e controles conforme WCAG 2.2 AA.
 - Não comunicar estados apenas por cor.
@@ -98,7 +109,7 @@ A escolha final deverá considerar legibilidade em telas pequenas, acentuação 
 - Testar símbolo em 16, 24, 32 e 48 px, além de tamanhos maiores.
 - Não distorcer, inclinar, contornar ou alterar arbitrariamente as cores do logotipo.
 
-## 9. Pendências antes da identidade final
+## 10. Pendências antes da identidade final
 
 - Verificar disponibilidade do nome BemFalado no INPI.
 - Verificar domínio e identificadores nas redes sociais.
