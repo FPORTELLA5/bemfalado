@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessPraise } from '../models/business-praise.model';
@@ -6,6 +6,9 @@ import type { BusinessResult } from '../../search-results/models/business-result
 import { MOCK_BUSINESS_PRAISES } from '../data/mock-business-praises';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import { FavoritesService } from '../../favorites/services/favorites.service';
+import { PRAISE_REPORT_REASONS } from '../models/praise-report.model';
+import type { PraiseReportReason } from '../models/praise-report.model';
+import { PraiseReportsService } from '../services/praise-reports.service';
 
 @Component({
   selector: 'bf-business-detail-page',
@@ -18,9 +21,17 @@ import { FavoritesService } from '../../favorites/services/favorites.service';
 export class BusinessDetailPageComponent {
   private readonly route = inject(ActivatedRoute);
   readonly favorites = inject(FavoritesService);
+  private readonly praiseReports = inject(PraiseReportsService);
   private readonly routeParams = toSignal(this.route.paramMap, {
     initialValue: this.route.snapshot.paramMap
   });
+
+  readonly reportReasons = PRAISE_REPORT_REASONS;
+  readonly maxReportDetailsLength = 500;
+  readonly activeReportPraiseId = signal<string | null>(null);
+  readonly selectedReportReason = signal<PraiseReportReason>('unrelated-experience');
+  readonly reportDetails = signal<string>('');
+  readonly reportSubmittedFor = signal<string | null>(null);
 
   private readonly businessId = computed<string>(() => (
     this.routeParams().get('id') ?? ''
@@ -39,6 +50,60 @@ export class BusinessDetailPageComponent {
 
   toggleFavorite(businessId: string): void {
     this.favorites.toggle(businessId);
+  }
+
+  openReportForm(praiseId: string): void {
+    this.reportSubmittedFor.set(null);
+    this.selectedReportReason.set('unrelated-experience');
+    this.reportDetails.set('');
+    this.activeReportPraiseId.set(praiseId);
+  }
+
+  closeReportForm(): void {
+    this.activeReportPraiseId.set(null);
+    this.reportSubmittedFor.set(null);
+    this.reportDetails.set('');
+  }
+
+  onReportReasonChange(event: Event): void {
+    const target = event.target;
+
+    if (!(target instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    const selectedReason = PRAISE_REPORT_REASONS.find(
+      (reason) => reason.value === target.value
+    );
+
+    if (selectedReason) {
+      this.selectedReportReason.set(selectedReason.value);
+    }
+  }
+
+  onReportDetailsInput(event: Event): void {
+    const target = event.target;
+
+    if (target instanceof HTMLTextAreaElement) {
+      this.reportDetails.set(target.value.slice(0, this.maxReportDetailsLength));
+    }
+  }
+
+  submitReport(event: Event, praiseId: string): void {
+    event.preventDefault();
+
+    if (this.activeReportPraiseId() !== praiseId) {
+      return;
+    }
+
+    this.praiseReports.submit({
+      praiseId,
+      reason: this.selectedReportReason(),
+      details: this.reportDetails().trim()
+    });
+
+    this.reportSubmittedFor.set(praiseId);
+    this.activeReportPraiseId.set(null);
   }
 
   formatDate(date: string): string {
