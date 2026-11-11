@@ -6,6 +6,7 @@ export type TextModerationIssueCode =
   | 'negative-experience'
   | 'abusive-language'
   | 'threat'
+  | 'emoji-spam'
   | 'excessive-repetition';
 
 export interface TextModerationIssue {
