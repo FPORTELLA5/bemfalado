@@ -59,6 +59,9 @@ export class PraiseComposerPageComponent implements OnDestroy {
     category: '',
     city: '',
     neighborhood: '',
+    businessPhone: '',
+    businessEmail: '',
+    instagramProfile: '',
     website: ''
   });
   readonly canSubmitBusinessRequest = computed<boolean>(() => {
