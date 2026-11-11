@@ -1,0 +1,86 @@
+<main class="auth-page">
+  <div class="auth-layout">
+    <aside class="auth-aside" aria-label="Sobre o BemFalado">
+      <a class="auth-brand" routerLink="/" aria-label="BemFalado — página inicial">
+        <span class="auth-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M8 10.5C8 7.46 10.46 5 13.5 5h13C29.54 5 32 7.46 32 10.5v10c0 3.04-2.46 5.5-5.5 5.5H19l-7 5v-5.3A5.49 5.49 0 0 1 8 20.5v-10Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M14 16.5c1.55 2.1 3.45 3.15 5.8 3.15 2.35 0 4.25-1.05 5.7-3.15" stroke="#D9A58F" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>bemfalado<span>.</span></span>
+      </a>
+      <div class="auth-aside-copy">
+        <p class="auth-eyebrow">Boas experiências merecem ser compartilhadas.</p>
+        <h1>Que bom ter você por aqui novamente.</h1>
+        <p>Entre para compartilhar boas experiências e ajudar outras pessoas a fazer escolhas melhores.</p>
+      </div>
+      <div class="auth-aside-note">
+        <span aria-hidden="true">“</span>
+        <p>O que é bom merece ser reconhecido. E compartilhado.</p>
+      </div>
+    </aside>
+
+    <section class="auth-content" aria-labelledby="login-title">
+      @if (!loginCompleted()) {
+        <div class="auth-card">
+          <a class="auth-back-link" routerLink="/">← Voltar para o início</a>
+          <div class="auth-heading">
+            <p class="auth-kicker">Acesse sua conta</p>
+            <h2 id="login-title">Boas-vindas de volta.</h2>
+            <p>Entre com seus dados para continuar.</p>
+          </div>
+
+          <div class="auth-social" aria-label="Opções de acesso com conta externa">
+            <button type="button" class="auth-social-button" (click)="onSocialProviderSelected('Google')">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.72-.06-1.42-.18-2.09H12v3.95h5.38a4.6 4.6 0 0 1-2 3.02v2.55h3.24c1.9-1.75 2.98-4.33 2.98-7.43Z"/><path fill="#34A853" d="M12 22c2.7 0 4.96-.9 6.62-2.34l-3.24-2.55c-.9.6-2.04.96-3.38.96-2.6 0-4.8-1.76-5.59-4.12H3.06v2.63A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.41 13.95a6 6 0 0 1 0-3.9V7.42H3.06a10 10 0 0 0 0 9.16l3.35-2.63Z"/><path fill="#EA4335" d="M12 5.93c1.47 0 2.79.5 3.83 1.52l2.87-2.87C16.95 2.96 14.7 2 12 2a10 10 0 0 0-8.94 5.42l3.35 2.63C7.2 7.69 9.4 5.93 12 5.93Z"/></svg>
+              <span>Google</span>
+            </button>
+            <button type="button" class="auth-social-button" (click)="onSocialProviderSelected('Facebook')">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M13.4 21v-8.2h2.76l.41-3.2H13.4V7.56c0-.93.26-1.56 1.6-1.56h1.7V3.14c-.3-.04-1.34-.14-2.55-.14-2.53 0-4.26 1.54-4.26 4.37V9.6H7v3.2h2.89V21h3.51Z"/></svg>
+              <span>Facebook</span>
+            </button>
+            <button type="button" class="auth-social-button" (click)="onSocialProviderSelected('Apple')">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.37 12.6c.02 2.2 1.93 2.93 1.95 2.94-.02.05-.3 1.04-.99 2.06-.6.88-1.23 1.75-2.22 1.77-.97.02-1.28-.57-2.39-.57-1.1 0-1.45.55-2.36.59-.95.04-1.67-.95-2.28-1.83-1.25-1.8-2.2-5.08-.92-7.3.64-1.1 1.78-1.8 3.02-1.82.94-.02 1.82.63 2.39.63.56 0 1.62-.78 2.73-.67.47.02 1.8.19 2.65 1.43-.07.04-1.58.92-1.58 2.77ZM14.58 6.6c.5-.6.84-1.43.75-2.26-.72.03-1.6.48-2.12 1.08-.47.53-.88 1.38-.77 2.18.8.06 1.63-.4 2.14-1Z"/></svg>
+              <span>Apple</span>
+            </button>
+          </div>
+          @if (socialProviderNotice()) {
+            <p class="auth-notice" role="status">{{ socialProviderNotice() }}</p>
+          }
+          <div class="auth-divider"><span>ou entre com e-mail</span></div>
+
+          <form class="auth-form" novalidate (submit)="onSubmit($event)">
+            <label class="auth-field">
+              <span>E-mail</span>
+              <input type="email" name="email" autocomplete="email" maxlength="160" required [value]="form().email" (input)="onFieldInput($event, 'email')" [attr.aria-invalid]="submitted() && !emailValid()" aria-describedby="login-email-hint">
+              <small id="login-email-hint">Informe o e-mail cadastrado.</small>
+            </label>
+            <div class="auth-field">
+              <div class="auth-password-label">
+                <label for="login-password">Senha</label>
+                <a routerLink="/recuperar-senha">Esqueci minha senha</a>
+              </div>
+              <div class="auth-password-wrap">
+                <input id="login-password" [type]="passwordVisible() ? 'text' : 'password'" name="password" autocomplete="current-password" required [value]="form().password" (input)="onFieldInput($event, 'password')" [attr.aria-invalid]="submitted() && form().password.length === 0">
+                <button type="button" class="auth-password-toggle" (click)="togglePasswordVisibility()" [attr.aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'">{{ passwordVisible() ? 'Ocultar' : 'Mostrar' }}</button>
+              </div>
+            </div>
+            <button class="auth-submit" type="submit">Entrar na minha conta <span aria-hidden="true">→</span></button>
+          </form>
+          <p class="auth-signup-prompt">Ainda não tem uma conta? <a routerLink="/criar-conta">Criar conta gratuita</a></p>
+          <p class="auth-demo-note">Demonstração do frontend: o acesso não será autenticado e nenhum dado será enviado ou armazenado.</p>
+        </div>
+      } @else {
+        <div class="auth-success" role="status" aria-live="polite">
+          <span class="auth-success-icon" aria-hidden="true">✓</span>
+          <p class="auth-kicker">Demonstração concluída</p>
+          <h2>Seu acesso está pronto para a integração.</h2>
+          <p>O login real será ativado quando a autenticação e a gestão segura de sessão estiverem conectadas ao backend.</p>
+          <p class="auth-demo-note">Nenhuma sessão foi iniciada e seus dados não foram enviados nem armazenados.</p>
+          <a class="auth-submit auth-home-link" routerLink="/">Voltar para o início</a>
+        </div>
+      }
+    </section>
+  </div>
+</main>
