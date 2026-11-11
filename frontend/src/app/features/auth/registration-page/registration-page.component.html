@@ -112,7 +112,7 @@
 
             <label class="terms-check">
               <input type="checkbox" name="acceptedTerms" required [checked]="acceptedTerms()" (change)="onTermsChange($event)">
-              <span>Li e aceito os Termos de Uso e a Política de Privacidade.</span>
+              <span>Estou ciente de que o cadastro real dependerá da leitura e aceitação dos Termos de Uso e da Política de Privacidade.</span>
             </label>
             @if (submitted() && !acceptedTerms()) {
               <p class="field-error terms-error" role="alert">É necessário aceitar os termos para continuar.</p>
@@ -121,7 +121,7 @@
             <button class="registration-submit" type="submit">Criar minha conta <span aria-hidden="true">→</span></button>
           </form>
 
-          <p class="registration-demo-note">Demonstração do frontend: nenhum dado será enviado ou armazenado.</p>
+          <p class="registration-demo-note">Demonstração do frontend: nenhum dado será enviado ou armazenado. Os documentos legais deverão estar publicados e acessíveis antes da ativação do cadastro real.</p>
         </div>
       } @else {
         <div class="registration-success" role="status" aria-live="polite">
