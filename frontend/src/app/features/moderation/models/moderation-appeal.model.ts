@@ -3,6 +3,7 @@ export type ModerationAppealStatus = 'pending' | 'accepted' | 'rejected';
 export interface ModerationAppeal {
   readonly id: string;
   readonly praiseId: string;
+  readonly decisionId: string;
   readonly businessName: string;
   readonly praiseTitle: string;
   readonly authorName: string;
