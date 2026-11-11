@@ -234,6 +234,52 @@
       }
     </section>
 
+    <section class="audit-workspace" aria-labelledby="audit-heading">
+      <header class="audit-heading">
+        <div>
+          <p class="moderation-eyebrow">Rastreabilidade interna</p>
+          <h2 id="audit-heading">Histórico de auditoria</h2>
+          <p>Registro cronológico das ações realizadas na demonstração. Esta área é restrita à equipe de moderação.</p>
+        </div>
+        <span class="audit-count">{{ audit.count() }} evento(s)</span>
+      </header>
+
+      @if (audit.entries().length > 0) {
+        <ol class="audit-timeline">
+          @for (entry of audit.entries(); track entry.id) {
+            <li class="audit-entry">
+              <span class="audit-entry-marker" aria-hidden="true"></span>
+              <div class="audit-entry-content">
+                <div class="audit-entry-topline">
+                  <strong>{{ audit.actionLabel(entry.action) }}</strong>
+                  <time>{{ audit.formatDate(entry.occurredAt) }}</time>
+                </div>
+                <p>{{ entry.summary }}</p>
+                <dl class="audit-entry-metadata">
+                  <div><dt>Responsável</dt><dd>{{ entry.actorLabel }}</dd></div>
+                  <div><dt>Identificador do registro</dt><dd>{{ entry.entityId }}</dd></div>
+                  <div><dt>Publicação</dt><dd>{{ entry.praiseId }}</dd></div>
+                  @if (entry.previousState) {
+                    <div><dt>Estado anterior</dt><dd>{{ entry.previousState }}</dd></div>
+                  }
+                  <div><dt>Novo estado</dt><dd>{{ entry.newState }}</dd></div>
+                </dl>
+                <div class="audit-justification">
+                  <strong>Justificativa registrada</strong>
+                  <p>{{ entry.justification }}</p>
+                </div>
+              </div>
+            </li>
+          }
+        </ol>
+      } @else {
+        <div class="audit-empty">
+          <strong>Nenhuma ação registrada nesta sessão</strong>
+          <p>O histórico será preenchido quando uma denúncia ou contestação for enviada ou analisada.</p>
+        </div>
+      }
+    </section>
+
     <p class="moderation-footnote">
       A fila real exigirá autenticação, autorização por função, trilha de auditoria imutável,
       política de retenção, proteção contra abuso e mecanismo de revisão das decisões.
