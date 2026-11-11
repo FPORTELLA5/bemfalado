@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessPraise } from '../models/business-praise.model';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
@@ -15,14 +16,20 @@ import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-r
 })
 export class BusinessDetailPageComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly businessId = this.route.snapshot.paramMap.get('id') ?? '';
+  private readonly routeParams = toSignal(this.route.paramMap, {
+    initialValue: this.route.snapshot.paramMap
+  });
+
+  private readonly businessId = computed<string>(() => (
+    this.routeParams().get('id') ?? ''
+  ));
 
   readonly business = computed<BusinessResult | undefined>(() => (
-    MOCK_BUSINESS_RESULTS.find((item: BusinessResult) => item.id === this.businessId)
+    MOCK_BUSINESS_RESULTS.find((item: BusinessResult) => item.id === this.businessId())
   ));
 
   readonly praises = computed<readonly BusinessPraise[]>(() => (
-    MOCK_BUSINESS_PRAISES.filter((praise: BusinessPraise) => praise.businessId === this.businessId)
+    MOCK_BUSINESS_PRAISES.filter((praise: BusinessPraise) => praise.businessId === this.businessId())
       .sort((first: BusinessPraise, second: BusinessPraise) => (
         second.publishedAt.localeCompare(first.publishedAt)
       ))
