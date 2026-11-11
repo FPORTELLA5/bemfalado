@@ -23,7 +23,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Busca de negócio no fluxo | Implementada — demonstração | Pesquisa local nos dados fictícios. |
 | Solicitação de inclusão de negócio | Implementada — demonstração | Formulário coleta dados comerciais públicos; não envia nem armazena solicitação. |
 | Validação de campos e fotos | Implementada parcialmente | Regras locais no navegador; precisam ser revistas para acessibilidade e integração futura. |
-| Registro privado de experiência sem elogio | Pendente | Previsto na visão do produto para compor indicadores sem publicar conteúdo negativo. Definir UX e consentimento antes de implementar. |
+| Registro privado de experiência sem elogio | Implementado — demonstração | Alternativa após selecionar o negócio, com explicação e confirmação explícita. Não armazena nem contabiliza dados; integração real exigirá autenticação, consentimento registrado, prevenção a duplicidade e regras de elegibilidade. |
 | Autenticação e cadastro | Pendente | Cadastro, login, recuperação de senha, confirmação de e-mail e encerramento de sessão. |
 | Perfil do usuário | Pendente | Dados pessoais, preferências, publicações próprias e ações sobre a conta. |
 | Favoritos e interações | Pendente | Definir o conjunto mínimo do MVP e implementar estados de visitante/autenticado. |
@@ -59,7 +59,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 
 1. **Fechar a experiência pública de busca:** filtros essenciais, estados vazios, ordenação explicável e navegação consistente.
 2. **Fechar o perfil público do negócio:** apresentação dos indicadores, elogios, ausência de dados e ações disponíveis.
-3. **Concluir o fluxo de participação:** decidir e implementar o registro privado sem elogio, além dos estados de publicação.
+3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
 4. **Implementar autenticação e conta:** cadastro, login, recuperação de senha e perfil do usuário.
 5. **Implementar denúncia e moderação básica:** incluindo gestão das solicitações de inclusão de negócios.
 6. **Completar páginas institucionais e legais.**
