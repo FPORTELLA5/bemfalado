@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { ThemePreference } from '../../../shared/models/theme-preference.type';
 
 @Component({
@@ -11,7 +11,7 @@ export class HeaderComponent {
   @Input({ required: true }) themePreference!: ThemePreference;
   @Output() readonly themeChange = new EventEmitter<ThemePreference>();
 
-  mobileMenuOpen = false;
+  readonly mobileMenuOpen = signal(false);
 
   onThemeChange(event: Event): void {
     const target = event.target;
@@ -23,10 +23,10 @@ export class HeaderComponent {
   }
 
   toggleMobileMenu(): void {
-    this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.mobileMenuOpen.update((isOpen: boolean) => !isOpen);
   }
 
   closeMobileMenu(): void {
-    this.mobileMenuOpen = false;
+    this.mobileMenuOpen.set(false);
   }
 }
