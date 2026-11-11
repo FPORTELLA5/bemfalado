@@ -104,7 +104,20 @@ O índice deverá ser apresentado junto da quantidade de experiências considera
 - Conteúdo patrocinado identificado claramente.
 - Pagamento não compra elogios, remoção de publicações legítimas ou alteração do destaque orgânico.
 
-As limitações de acesso deverão ser validadas pelo backend, não apenas pela interface.
+### Contribuição de reconhecimento — ideia para versão futura
+
+Após publicar um elogio, o usuário poderá, se desejar, contribuir financeiramente com o estabelecimento como forma de incentivo e reconhecimento. A contribuição será uma ação opcional e independente da publicação: o elogio deverá continuar gratuito, espontâneo e disponível mesmo quando o usuário não contribuir.
+
+Diretrizes iniciais:
+- A contribuição não será requisito para publicar, visualizar ou dar destaque a um elogio.
+- O usuário escolherá um valor e verá claramente o valor total que será cobrado e o estabelecimento que receberá o apoio.
+- A divisão financeira será uma regra comercial contratual entre o BemFalado e o estabelecimento. A hipótese inicial é destinar 65% ao estabelecimento e 35% ao BemFalado.
+- A interface de contribuição não precisa apresentar ao usuário o percentual de divisão entre as partes; a forma de apresentação, os termos e as informações obrigatórias deverão passar por validação jurídica e contábil antes do lançamento.
+- O pagamento não poderá alterar o índice de reconhecimento, a ordenação orgânica, a quantidade de elogios ou a reputação pública do estabelecimento.
+- Um selo visual poderá indicar que houve uma contribuição, desde que não seja confundido com verificação oficial, avaliação ou garantia de qualidade.
+- A funcionalidade exigirá integração com provedor de pagamento, registro financeiro, conciliação, política de estorno, prevenção a fraude e definição de responsabilidades tributárias.
+
+Esta funcionalidade não faz parte do MVP. Deve ser avaliada após a validação do produto principal e da relação com os estabelecimentos.
 
 ## Aparência e temas
 
