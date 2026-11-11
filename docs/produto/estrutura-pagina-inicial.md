@@ -39,8 +39,6 @@ A busca deve aceitar nome do negócio, categoria e região. A localização pode
 
 Ação principal: **Buscar**.
 
-Chamada secundária: "Teve uma boa experiência? Elogiaê!"
-
 ### 3. Explorar categorias
 
 Exibir atalhos visuais para as categorias do MVP:
@@ -83,9 +81,9 @@ Três passos:
 
 Título: **Uma boa experiência merece ser contada.**
 
-Texto: "Ajude outras pessoas a fazer boas escolhas. Compartilhe o que fez sua experiência valer a pena."
+Texto: "Ajude outras pessoas a fazer boas escolhas. Compartilhe uma experiência positiva que merece ser conhecida."
 
-Ação: **Elogiaê**.
+Ação: **Compartilhar experiência**.
 
 Cadastro só deve ser solicitado quando a pessoa iniciar uma ação que exija conta, como publicar, salvar ou interagir.
 
