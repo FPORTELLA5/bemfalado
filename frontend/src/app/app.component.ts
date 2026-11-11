@@ -1,39 +1,21 @@
-import { ChangeDetectionStrategy, Component, effect, signal } from '@angular/core';
-
-type ThemePreference = 'light' | 'dark' | 'system';
-
-interface Category {
-  name: string;
-  icon: string;
-  description: string;
-}
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, signal } from '@angular/core';
+import { CategoryGridComponent } from './features/home/category-grid/category-grid.component';
+import { FooterComponent } from './features/home/footer/footer.component';
+import { HeaderComponent } from './features/home/header/header.component';
+import { HeroSearchComponent, SearchCriteria } from './features/home/hero-search/hero-search.component';
+import { ThemePreference } from './shared/models/theme-preference.type';
 
 @Component({
   selector: 'bf-root',
   standalone: true,
+  imports: [HeaderComponent, HeroSearchComponent, CategoryGridComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   readonly themePreference = signal<ThemePreference>(this.readThemePreference());
-  readonly mobileMenuOpen = signal(false);
-  readonly searchTerm = signal('');
-  readonly locationTerm = signal('');
-  readonly searchFeedback = signal('');
-
-  readonly categories: Category[] = [
-    { name: 'Alimentação', icon: 'utensils', description: 'Restaurantes, cafés e bares' },
-    { name: 'Saúde e bem-estar', icon: 'heart', description: 'Clínicas, academias e cuidados' },
-    { name: 'Beleza e estética', icon: 'sparkles', description: 'Salões, estética e autocuidado' },
-    { name: 'Comércio e lojas', icon: 'shopping-bag', description: 'Lojas físicas e online' },
-    { name: 'Casa e construção', icon: 'house', description: 'Reformas, materiais e serviços' },
-    { name: 'Automóveis e transporte', icon: 'car', description: 'Oficinas, mobilidade e veículos' },
-    { name: 'Educação', icon: 'graduation-cap', description: 'Escolas, cursos e aprendizado' },
-    { name: 'Turismo e hospedagem', icon: 'compass', description: 'Viagens, hotéis e passeios' },
-    { name: 'Tecnologia', icon: 'monitor', description: 'Produtos e serviços digitais' },
-    { name: 'Outros serviços', icon: 'grid', description: 'Serviços para o dia a dia' }
-  ];
 
   constructor() {
     effect((onCleanup) => {
@@ -42,14 +24,16 @@ export class AppComponent {
 
       const media = window.matchMedia('(prefers-color-scheme: dark)');
       const applyTheme = (): void => {
-        const resolved = preference === 'system'
+        const resolvedTheme = preference === 'system'
           ? (media.matches ? 'dark' : 'light')
           : preference;
-        document.documentElement.dataset['theme'] = resolved;
-        document.documentElement.style.colorScheme = resolved;
+
+        document.documentElement.dataset['theme'] = resolvedTheme;
+        document.documentElement.style.colorScheme = resolvedTheme;
       };
 
       applyTheme();
+
       if (preference === 'system') {
         media.addEventListener('change', applyTheme);
         onCleanup(() => media.removeEventListener('change', applyTheme));
@@ -65,45 +49,24 @@ export class AppComponent {
     this.themePreference.set(preference);
   }
 
-  toggleTheme(): void {
-    const current = this.resolvedTheme();
-    this.setTheme(current === 'dark' ? 'light' : 'dark');
+  onSearchRequested(criteria: SearchCriteria): void {
+    const query = new URLSearchParams({
+      q: criteria.term,
+      local: criteria.location
+    });
+    console.info('Busca preparada para a próxima etapa:', query.toString());
   }
 
-  resolvedTheme(): 'light' | 'dark' {
-    const preference = this.themePreference();
-    if (preference === 'system') {
-      return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-    }
-    return preference;
-  }
-
-  submitSearch(): void {
-    const term = this.searchTerm().trim();
-    if (!term) {
-      this.searchFeedback.set('Digite o nome de um lugar, empresa ou serviço para começar.');
-      document.getElementById('search-input')?.focus();
-      return;
-    }
-    this.searchFeedback.set('Busca selecionada. A próxima etapa será conectar este campo aos resultados reais do BemFalado.');
-  }
-
-  selectCategory(category: string): void {
-    this.searchTerm.set(category);
-    this.searchFeedback.set(`Categoria “${category}” selecionada. Você pode complementar a busca acima.`);
-    document.getElementById('search-input')?.focus();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  closeMobileMenu(): void {
-    this.mobileMenuOpen.set(false);
+  onCategorySelected(categoryName: string): void {
+    const query = new URLSearchParams({ categoria: categoryName });
+    console.info('Categoria selecionada para a próxima etapa:', query.toString());
   }
 
   private readThemePreference(): ThemePreference {
     if (typeof localStorage === 'undefined') return 'system';
-    const saved = localStorage.getItem('bemfalado-theme');
-    return saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system';
+    const savedPreference = localStorage.getItem('bemfalado-theme');
+    return savedPreference === 'light' || savedPreference === 'dark' || savedPreference === 'system'
+      ? savedPreference
+      : 'system';
   }
 }
