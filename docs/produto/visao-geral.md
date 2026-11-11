@@ -42,7 +42,17 @@ Proposta inicial:
 - Edição e exclusão pelo autor;
 - Recalculo das médias após alterações válidas.
 
-**Decisão pendente:** definir se a plataforma aceitará somente experiências positivas ou avaliações de qualquer nota. Essa escolha afeta moderação, reputação, médias e regras de publicação e não será presumida.
+**Diretriz definida:** o Elogie Aqui aceitará exclusivamente elogios e relatos de experiências positivas. Não será uma plataforma de reclamações nem um espaço para avaliações negativas.
+
+### Regras decorrentes
+- A publicação deve descrever uma experiência genuinamente positiva.
+- A nota deverá refletir uma experiência positiva; a escala e os critérios serão definidos para não incentivar avaliações negativas.
+- Conteúdo crítico, ofensivo, difamatório ou usado para atacar pessoas/negócios não será publicado como elogio.
+- Denúncias continuam disponíveis para sinalizar fraude, conteúdo impróprio, conflito de interesse ou violação das regras.
+- A moderação deverá distinguir uma crítica disfarçada de elogio de um relato positivo legítimo.
+- A plataforma não deve prometer que todos os negócios terão elogios: ausência de avaliações significa apenas ausência de relatos publicados.
+
+A política editorial positiva não elimina a necessidade de moderação, transparência ou mecanismos para corrigir informações factuais incorretas.
 
 Também deverão ser definidas regras para critérios não aplicáveis, volume mínimo de avaliações, prevenção de fraude e apresentação de notas com baixa amostragem.
 
