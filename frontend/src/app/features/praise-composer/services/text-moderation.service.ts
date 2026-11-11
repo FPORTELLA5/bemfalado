@@ -82,7 +82,10 @@ export class TextModerationService {
       });
     }
 
-    if (ABUSIVE_TERMS.some((term: string) => normalized.includes(term))) {
+    const normalizedWords = normalized.split(' ');
+    if (ABUSIVE_TERMS.some((term: string) => (
+      term.includes(' ') ? normalized.includes(term) : normalizedWords.includes(term)
+    ))) {
       issues.push({
         code: 'abusive-language',
         status: 'blocked',
