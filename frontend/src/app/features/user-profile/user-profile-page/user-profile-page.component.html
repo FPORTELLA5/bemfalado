@@ -112,6 +112,7 @@
                 </strong>
                 <p>{{ appeal.justification }}</p>
                 @if (appeal.reviewNote) { <small>Retorno da moderação: {{ appeal.reviewNote }}</small> }
+                @if (appeal.status === 'accepted') { <small>A contestação foi acolhida. A publicação ainda depende de uma decisão específica sobre seu status e não será republicada automaticamente.</small> }
               </div>
             } @else {
               <form class="appeal-form" (submit)="$event.preventDefault(); submitAppeal()">
