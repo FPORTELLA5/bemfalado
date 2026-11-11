@@ -1,0 +1,66 @@
+<main class="notifications-page">
+  <div class="notifications-container">
+    <a class="notifications-back-link" routerLink="/minha-conta">← Voltar para minha conta</a>
+
+    <header class="notifications-heading">
+      <div>
+        <p class="notifications-eyebrow">Atualizações da comunidade</p>
+        <h1>Notificações</h1>
+        <p>Acompanhe o que acontece com suas contribuições e sua conta.</p>
+      </div>
+      @if (notificationService.unreadCount() > 0) {
+        <button type="button" class="mark-all-button" (click)="markAllAsRead()">Marcar todas como lidas</button>
+      }
+    </header>
+
+    <div class="notifications-demo-notice" role="note">
+      <span aria-hidden="true">ⓘ</span>
+      <p>Prévia demonstrativa com notificações fictícias. Alertas por e-mail ou push ainda não estão conectados.</p>
+    </div>
+
+    <section class="notifications-toolbar" aria-label="Filtros de notificações">
+      <div class="notification-filters" role="group" aria-label="Filtrar notificações">
+        <button type="button" [class.active]="activeFilter() === 'all'" [attr.aria-pressed]="activeFilter() === 'all'" (click)="setFilter('all')">Todas <span>{{ notificationService.notifications().length }}</span></button>
+        <button type="button" [class.active]="activeFilter() === 'unread'" [attr.aria-pressed]="activeFilter() === 'unread'" (click)="setFilter('unread')">Não lidas <span>{{ notificationService.unreadCount() }}</span></button>
+      </div>
+      <p class="notifications-unread-count">{{ notificationService.unreadCount() }} não lidas</p>
+    </section>
+
+    @if (filteredNotifications().length > 0) {
+      <section class="notification-list" aria-label="Lista de notificações">
+        @for (notification of filteredNotifications(); track notification.id) {
+          <article class="notification-card" [class.is-unread]="!notification.read">
+            <span class="notification-icon" aria-hidden="true">{{ iconFor(notification.type) }}</span>
+            <div class="notification-content">
+              <div class="notification-title-row">
+                <h2>{{ notification.title }}</h2>
+                @if (!notification.read) { <span class="unread-indicator">Nova</span> }
+              </div>
+              <p>{{ notification.message }}</p>
+              <time [attr.datetime]="notification.createdAt">{{ formatDate(notification.createdAt) }}</time>
+              <div class="notification-actions">
+                @if (notification.actionRoute && notification.actionLabel) {
+                  <a [routerLink]="notification.actionRoute" (click)="markAsRead(notification.id)">{{ notification.actionLabel }} →</a>
+                }
+                @if (!notification.read) {
+                  <button type="button" (click)="markAsRead(notification.id)">Marcar como lida</button>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </section>
+    } @else {
+      <section class="notifications-empty" aria-live="polite">
+        <span aria-hidden="true">✓</span>
+        <h2>{{ activeFilter() === 'unread' ? 'Tudo em dia por aqui' : 'Nenhuma notificação ainda' }}</h2>
+        <p>{{ activeFilter() === 'unread' ? 'Você já leu todas as notificações.' : 'Quando houver novidades sobre sua conta ou suas contribuições, elas aparecerão aqui.' }}</p>
+        @if (activeFilter() === 'unread') {
+          <button type="button" (click)="setFilter('all')">Ver todas as notificações</button>
+        }
+      </section>
+    }
+
+    <p class="notifications-privacy-note">As notificações desta demonstração são locais e temporárias. Na versão completa, preferências de comunicação e histórico serão gerenciados pela sua conta.</p>
+  </div>
+</main>
