@@ -39,8 +39,8 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Área do representante do negócio | Fora do primeiro recorte / a decidir | A visão do produto posiciona recursos de representantes como fase posterior. Não antecipar painel pago completo no MVP. |
 | Reivindicação/verificação de perfil | Fase posterior | Não confundir perfil reivindicado com garantia de qualidade. |
 | Resposta a elogios pelo negócio | Fase posterior | Exige autenticação, autorização e regras de moderação. |
-| Denúncia de conteúdo | Pendente | A visão do produto prevê denúncia no MVP. |
-| Moderação básica | Pendente | Fila de análise, decisão, motivo e trilha de auditoria. |
+| Denúncia de conteúdo | Especificada — implementação pendente | Política definida em `docs/produto/politica-publicacao-conteudo-moderacao.md`; formulário privado, motivos estruturados e confirmação ainda precisam ser implementados. |
+| Moderação básica | Especificada — implementação pendente | Política define validações, níveis de tratamento, fila humana, decisões, auditoria e contestação. Backend deverá impor autorização e validação definitiva. |
 | Gestão administrativa de negócios | Pendente | Inclui análise das solicitações de inclusão e atualização de status. |
 | Gestão administrativa de usuários | Pendente | Escopo mínimo e permissões ainda precisam ser definidos. |
 
@@ -54,7 +54,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Idiomas pt-BR/en/es | Pendente | Estrutura de tradução e cobertura de todas as telas precisam ser concluídas. |
 | SEO e metadados | Pendente | Rever títulos, descrições, URLs, indexação e estratégia de renderização das páginas públicas. |
 | Estados de carregamento/erro/vazio | Parcial | Alguns estados vazios existem; padronizar para todas as telas e futuras chamadas à API. |
-| Segurança no frontend | Pendente de revisão | Revisar validação, upload, exposição de dados, navegação protegida e tratamento de erros. |
+| Segurança no frontend | Pendente de revisão | Revisar validação, upload, exposição de dados, navegação protegida e tratamento de erros. Política de publicação/moderação documentada; regras definitivas dependem do backend. |
 | Testes automatizados | Pendente de execução e cobertura | Não há confirmação de build ou testes locais aprovados. |
 | Contratos tipados para API | Parcial | Há modelos de domínio e dados mockados; separar modelos de tela, DTOs e serviços antes da integração. |
 | Regra de TypeScript sem any | Implementada como padrão | Manter strict e strictTemplates; não usar any nem $any(). |
@@ -65,7 +65,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 2. **Fechar o perfil público do negócio:** apresentação dos indicadores, elogios, ausência de dados e ações disponíveis.
 3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
 4. **Completar autenticação e conta:** confirmação de e-mail, preferências, segurança e ações de conta; revisar os fluxos visuais de cadastro, login, recuperação e perfil antes da integração.
-5. **Implementar denúncia e moderação básica:** incluindo gestão das solicitações de inclusão de negócios.
+5. **Implementar denúncia e moderação básica:** seguir a política `docs/produto/politica-publicacao-conteudo-moderacao.md`, incluindo validações, denúncia privada, fila humana, decisões auditáveis e gestão das solicitações de inclusão de negócios.
 6. **Completar páginas institucionais e legais.**
 7. **Fazer a revisão transversal:** responsividade, temas, acessibilidade, idiomas, SEO, segurança e testes.
 8. **Executar build e testes localmente e corrigir os problemas encontrados.**
