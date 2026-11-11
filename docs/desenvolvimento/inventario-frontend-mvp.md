@@ -10,7 +10,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 |---|---|---|
 | Página inicial | Implementada — primeira versão | Componentes standalone; precisa de revisão visual, responsividade, acessibilidade e estados finais. |
 | Busca e resultados | Implementada — demonstração | Usa quatro negócios fictícios; filtros e ordenação são locais. Faltam refinamentos de filtros, paginação/rolagem, sugestões e estados completos. |
-| Perfil público do negócio | Implementado — demonstração | Usa dados e elogios fictícios. Faltam estados reais de conteúdo, ações de interação e validação de informações. |
+| Perfil público do negócio | Implementado — demonstração | Usa dados e elogios fictícios. Inclui ação de sinalização privada em cada elogio, com formulário tipado e motivos estruturados. O registro é apenas demonstrativo, em memória, sem envio à moderação, autenticação ou persistência. |
 | Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio, compartilhamento, cadastro, login e recuperação de senha. Precisa validar navegação, histórico, links e rota inexistente. |
 | Páginas institucionais | Pendente | Sobre, como funciona, diretrizes da comunidade, contato e informações institucionais. |
 | Páginas legais | Pendente | Termos de uso, política de privacidade/LGPD e regras de publicação/moderação. |
@@ -40,7 +40,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Reivindicação/verificação de perfil | Fase posterior | Não confundir perfil reivindicado com garantia de qualidade. |
 | Resposta a elogios pelo negócio | Fase posterior | Exige autenticação, autorização e regras de moderação. |
 | Validação inicial de texto | Implementada — demonstração | Serviço tipado valida links, padrão de CPF, algumas frases negativas explícitas, ameaças, termos ofensivos selecionados e repetição excessiva; bloqueia avanço no formulário quando há sinal. Não é classificador contextual completo nem validação de segurança no servidor. |
-| Denúncia de conteúdo | Especificada — implementação pendente | Política definida em `docs/produto/politica-publicacao-conteudo-moderacao.md`; formulário privado, motivos estruturados e confirmação ainda precisam ser implementados. |
+| Denúncia de conteúdo | Implementada — demonstração | Formulário privado disponível em cada elogio do perfil público, com sete motivos estruturados, detalhes opcionais limitados a 500 caracteres e confirmação. Serviço tipado mantém registros apenas em memória; não há autenticação, persistência, envio à equipe, fila ou auditoria. A identidade do denunciante não é coletada/exibida na demonstração. Uma denúncia não remove o conteúdo nem altera o índice. |
 | Moderação básica | Especificada — implementação pendente | Política define validações, níveis de tratamento, fila humana, decisões, auditoria e contestação. Backend deverá impor autorização e validação definitiva. |
 | Gestão administrativa de negócios | Pendente | Inclui análise das solicitações de inclusão e atualização de status. |
 | Gestão administrativa de usuários | Pendente | Escopo mínimo e permissões ainda precisam ser definidos. |
@@ -66,7 +66,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 2. **Fechar o perfil público do negócio:** apresentação dos indicadores, elogios, ausência de dados e ações disponíveis.
 3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
 4. **Completar autenticação e conta:** confirmação de e-mail, preferências, segurança e ações de conta; revisar os fluxos visuais de cadastro, login, recuperação e perfil antes da integração.
-5. **Implementar denúncia e moderação básica:** seguir a política `docs/produto/politica-publicacao-conteudo-moderacao.md`, incluindo validações, denúncia privada, fila humana, decisões auditáveis e gestão das solicitações de inclusão de negócios.
+5. **Implementar moderação básica:** seguir a política `docs/produto/politica-publicacao-conteudo-moderacao.md`, incluindo validações, fila humana, decisões auditáveis e gestão das solicitações de inclusão de negócios. A interface de denúncia privada já está prototipada no perfil público.
 6. **Completar páginas institucionais e legais.**
 7. **Fazer a revisão transversal:** responsividade, temas, acessibilidade, idiomas, SEO, segurança e testes.
 8. **Executar build e testes localmente e corrigir os problemas encontrados.**
