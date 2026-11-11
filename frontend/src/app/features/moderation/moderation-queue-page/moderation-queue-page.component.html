@@ -149,6 +149,91 @@
       </section>
     </section>
 
+    <section class="appeals-workspace" aria-labelledby="appeals-heading">
+      <header class="appeals-heading">
+        <div>
+          <p class="moderation-eyebrow">Direito de revisão</p>
+          <h2 id="appeals-heading">Contestações de autores</h2>
+          <p>Solicitações de revisão de decisões que ocultaram ou removeram publicações.</p>
+        </div>
+        <span class="appeals-count">{{ appeals.pendingCount() }} pendente(s)</span>
+      </header>
+
+      @if (appeals.appeals().length > 0) {
+        <div class="appeals-grid">
+          <div class="appeals-list" aria-label="Lista de contestações">
+            @for (appeal of appeals.appeals(); track appeal.id) {
+              <button
+                type="button"
+                class="appeal-list-item"
+                [class.is-selected]="selectedAppeal()?.id === appeal.id"
+                [attr.aria-pressed]="selectedAppeal()?.id === appeal.id"
+                (click)="selectAppeal(appeal.id)"
+              >
+                <strong>{{ appeal.businessName }}</strong>
+                <span>{{ appeal.praiseTitle }}</span>
+                <small>{{ appealStatusLabel(appeal.status) }} · {{ formatDate(appeal.submittedAt) }}</small>
+              </button>
+            }
+          </div>
+
+          @if (selectedAppeal(); as appeal) {
+            <article class="appeal-review-panel">
+              <div class="appeal-review-topline">
+                <div>
+                  <span class="content-label">Contestação {{ appeal.id }}</span>
+                  <h3>{{ appeal.praiseTitle }}</h3>
+                </div>
+                <span class="appeal-review-status">{{ appealStatusLabel(appeal.status) }}</span>
+              </div>
+              <div class="appeal-review-metadata">
+                <span>Estabelecimento: <strong>{{ appeal.businessName }}</strong></span>
+                <span>Autor: <strong>{{ appeal.authorName }}</strong></span>
+                <span>Decisão original: <strong>{{ appeal.originalStatus === 'removed' ? 'Removido' : 'Ocultado' }}</strong></span>
+              </div>
+              <div class="appeal-review-context">
+                <strong>Justificativa do autor</strong>
+                <p>{{ appeal.justification }}</p>
+              </div>
+              <div class="appeal-review-context">
+                <strong>Justificativa da decisão original</strong>
+                <p>{{ appeal.originalDecisionNote }}</p>
+              </div>
+              @if (appeal.status === 'pending') {
+                <div class="appeal-review-actions">
+                  <label for="appeal-review-note">Justificativa da revisão (mínimo de 10 caracteres)</label>
+                  <textarea
+                    id="appeal-review-note"
+                    rows="3"
+                    maxlength="500"
+                    [value]="appealReviewNote()"
+                    (input)="onAppealReviewNoteInput($event)"
+                    placeholder="Explique o resultado da revisão."
+                  ></textarea>
+                  <small>{{ appealReviewNote().length }}/{{ maxAppealReviewNoteLength }}</small>
+                  <div class="decision-actions">
+                    <button type="button" class="decision-button decision-keep" [disabled]="appealReviewNote().trim().length < 10" (click)="decideAppeal('accepted')">Aceitar contestação</button>
+                    <button type="button" class="decision-button decision-remove" [disabled]="appealReviewNote().trim().length < 10" (click)="decideAppeal('rejected')">Não aceitar</button>
+                  </div>
+                </div>
+              } @else {
+                <div class="decision-record">
+                  <h3>Resultado da revisão</h3>
+                  <p>{{ appeal.reviewNote }}</p>
+                  <span>{{ appeal.reviewedAt ? formatDate(appeal.reviewedAt) : '' }}</span>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      } @else {
+        <div class="appeals-empty">
+          <strong>Nenhuma contestação recebida</strong>
+          <p>Quando um autor solicitar revisão, o registro aparecerá nesta área.</p>
+        </div>
+      }
+    </section>
+
     <p class="moderation-footnote">
       A fila real exigirá autenticação, autorização por função, trilha de auditoria imutável,
       política de retenção, proteção contra abuso e mecanismo de revisão das decisões.
