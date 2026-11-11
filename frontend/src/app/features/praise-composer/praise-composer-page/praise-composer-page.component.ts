@@ -4,6 +4,7 @@ import type { BusinessResult } from '../../search-results/models/business-result
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import type { PhotoAttachment } from '../models/photo-attachment.model';
 import type { BusinessRequestDraft } from '../models/business-request-draft.model';
+import { TextModerationService } from '../services/text-moderation.service';
 
 type ComposerStep = 1 | 2 | 3 | 4;
 type TextField = 'title' | 'content';
@@ -31,6 +32,7 @@ function normalizeSearchTerm(value: string): string {
 })
 export class PraiseComposerPageComponent implements OnDestroy {
   private readonly route = inject(ActivatedRoute);
+  private readonly textModeration = inject(TextModerationService);
 
   constructor() {
     const requestedBusinessId = this.route.snapshot.queryParamMap.get('businessId');
@@ -49,6 +51,11 @@ export class PraiseComposerPageComponent implements OnDestroy {
   readonly selectedQualities = signal<readonly string[]>([]);
   readonly title = signal<string>('');
   readonly content = signal<string>('');
+  readonly titleModeration = computed(() => this.textModeration.validate(this.title()));
+  readonly contentModeration = computed(() => this.textModeration.validate(this.content()));
+  readonly hasTextModerationIssues = computed<boolean>(() => (
+    this.titleModeration().status !== 'allowed' || this.contentModeration().status !== 'allowed'
+  ));
   readonly photoAttachments = signal<readonly PhotoAttachment[]>([]);
   readonly photoFeedback = signal<string>('');
   readonly isFinished = signal<boolean>(false);
@@ -113,7 +120,9 @@ export class PraiseComposerPageComponent implements OnDestroy {
       case 2:
         return this.selectedQualities().length > 0;
       case 3:
-        return this.title().trim().length >= 5 && this.content().trim().length >= 30;
+        return this.title().trim().length >= 5
+          && this.content().trim().length >= 30
+          && !this.hasTextModerationIssues();
       case 4:
         return true;
     }
