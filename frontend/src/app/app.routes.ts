@@ -10,6 +10,7 @@ import { UserProfilePageComponent } from './features/user-profile/user-profile-p
 import { FavoritesPageComponent } from './features/favorites/favorites-page/favorites-page.component';
 import { NotificationsPageComponent } from './features/notifications/notifications-page/notifications-page.component';
 import { ModerationQueuePageComponent } from './features/moderation/moderation-queue-page/moderation-queue-page.component';
+import { InstitutionalPageComponent } from './features/institutional/institutional-page/institutional-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent, title: 'BemFalado | Boas experiências merecem ser compartilhadas' },
@@ -22,6 +23,13 @@ export const routes: Routes = [
   { path: 'recuperar-senha', component: PasswordRecoveryPageComponent, title: 'Recuperar senha | BemFalado' },
   { path: 'criar-conta', component: RegistrationPageComponent, title: 'Criar conta | BemFalado' },
   { path: 'compartilhar', component: PraiseComposerPageComponent, title: 'Compartilhar experiência | BemFalado' },
+  { path: 'sobre', component: InstitutionalPageComponent, title: 'Sobre o BemFalado' },
+  { path: 'como-funciona', component: InstitutionalPageComponent, title: 'Como funciona | BemFalado' },
+  { path: 'diretrizes', component: InstitutionalPageComponent, title: 'Diretrizes da comunidade | BemFalado' },
+  { path: 'contato', component: InstitutionalPageComponent, title: 'Contato | BemFalado' },
+  { path: 'empresas', component: InstitutionalPageComponent, title: 'Para empresas | BemFalado' },
+  { path: 'privacidade', component: InstitutionalPageComponent, title: 'Privacidade | BemFalado' },
+  { path: 'termos', component: InstitutionalPageComponent, title: 'Termos de uso | BemFalado' },
   {
     path: 'demonstracao/moderacao',
     component: ModerationQueuePageComponent,
