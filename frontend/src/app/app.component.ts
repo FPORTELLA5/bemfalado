@@ -1,18 +1,13 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, signal } from '@angular/core';
-import { CategoryGridComponent } from './features/home/category-grid/category-grid.component';
-import { CommunityCtaComponent } from './features/home/community-cta/community-cta.component';
-import { DiscoverySectionComponent } from './features/home/discovery-section/discovery-section.component';
-import { HowItWorksComponent } from './features/home/how-it-works/how-it-works.component';
+import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './features/home/footer/footer.component';
 import { HeaderComponent } from './features/home/header/header.component';
-import { HeroSearchComponent } from './features/home/hero-search/hero-search.component';
-import type { SearchCriteria } from './shared/models/search-criteria.type';
 import type { ThemePreference } from './shared/models/theme-preference.type';
 
 @Component({
   selector: 'bf-root',
   standalone: true,
-  imports: [HeaderComponent, HeroSearchComponent, CategoryGridComponent, DiscoverySectionComponent, HowItWorksComponent, CommunityCtaComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,19 +46,6 @@ export class AppComponent {
 
   setTheme(preference: ThemePreference): void {
     this.themePreference.set(preference);
-  }
-
-  onSearchRequested(criteria: SearchCriteria): void {
-    const query = new URLSearchParams({
-      q: criteria.term,
-      local: criteria.location
-    });
-    console.info('Busca preparada para a próxima etapa:', query.toString());
-  }
-
-  onCategorySelected(categoryName: string): void {
-    const query = new URLSearchParams({ categoria: categoryName });
-    console.info('Categoria selecionada para a próxima etapa:', query.toString());
   }
 
   private readThemePreference(): ThemePreference {
