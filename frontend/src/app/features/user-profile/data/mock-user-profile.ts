@@ -61,6 +61,7 @@ export const MOCK_PRIVATE_EXPERIENCES: readonly PrivateExperienceSummary[] = [
 /** Conteúdo fictício usado para demonstrar o direito de contestação. */
 export const MOCK_MODERATED_PRAISE: ModeratedPraiseNotice = {
   id: 'user-praise-moderated-demo',
+  decisionId: 'moderation-decision-demo-001',
   businessName: 'Mercado do Bairro',
   title: 'Atendimento atencioso e entrega organizada',
   status: 'removed',
