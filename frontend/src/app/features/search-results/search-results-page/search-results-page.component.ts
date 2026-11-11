@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { BusinessSortOption, BusinessResult } from '../models/business-result.model';
 import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
 
@@ -14,6 +14,7 @@ import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
 })
 export class SearchResultsPageComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   private readonly queryParams = toSignal(this.route.queryParamMap, {
     initialValue: this.route.snapshot.queryParamMap
@@ -23,6 +24,26 @@ export class SearchResultsPageComponent {
   readonly location = computed<string>(() => this.queryParams().get('location') ?? '');
   readonly category = computed<string>(() => this.queryParams().get('category') ?? '');
   readonly sortOption = signal<BusinessSortOption>('most-praised');
+  readonly filterLocation = signal<string>(this.location());
+  readonly filterCategory = signal<string>(this.category());
+
+  readonly categories: readonly string[] = [
+    'Alimentação',
+    'Saúde e bem-estar',
+    'Beleza e estética',
+    'Comércio e lojas',
+    'Casa e construção',
+    'Automóveis e transporte',
+    'Educação',
+    'Turismo e hospedagem',
+    'Tecnologia',
+    'Outros serviços'
+  ];
+
+  private readonly syncFilters = effect(() => {
+    this.filterLocation.set(this.location());
+    this.filterCategory.set(this.category());
+  });
 
   readonly results = computed<readonly BusinessResult[]>(() => {
     const normalizedTerm = this.normalizeSearchTerm(this.term());
@@ -55,6 +76,48 @@ export class SearchResultsPageComponent {
         : second.praiseCount - first.praiseCount
     ));
   });
+
+  onLocationInput(event: Event): void {
+    const target = event.target;
+    if (target instanceof HTMLInputElement) {
+      this.filterLocation.set(target.value);
+    }
+  }
+
+  onCategoryChange(event: Event): void {
+    const target = event.target;
+    if (target instanceof HTMLSelectElement) {
+      this.filterCategory.set(target.value);
+    }
+  }
+
+  applyFilters(event: Event): void {
+    event.preventDefault();
+
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        q: this.term() || null,
+        location: this.filterLocation().trim() || null,
+        category: this.filterCategory() || null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  clearFilters(): void {
+    this.filterLocation.set('');
+    this.filterCategory.set('');
+
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        location: null,
+        category: null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
 
   onSortChange(event: Event): void {
     const target = event.target;
