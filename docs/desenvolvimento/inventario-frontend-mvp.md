@@ -30,6 +30,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Confirmação de e-mail | Pendente | Fluxo real depende de token de confirmação, backend e serviço de envio. |
 | Perfil do usuário | Implementado — demonstração | Rota /minha-conta com visão geral, elogios publicados, registros privados e dados básicos editáveis localmente. Dados fictícios; sem persistência, autenticação ou gestão real de conta. |
 | Favoritos e estabelecimentos salvos | Implementado — demonstração | Rota /favoritos, lista privada, remoção de itens e ação para salvar/remover no perfil público do negócio. Estado temporário em memória; exige autenticação e persistência pela API na integração. Não altera elogios nem índice de reconhecimento. |
+| Central de notificações | Implementada — demonstração | Rota /notificacoes, lista tipada, filtros de todas/não lidas, marcação individual e em lote. Dados locais; entrega real, preferências e persistência dependem do backend. |
 
 ## 3. Negócios e moderação
 
