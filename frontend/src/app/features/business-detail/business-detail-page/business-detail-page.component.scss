@@ -1,0 +1,315 @@
+.business-detail-page {
+  min-height: 70vh;
+  padding: clamp(30px, 5vw, 58px) 24px 96px;
+  background: var(--color-bg);
+}
+
+.detail-container {
+  width: min(100%, 900px);
+  margin-inline: auto;
+}
+
+.detail-back-link {
+  display: inline-flex;
+  margin-bottom: 22px;
+  color: var(--color-brand);
+  font-size: .84rem;
+  font-weight: 650;
+}
+
+.detail-demo-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: .76rem;
+  line-height: 1.5;
+}
+
+.detail-demo-notice span {
+  display: grid;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-brand);
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.business-profile,
+.recognition-panel,
+.praise-card,
+.detail-not-found {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+}
+
+.business-profile { padding: clamp(20px, 4vw, 32px); }
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.profile-avatar {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 16px;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.profile-avatar[data-accent='blue'] { background: #e2eaf2; color: #304b68; }
+.profile-avatar[data-accent='terracotta'] { background: #f1e2da; color: #805542; }
+.profile-avatar[data-accent='green'] { background: #e0ece5; color: #416b55; }
+.profile-avatar[data-accent='purple'] { background: #eae4f0; color: #655276; }
+
+.profile-copy { min-width: 0; }
+
+.profile-category,
+.section-eyebrow {
+  color: var(--color-accent);
+  font-size: .68rem;
+  font-weight: 750;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.profile-copy h1 {
+  margin: 4px 0;
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 4vw, 2.45rem);
+  letter-spacing: -.045em;
+  line-height: 1.15;
+}
+
+.profile-location {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: .8rem;
+}
+
+.profile-description {
+  max-width: 680px;
+  margin: 23px 0 16px;
+  color: var(--color-text-muted);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.profile-qualities,
+.praise-qualities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.profile-qualities span,
+.praise-qualities span {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  font-size: .7rem;
+}
+
+.recognition-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+  padding: 24px;
+}
+
+.recognition-primary {
+  padding-right: 24px;
+  border-right: 1px solid var(--color-border);
+}
+
+.recognition-label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: .76rem;
+}
+
+.recognition-primary > strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-size: 2.7rem;
+  letter-spacing: -.06em;
+  line-height: 1.1;
+}
+
+.recognition-primary p {
+  max-width: 290px;
+  margin: 8px 0 0;
+  color: var(--color-text-muted);
+  font-size: .72rem;
+  line-height: 1.6;
+}
+
+.recognition-secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  gap: 15px;
+}
+
+.recognition-secondary div {
+  display: grid;
+  gap: 4px;
+}
+
+.recognition-secondary strong {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+}
+
+.recognition-secondary span {
+  color: var(--color-text-muted);
+  font-size: .7rem;
+  line-height: 1.4;
+}
+
+.praises-section { margin-top: 42px; }
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-eyebrow { margin: 0 0 6px; }
+
+.section-heading h2 {
+  margin: 0;
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  letter-spacing: -.04em;
+}
+
+.praises-total {
+  color: var(--color-text-muted);
+  font-size: .72rem;
+}
+
+.praise-list { display: grid; gap: 12px; }
+
+.praise-card { padding: 20px 22px; }
+
+.praise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.praise-author {
+  color: var(--color-text);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.praise-meta time {
+  color: var(--color-text-muted);
+  font-size: .7rem;
+}
+
+.praise-card h3 {
+  margin: 12px 0 7px;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+}
+
+.praise-card > p {
+  margin: 0 0 14px;
+  color: var(--color-text-muted);
+  font-size: .82rem;
+  line-height: 1.75;
+}
+
+.praises-empty {
+  padding: 24px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  font-size: .85rem;
+  text-align: center;
+}
+
+.detail-disclaimer {
+  margin: 18px 0 0;
+  color: var(--color-text-muted);
+  font-size: .7rem;
+  line-height: 1.6;
+}
+
+.detail-not-found {
+  display: grid;
+  justify-items: center;
+  margin-top: 38px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.detail-not-found > span {
+  color: var(--color-accent);
+  font-size: 2.3rem;
+}
+
+.detail-not-found h1 {
+  margin: 12px 0 6px;
+  color: var(--color-brand);
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+}
+
+.detail-not-found p {
+  margin: 0 0 20px;
+  color: var(--color-text-muted);
+  font-size: .85rem;
+}
+
+.detail-primary-link {
+  display: inline-flex;
+  padding: 11px 16px;
+  border-radius: 8px;
+  background: var(--color-brand);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 620px) {
+  .business-detail-page { padding-inline: 17px; }
+  .recognition-panel { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+  .recognition-primary { padding: 0 0 17px; border-right: 0; border-bottom: 1px solid var(--color-border); }
+  .recognition-secondary { gap: 10px; }
+  .praise-card { padding: 18px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .business-detail-page * { scroll-behavior: auto; }
+}
