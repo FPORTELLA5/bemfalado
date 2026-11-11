@@ -24,6 +24,39 @@
     <span><strong>Modo demonstração:</strong> os negócios e indicadores exibidos são fictícios e serão substituídos por dados reais.</span>
   </div>
 
+  <form class="filters-panel" aria-label="Filtros da busca" (submit)="applyFilters($event)">
+    <div class="filter-field">
+      <label for="filter-location">Localização</label>
+      <input
+        id="filter-location"
+        type="search"
+        autocomplete="address-level2"
+        placeholder="Ex.: Tijuca, Rio de Janeiro"
+        [value]="filterLocation()"
+        (input)="onLocationInput($event)"
+      />
+    </div>
+
+    <div class="filter-field">
+      <label for="filter-category">Categoria</label>
+      <select
+        id="filter-category"
+        [value]="filterCategory()"
+        (change)="onCategoryChange($event)"
+      >
+        <option value="">Todas as categorias</option>
+        @for (categoryOption of categories; track categoryOption) {
+          <option [value]="categoryOption">{{ categoryOption }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <button class="apply-filters-button" type="submit">Aplicar filtros</button>
+      <button class="clear-filters-button" type="button" (click)="clearFilters()">Limpar</button>
+    </div>
+  </form>
+
   <section class="results-toolbar" aria-label="Controles dos resultados">
     <div>
       <p class="results-count"><strong>{{ results().length }}</strong> negócios encontrados</p>
@@ -84,8 +117,8 @@
     <section class="no-results" aria-live="polite">
       <div class="no-results-icon" aria-hidden="true">⌕</div>
       <h2>Nenhum negócio encontrado</h2>
-      <p>Tente buscar por outro nome, categoria ou região.</p>
-      <a class="button button-primary" routerLink="/">Nova busca</a>
+      <p>Tente alterar a localização ou selecionar outra categoria.</p>
+      <button class="clear-empty-filters" type="button" (click)="clearFilters()">Limpar filtros</button>
     </section>
   }
 
