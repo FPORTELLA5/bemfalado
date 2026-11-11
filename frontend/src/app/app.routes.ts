@@ -1,4 +1,5 @@
 import type { Routes } from '@angular/router';
+import { BusinessDetailPageComponent } from './features/business-detail/business-detail-page/business-detail-page.component';
 import { HomePageComponent } from './features/home/home-page/home-page.component';
 import { SearchResultsPageComponent } from './features/search-results/search-results-page/search-results-page.component';
 
@@ -12,6 +13,11 @@ export const routes: Routes = [
     path: 'buscar',
     component: SearchResultsPageComponent,
     title: 'Buscar | BemFalado'
+  },
+  {
+    path: 'negocio/:id',
+    component: BusinessDetailPageComponent,
+    title: 'Perfil do estabelecimento | BemFalado'
   },
   {
     path: '**',
