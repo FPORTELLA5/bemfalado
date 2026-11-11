@@ -1,35 +1,69 @@
-# Elogie Aqui
+# BemFalado
 
 Plataforma de descoberta e valorização de experiências positivas.
 
-O Elogie Aqui ajuda pessoas a encontrar estabelecimentos, profissionais, empresas e serviços a partir de experiências compartilhadas pela comunidade.
+**Boas experiências merecem ser compartilhadas.**
 
-## Objetivos
+O BemFalado ajuda pessoas a encontrar estabelecimentos, empresas e serviços a partir de experiências positivas compartilhadas pela comunidade.
 
-- Facilitar a descoberta de bons estabelecimentos e serviços.
-- Permitir que pessoas compartilhem experiências e avaliações.
-- Dar visibilidade a negócios com base na experiência real dos consumidores.
-- Oferecer ferramentas profissionais para empresas, sem permitir que pagamentos influenciem avaliações ou rankings orgânicos.
+## Princípios do produto
 
-## Status do projeto
+- A experiência pública é exclusivamente positiva: a plataforma publica elogios, não reclamações.
+- Pessoas podem pesquisar e conhecer os perfis sem criar uma conta.
+- A publicação de experiências exige uma conta.
+- O reconhecimento é apresentado com transparência, considerando quantidade de experiências e elogios.
+- Pagamentos não compram elogios, não removem opiniões legítimas e não manipulam o posicionamento orgânico.
+- Privacidade, segurança, acessibilidade e LGPD fazem parte do desenvolvimento desde o início.
 
-**Fase atual:** definição do produto e documentação inicial.
+## Estrutura do repositório
 
-As decisões técnicas registradas neste repositório são propostas iniciais e serão validadas antes da implementação.
+- `docs/`: visão do produto, decisões de UX, branding e especificações.
+- `frontend/`: aplicação web Angular.
+- `backend/`: futura API Java com Spring Boot.
+- `database/`: futura estrutura de banco de dados e versionamento.
 
-## Estrutura
+## Frontend
 
-- `docs/`: visão do produto e documentação técnica.
-- `frontend/`: aplicação Angular.
-- `backend/`: API Java com Spring Boot.
-- `database/`: scripts e versionamento do banco Oracle.
+A aplicação web está sendo construída com Angular standalone, TypeScript e SCSS.
 
-## Princípios
+### Requisitos locais
 
-1. Avaliações e opiniões legítimas não podem ser compradas, removidas por conveniência comercial ou manipuladas.
-2. Conteúdo patrocinado deve ser identificado claramente.
-3. A experiência deve funcionar em celulares, tablets e computadores.
-4. Privacidade, segurança, acessibilidade e conformidade com a LGPD devem fazer parte do desenvolvimento desde o início.
+- Node.js compatível com Angular 22 (Node 22.22.3+ ou 24.15.0+).
+- npm.
+
+### Executar localmente
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+A aplicação ficará disponível em `http://localhost:4200`.
+
+### Compilar
+
+```bash
+npm run build
+```
+
+## Status
+
+**Fase atual:** fundação do frontend e primeira versão da página inicial.
+
+Entregue nesta etapa:
+- Estrutura inicial da aplicação Angular.
+- Tokens globais de design e temas claro/escuro.
+- Página inicial responsiva.
+- Navegação móvel e alternância de tema.
+- Estrutura inicial de categorias e seções institucionais.
+
+Próximas etapas:
+1. Validar a home em execução e ajustar responsividade/acessibilidade.
+2. Implementar busca e resultados.
+3. Implementar perfil público de empresas e estabelecimentos.
+4. Implementar autenticação e publicação de experiências.
+5. Evoluir para área do usuário e painel empresarial.
 
 ## Idiomas planejados
 
