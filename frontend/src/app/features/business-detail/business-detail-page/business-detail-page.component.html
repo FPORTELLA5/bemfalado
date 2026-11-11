@@ -1,0 +1,90 @@
+<main class="business-detail-page">
+  <div class="detail-container">
+    <a class="detail-back-link" routerLink="/buscar">← Voltar aos resultados</a>
+
+    @if (business(); as item) {
+      <div class="detail-demo-notice" role="status">
+        <span aria-hidden="true">i</span>
+        Página demonstrativa: estabelecimento, indicadores e elogios são fictícios.
+      </div>
+
+      <section class="business-profile" aria-labelledby="business-name">
+        <div class="profile-heading">
+          <div class="profile-avatar" [attr.data-accent]="item.accent" aria-hidden="true">
+            {{ item.initials }}
+          </div>
+          <div class="profile-copy">
+            <span class="profile-category">{{ item.category }}</span>
+            <h1 id="business-name">{{ item.name }}</h1>
+            <p class="profile-location"><span aria-hidden="true">⌖</span> {{ item.neighborhood }}, {{ item.city }}</p>
+          </div>
+        </div>
+        <p class="profile-description">{{ item.description }}</p>
+        <div class="profile-qualities" aria-label="Qualidades mais elogiadas">
+          @for (quality of item.praisedQualities; track quality) {
+            <span>{{ quality }}</span>
+          }
+        </div>
+      </section>
+
+      <section class="recognition-panel" aria-label="Indicadores de reconhecimento">
+        <div class="recognition-primary">
+          <span class="recognition-label">Índice de reconhecimento</span>
+          <strong>{{ item.recognitionIndex }}%</strong>
+          <p>Proporção de experiências que resultaram em elogios publicados.</p>
+        </div>
+        <div class="recognition-secondary">
+          <div>
+            <strong>{{ item.praiseCount }}</strong>
+            <span>elogios publicados</span>
+          </div>
+          <div>
+            <strong>{{ item.experienceCount }}</strong>
+            <span>experiências registradas</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="praises-section" aria-labelledby="praises-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-eyebrow">Experiências compartilhadas</p>
+            <h2 id="praises-title">O que estão falando</h2>
+          </div>
+          <span class="praises-total">{{ praises().length }} exemplos</span>
+        </div>
+
+        <div class="praise-list">
+          @for (praise of praises(); track praise.id) {
+            <article class="praise-card">
+              <div class="praise-meta">
+                <span class="praise-author">{{ praise.authorDisplayName }}</span>
+                <time [attr.datetime]="praise.publishedAt">{{ formatDate(praise.publishedAt) }}</time>
+              </div>
+              <h3>{{ praise.title }}</h3>
+              <p>{{ praise.content }}</p>
+              <div class="praise-qualities" aria-label="Pontos elogiados nesta experiência">
+                @for (quality of praise.praisedQualities; track quality) {
+                  <span>{{ quality }}</span>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p class="praises-empty">Ainda não há elogios publicados para este estabelecimento.</p>
+          }
+        </div>
+      </section>
+
+      <p class="detail-disclaimer">
+        Os indicadores apresentados são ilustrativos. Na versão real, a metodologia, o período de cálculo e a base de experiências serão informados de forma transparente.
+      </p>
+    } @else {
+      <section class="detail-not-found">
+        <span aria-hidden="true">⌕</span>
+        <h1>Estabelecimento não encontrado</h1>
+        <p>Este perfil não está disponível ou o endereço informado é inválido.</p>
+        <a class="detail-primary-link" routerLink="/buscar">Voltar para a busca</a>
+      </section>
+    }
+  </div>
+</main>
