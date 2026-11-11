@@ -11,9 +11,9 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 | Página inicial | Implementada — primeira versão | Componentes standalone; precisa de revisão visual, responsividade, acessibilidade e estados finais. |
 | Busca e resultados | Implementada — demonstração | Usa quatro negócios fictícios; filtros e ordenação são locais. Faltam refinamentos de filtros, paginação/rolagem, sugestões e estados completos. |
 | Perfil público do negócio | Implementado — demonstração | Usa dados e elogios fictícios. Inclui ação de sinalização privada em cada elogio, com formulário tipado e motivos estruturados. O registro é apenas demonstrativo, em memória, sem envio real, autenticação ou persistência. |
-| Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio, compartilhamento, cadastro, login, recuperação de senha e demonstração da central de moderação. Precisa validar navegação, histórico, links e rota inexistente. |
-| Páginas institucionais | Pendente | Sobre, como funciona, diretrizes da comunidade, contato e informações institucionais. |
-| Páginas legais | Pendente | Termos de uso, política de privacidade/LGPD e regras de publicação/moderação. |
+| Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio, compartilhamento, cadastro, login, recuperação, perfil, favoritos, notificações, páginas institucionais/legais e demonstração da central de moderação. Precisa validar navegação, histórico, links e rota inexistente. |
+| Páginas institucionais | Implementadas — primeira versão | Rotas /sobre, /como-funciona, /diretrizes, /contato e /empresas com conteúdo tipado e layout responsivo. A página de contato é apenas informativa; ainda não existe canal ou formulário conectado. Revisar conteúdo e acessibilidade. |
+| Páginas legais | Implementadas — rascunho | Rotas /termos e /privacidade com avisos explícitos de rascunho. Documentos em docs/legal; exigem inventário técnico de dados, definição do controlador e revisão jurídica antes de publicação. Diretrizes remetem à política de moderação. |
 
 ## 2. Publicação e participação
 
@@ -68,7 +68,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 3. **Concluir o fluxo de participação:** integrar o registro privado sem elogio, definir elegibilidade/limites contra duplicidade e concluir os estados reais de publicação.
 4. **Completar autenticação e conta:** confirmação de e-mail, preferências, segurança e ações de conta; revisar os fluxos visuais de cadastro, login, recuperação e perfil antes da integração.
 5. **Concluir a experiência visual de moderação:** revisão da fila, estados, justificativas e fluxo de contestação. A integração real depende do backend, autenticação, autorização e auditoria.
-6. **Completar páginas institucionais e legais.**
+6. **Revisar as páginas institucionais e legais:** conteúdo, canais reais de contato, acessibilidade e validação jurídica dos textos legais.
 7. **Fazer a revisão transversal:** responsividade, temas, acessibilidade, idiomas, SEO, segurança e testes.
 8. **Executar build e testes localmente e corrigir os problemas encontrados.**
 
@@ -101,3 +101,12 @@ Esta revisão é documental e baseada no estado do repositório consultado. Não
 - Cada evento registra objeto afetado, publicação relacionada, responsável demonstrativo, data/hora, estado anterior/novo e justificativa.
 - Histórico apresentado em linha do tempo na central de moderação.
 - O protótipo apenas acrescenta eventos em memória; não oferece imutabilidade, armazenamento seguro, identidade real do responsável, controle de acesso ou retenção. Requisitos definitivos documentados na política de moderação.
+
+
+### Páginas institucionais e legais
+- Componente standalone compartilhado com conteúdo definido por chaves tipadas; sem any ou casts inseguros.
+- Páginas: Sobre, Como funciona, Diretrizes da comunidade, Contato, Para empresas, Privacidade e Termos de uso.
+- Navegação do cabeçalho e rodapé direcionada para rotas válidas; links de âncora retornam à página inicial quando necessário.
+- Textos legais marcados como rascunho e com pendências de validação; não são termos juridicamente aprovados.
+- Documentos-base: [Termos de Uso — rascunho](../legal/termos-de-uso-rascunho.md) e [Política de Privacidade — rascunho](../legal/politica-de-privacidade-rascunho.md).
+- Limitações: contato sem canal ativo ou envio; conteúdo em pt-BR; sem integração com gestão de consentimento, cookies, atendimento a titulares ou versão/histórico legal automatizados.
