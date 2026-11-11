@@ -40,10 +40,12 @@ export class SearchResultsPageComponent {
     'Outros serviços'
   ];
 
-  private readonly syncFilters = effect(() => {
-    this.filterLocation.set(this.location());
-    this.filterCategory.set(this.category());
-  });
+  constructor() {
+    effect(() => {
+      this.filterLocation.set(this.location());
+      this.filterCategory.set(this.category());
+    });
+  }
 
   readonly results = computed<readonly BusinessResult[]>(() => {
     const normalizedTerm = this.normalizeSearchTerm(this.term());
