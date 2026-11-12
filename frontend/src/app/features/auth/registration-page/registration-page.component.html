@@ -34,6 +34,35 @@
             <p>Preencha seus dados para participar do BemFalado.</p>
           </div>
 
+          <fieldset class="account-type-fieldset">
+            <legend>Como você quer usar o BemFalado?</legend>
+            <div class="account-type-options">
+              <button
+                type="button"
+                class="account-type-option"
+                [class.is-selected]="accountType() === 'personal'"
+                [attr.aria-pressed]="accountType() === 'personal'"
+                (click)="onAccountTypeSelected('personal')">
+                <span class="account-type-icon" aria-hidden="true">♡</span>
+                <span class="account-type-copy"><strong>Pessoa física</strong><small>Quero descobrir e compartilhar boas experiências.</small></span>
+                <span class="account-type-indicator" aria-hidden="true"></span>
+              </button>
+              <button
+                type="button"
+                class="account-type-option"
+                [class.is-selected]="accountType() === 'business'"
+                [attr.aria-pressed]="accountType() === 'business'"
+                (click)="onAccountTypeSelected('business')">
+                <span class="account-type-icon" aria-hidden="true">▦</span>
+                <span class="account-type-copy"><strong>Pessoa jurídica</strong><small>Represento uma empresa ou estabelecimento.</small></span>
+                <span class="account-type-indicator" aria-hidden="true"></span>
+              </button>
+            </div>
+            @if (accountType() === 'business') {
+              <p class="account-type-guidance">Primeiro você cria sua conta de acesso. Depois, poderá cadastrar um estabelecimento ou solicitar vínculo com um perfil existente. Não é necessário informar o CNPJ nesta etapa.</p>
+            }
+          </fieldset>
+
           <div class="social-registration" aria-label="Opções de cadastro com conta externa">
             <button type="button" class="social-registration-button" (click)="onSocialProviderSelected('Google')">
               <svg class="social-icon google-icon" viewBox="0 0 24 24" aria-hidden="true">
