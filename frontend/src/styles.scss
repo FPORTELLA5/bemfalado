@@ -85,3 +85,11 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 @media (max-width: 640px) {
   .container { width: min(100% - 32px, var(--content-width)); }
 }
+
+/* Wordmark BemFalado: navy + vivid orange from the approved logo reference. */
+.brand-mark { color: #26364A; }
+.brand-mark svg { display: block; width: 42px; height: 42px; }
+.brand-name { display: inline-flex; align-items: baseline; gap: 0; font-weight: 800; letter-spacing: -.055em; }
+.brand-name .brand-name-first { color: #26364A; }
+.brand-name .brand-name-second { color: #F15A24; }
+:root[data-theme='dark'] .brand-name .brand-name-first { color: #F5F3EF; }
