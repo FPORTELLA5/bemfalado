@@ -9,6 +9,7 @@ interface RegistrationForm {
 }
 
 type RegistrationField = keyof RegistrationForm;
+type AccountType = 'personal' | 'business';
 type SocialProvider = 'Google' | 'Facebook' | 'Apple';
 
 @Component({
@@ -26,6 +27,7 @@ export class RegistrationPageComponent {
     password: '',
     passwordConfirmation: ''
   });
+  readonly accountType = signal<AccountType>('personal');
   readonly acceptedTerms = signal<boolean>(false);
   readonly submitted = signal<boolean>(false);
   readonly passwordVisible = signal<boolean>(false);
@@ -51,6 +53,10 @@ export class RegistrationPageComponent {
       && this.passwordsMatch()
       && this.acceptedTerms();
   });
+
+  onAccountTypeSelected(accountType: AccountType): void {
+    this.accountType.set(accountType);
+  }
 
   onSocialProviderSelected(provider: SocialProvider): void {
     this.socialProviderNotice.set(`A entrada com ${provider} será ativada quando a integração segura estiver configurada.`);
