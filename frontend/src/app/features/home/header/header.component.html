@@ -1,22 +1,21 @@
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="BemFalado — página inicial" (click)="closeMobileMenu()">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 64 64" fill="none" focusable="false">
-          <path d="M17 7.5h30c5.25 0 9.5 4.25 9.5 9.5v20c0 5.25-4.25 9.5-9.5 9.5H28L12 57V46.5c-3-1.65-5-4.75-5-9.5V17c0-5.25 4.25-9.5 10-9.5Z" stroke="#26364A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="23" cy="23" r="2.8" fill="#D9A58F"/>
-          <circle cx="32" cy="23" r="2.8" fill="#D9A58F"/>
-          <circle cx="41" cy="23" r="2.8" fill="#D9A58F"/>
-          <path d="M19.5 33.5c3.1 4.15 7.25 6.25 12.5 6.25s9.4-2.1 12.5-6.25" stroke="#D9A58F" stroke-width="4.5" stroke-linecap="round"/>
-        </svg>
-      </span>
+      <span class="brand-mark"><svg viewBox="0 0 64 64" fill="none" focusable="false" aria-hidden="true">
+  <path d="M17 7.5h30c5.25 0 9.5 4.25 9.5 9.5v20c0 5.25-4.25 9.5-9.5 9.5H28L12 57V46.5c-3-1.65-5-4.75-5-9.5V17c0-5.25 4.25-9.5 10-9.5Z" stroke="var(--color-brand)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="23" r="2.8" fill="var(--color-accent)"/>
+  <circle cx="32" cy="23" r="2.8" fill="var(--color-accent)"/>
+  <circle cx="41" cy="23" r="2.8" fill="var(--color-accent)"/>
+  <path d="M19.5 33.5c3.1 4.15 7.25 6.25 12.5 6.25s9.4-2.1 12.5-6.25" stroke="var(--color-accent)" stroke-width="4.5" stroke-linecap="round"/>
+</svg></span>
       <span class="brand-name"><span class="brand-name-first">Bem</span><span class="brand-name-second">Falado</span></span>
     </a>
 
     <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="/buscar">Explorar</a>
       <a href="/#categorias">Categorias</a>
       <a href="/como-funciona">Como funciona</a>
-      <a href="/sobre">Sobre</a>
+      <a href="/empresas">Para empresas</a>
     </nav>
 
     <div class="header-actions">
@@ -24,13 +23,13 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
         <span class="sr-only">Tema da interface</span>
         <select aria-label="Tema da interface" [value]="themePreference()" (change)="onThemeChange($event)">
-          <option value="system">Automático</option>
+          <option value="system">Auto</option>
           <option value="light">Claro</option>
           <option value="dark">Escuro</option>
         </select>
       </label>
       <a class="login-link" href="/entrar">Entrar</a>
-      <a class="button button-small button-primary header-cta" href="/criar-conta">Criar conta</a>
+      <a class="button button-small button-primary header-cta" href="/criar-conta">Criar conta <span aria-hidden="true">↗</span></a>
       <button class="mobile-menu-button" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" aria-label="Abrir menu">
         @if (mobileMenuOpen()) {
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
@@ -42,9 +41,10 @@
   </div>
   @if (mobileMenuOpen()) {
     <nav class="mobile-nav" id="mobile-navigation" aria-label="Navegação móvel">
+      <a href="/buscar" (click)="closeMobileMenu()">Explorar</a>
       <a href="/#categorias" (click)="closeMobileMenu()">Categorias</a>
       <a href="/como-funciona" (click)="closeMobileMenu()">Como funciona</a>
-      <a href="/sobre" (click)="closeMobileMenu()">Sobre</a>
+      <a href="/empresas" (click)="closeMobileMenu()">Para empresas</a>
       <a href="/entrar" (click)="closeMobileMenu()">Entrar</a>
       <a href="/criar-conta" (click)="closeMobileMenu()">Criar conta</a>
     </nav>
