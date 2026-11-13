@@ -1,12 +1,13 @@
 <main class="business-detail-page">
   <div class="detail-container">
-    <a class="detail-back-link" routerLink="/buscar">← Voltar aos resultados</a>
+    @if (fromCategories()) {
+      <a class="detail-back-link" routerLink="/categorias" [queryParams]="categoryQuery()">← Voltar para categorias</a>
+    } @else {
+      <a class="detail-back-link" routerLink="/buscar">← Voltar aos resultados</a>
+    }
 
     @if (business(); as item) {
-      <div class="detail-demo-notice" role="status">
-        <span aria-hidden="true">i</span>
-        Página demonstrativa: estabelecimento, indicadores e elogios são fictícios.
-      </div>
+      <p class="detail-demo-notice">Perfil e elogios fictícios para demonstração.</p>
 
       <section class="business-profile" aria-labelledby="business-name">
         <div class="profile-heading">
@@ -37,7 +38,7 @@
             (click)="toggleFavorite(item.id)"
           >{{ favorites.isFavorite(item.id) ? '♥ Salvo nos favoritos' : '♡ Salvar nos favoritos' }}</button>
           <a class="profile-praise-link" routerLink="/compartilhar" [queryParams]="{ businessId: item.id }">
-            Compartilhar uma experiência positiva
+            Escrever elogio
             <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -64,11 +65,12 @@
         </div>
       </section>
 
+      <bf-business-photo-gallery [photos]="photos()" />
+
       <section class="praises-section" aria-labelledby="praises-title">
         <div class="section-heading">
           <div>
-            <p class="section-eyebrow">Experiências compartilhadas</p>
-            <h2 id="praises-title">O que estão falando</h2>
+            <h2 id="praises-title">Elogios da comunidade</h2>
           </div>
           <span class="praises-total">
             Exibindo {{ praises().length }} de {{ item.praiseCount }} elogios publicados

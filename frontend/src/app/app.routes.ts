@@ -15,6 +15,11 @@ import { InstitutionalPageComponent } from './features/institutional/institution
 export const routes: Routes = [
   { path: '', component: HomePageComponent, title: 'BemFalado | Boas experiências merecem ser compartilhadas' },
   { path: 'buscar', component: SearchResultsPageComponent, title: 'Buscar | BemFalado' },
+  {
+    path: 'categorias',
+    loadComponent: () => import('./features/categories/categories-page.component').then((page) => page.CategoriesPageComponent),
+    title: 'Categorias | BemFalado'
+  },
   { path: 'negocio/:id', component: BusinessDetailPageComponent, title: 'Perfil do estabelecimento | BemFalado' },
   { path: 'minha-conta', component: UserProfilePageComponent, title: 'Meu perfil | BemFalado' },
   { path: 'favoritos', component: FavoritesPageComponent, title: 'Estabelecimentos salvos | BemFalado' },

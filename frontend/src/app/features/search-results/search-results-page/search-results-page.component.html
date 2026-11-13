@@ -1,15 +1,14 @@
 <main class="results-page">
   <section class="results-heading" aria-labelledby="results-title">
     <div class="results-heading-copy">
-      <p class="results-eyebrow">Descubra boas experiências</p>
-      <h1 id="results-title">Encontre quem é bem falado.</h1>
+      <h1 id="results-title">Explorar negócios</h1>
       <p class="results-summary">
         @if (term()) {
           Resultados para <strong>“{{ term() }}”</strong>
         } @else if (category()) {
           Categoria: <strong>{{ category() }}</strong>
         } @else {
-          Negócios que estão sendo reconhecidos pela comunidade.
+          Encontre lugares e serviços recomendados pela comunidade.
         }
         @if (location()) {
           <span> em <strong>{{ location() }}</strong></span>
@@ -18,11 +17,7 @@
     </div>
     <a class="back-link" routerLink="/">← Voltar ao início</a>
   </section>
-
-  <div class="demo-notice" role="status">
-    <span class="demo-indicator" aria-hidden="true"></span>
-    <span><strong>Modo demonstração:</strong> os negócios e indicadores exibidos são fictícios e serão substituídos por dados reais.</span>
-  </div>
+  <p class="demo-notice">Resultados fictícios para demonstração.</p>
 
   <form class="filters-panel" aria-label="Filtros da busca" (submit)="applyFilters($event)">
     <div class="filter-field">
@@ -59,7 +54,7 @@
 
   <section class="results-toolbar" aria-label="Controles dos resultados">
     <div>
-      <p class="results-count">
+      <p class="results-count" role="status">
         <strong>{{ results().length }}</strong>
         @if (results().length === 1) {
           negócio encontrado
@@ -67,7 +62,6 @@
           negócios encontrados
         }
       </p>
-      <p class="results-caption">Experiências positivas compartilhadas pela comunidade</p>
     </div>
     <label class="sort-control">
       <span>Ordenar por</span>
@@ -81,20 +75,19 @@
   @if (results().length > 0) {
     <section class="business-list" aria-label="Lista de negócios">
       @for (business of results(); track business.id) {
-        <a class="business-card" [routerLink]="['/negocio', business.id]" [attr.aria-label]="'Ver perfil de ' + business.name">
+        <a class="business-card" [routerLink]="['/negocio', business.id]" [attr.aria-labelledby]="'result-' + business.id">
           <div class="business-identity">
             <div class="business-avatar" [attr.data-accent]="business.accent" aria-hidden="true">
               {{ business.initials }}
             </div>
             <div class="business-main">
               <span class="business-category">{{ business.category }}</span>
-              <h2>{{ business.name }}</h2>
+              <h2 [id]="'result-' + business.id">{{ business.name }}</h2>
               <p class="business-location">
                 <span aria-hidden="true">⌖</span>
                 {{ business.neighborhood }}, {{ business.city }}
               </p>
             </div>
-            <span class="business-arrow" aria-hidden="true">↗</span>
           </div>
 
           <p class="business-description">{{ business.description }}</p>
@@ -118,7 +111,6 @@
               </small>
             </div>
           </div>
-          <span class="business-card-action">Ver perfil completo <span aria-hidden="true">→</span></span>
         </a>
       }
     </section>
@@ -136,5 +128,4 @@
     </section>
   }
 
-  <p class="results-disclaimer">Os dados desta tela são exclusivamente demonstrativos. O índice de reconhecimento real será exibido com sua base de experiências e período de cálculo.</p>
 </main>

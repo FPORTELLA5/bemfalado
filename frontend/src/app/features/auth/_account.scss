@@ -1,0 +1,326 @@
+.account-page {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-height: 66vh;
+  padding: clamp(28px, 5vw, 60px) 16px clamp(40px, 6vw, 76px);
+  background: var(--color-bg);
+}
+
+.account-card {
+  width: min(100%, 480px);
+  min-width: 0;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.account-page--registration .account-card {
+  width: min(100%, 690px);
+}
+
+.account-card h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.35rem);
+  line-height: 1.14;
+  letter-spacing: -.045em;
+  overflow-wrap: anywhere;
+}
+
+.account-intro {
+  margin: 8px 0 0;
+  color: var(--color-text-muted);
+  font-size: .95rem;
+}
+
+.account-form {
+  display: grid;
+  gap: 15px;
+  margin-top: 22px;
+}
+
+.registration-fields,
+.account-type-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.account-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.account-field label,
+.account-types legend {
+  color: var(--color-text);
+  font-size: .875rem;
+  font-weight: 700;
+}
+
+.account-field input,
+.account-field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 9px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.account-field input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.account-field p,
+.account-error {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: .81rem;
+}
+
+.account-field .account-error,
+.account-terms .account-error {
+  color: var(--color-danger);
+}
+
+.account-password {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.account-password input {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.account-toggle {
+  padding: 0 12px;
+  border: 1px solid var(--color-border-strong);
+  border-left: 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--color-bg);
+  color: var(--color-brand);
+  font-size: .81rem;
+  font-weight: 700;
+}
+
+.account-toggle:hover,
+.account-social-button:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}
+
+.account-submit {
+  display: grid;
+  min-height: 46px;
+  padding: 10px 16px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
+  font-size: .9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.account-submit:hover {
+  background: var(--color-action-hover);
+}
+
+.account-back,
+.account-recovery-link,
+.account-switch a {
+  color: var(--color-brand);
+  font-size: .875rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.account-back,
+.account-recovery-link {
+  justify-self: start;
+}
+
+.account-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  margin-bottom: 12px;
+}
+
+.account-recovery-link {
+  margin-top: 3px;
+}
+
+.account-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 19px 0 12px;
+  color: var(--color-text-muted);
+  font-size: .81rem;
+}
+
+.account-divider::before,
+.account-divider::after {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+  content: '';
+}
+
+.account-social {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.account-social-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 5px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font-size: .81rem;
+  font-weight: 650;
+}
+
+.account-social-button svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+}
+
+.account-switch,
+.account-demo,
+.account-notice {
+  margin: 14px 0 0;
+  color: var(--color-text-muted);
+  font-size: .81rem;
+}
+
+.account-demo {
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.account-notice {
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}
+
+.account-types {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.account-types legend {
+  margin-bottom: 7px;
+  padding: 0;
+}
+
+.account-type {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  cursor: pointer;
+}
+
+.account-type:has(input:checked) {
+  border-color: var(--color-brand);
+  background: var(--color-accent-soft);
+}
+
+.account-type input,
+.account-terms input {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  margin: 2px 0 0;
+  accent-color: var(--color-brand);
+}
+
+.account-type strong,
+.account-type small {
+  display: block;
+}
+
+.account-type strong {
+  font-size: .88rem;
+}
+
+.account-type small {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: .81rem;
+}
+
+.account-terms {
+  display: grid;
+  gap: 6px;
+}
+
+.account-terms label {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--color-text-muted);
+  font-size: .81rem;
+  cursor: pointer;
+}
+
+.account-success .account-submit {
+  margin-top: 18px;
+}
+
+.account-success-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 12px;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font-size: 1.25rem;
+}
+
+@media (max-width: 580px) {
+  .registration-fields,
+  .account-type-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .account-social-button {
+    flex-direction: column;
+    gap: 3px;
+  }
+}
+
+.account-field select { padding-right: 28px; }
+.account-field label span { color: var(--color-text-muted); font-weight: 500; }

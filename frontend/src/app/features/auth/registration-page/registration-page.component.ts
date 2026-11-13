@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
+import { FocusOnRenderDirective } from '../../../shared/directives/focus-on-render.directive';
 
 interface RegistrationForm {
   readonly name: string;
@@ -15,9 +17,8 @@ type SocialProvider = 'Google' | 'Facebook' | 'Apple';
 @Component({
   selector: 'bf-registration-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FocusOnRenderDirective],
   templateUrl: './registration-page.component.html',
-  styleUrl: './registration-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationPageComponent {
@@ -27,7 +28,14 @@ export class RegistrationPageComponent {
     password: '',
     passwordConfirmation: ''
   });
-  readonly accountType = signal<AccountType>('personal');
+  readonly accountType = signal<AccountType>(
+    inject(ActivatedRoute).snapshot.queryParamMap.get('tipo') === 'empresa' ? 'business' : 'personal'
+  );
+  readonly businesses = MOCK_BUSINESS_RESULTS;
+  readonly businessId = signal('');
+  readonly selectedBusiness = computed(() =>
+    this.businesses.find((business) => business.id === this.businessId())
+  );
   readonly acceptedTerms = signal<boolean>(false);
   readonly submitted = signal<boolean>(false);
   readonly passwordVisible = signal<boolean>(false);
@@ -56,6 +64,12 @@ export class RegistrationPageComponent {
 
   onAccountTypeSelected(accountType: AccountType): void {
     this.accountType.set(accountType);
+    if (accountType === 'personal') this.businessId.set('');
+  }
+
+  onBusinessChange(event: Event): void {
+    const target = event.target;
+    if (target instanceof HTMLSelectElement) this.businessId.set(target.value);
   }
 
   onSocialProviderSelected(provider: SocialProvider): void {

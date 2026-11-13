@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import type { BusinessSortOption, BusinessResult } from '../models/business-result.model';
+import { CATEGORIES } from '../../../shared/data/categories';
 import { MOCK_BUSINESS_RESULTS } from '../data/mock-business-results';
 
 @Component({
@@ -27,18 +28,7 @@ export class SearchResultsPageComponent {
   readonly filterLocation = signal<string>(this.location());
   readonly filterCategory = signal<string>(this.category());
 
-  readonly categories: readonly string[] = [
-    'Alimentação',
-    'Saúde e bem-estar',
-    'Beleza e estética',
-    'Comércio e lojas',
-    'Casa e construção',
-    'Automóveis e transporte',
-    'Educação',
-    'Turismo e hospedagem',
-    'Tecnologia',
-    'Outros serviços'
-  ];
+  readonly categories = CATEGORIES.map(({ name }) => name);
 
   constructor() {
     effect(() => {

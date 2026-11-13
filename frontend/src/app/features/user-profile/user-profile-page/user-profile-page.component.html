@@ -2,7 +2,6 @@
   <div class="profile-container">
     <div class="profile-topline">
       <a routerLink="/" class="profile-back-link">← Voltar para o BemFalado</a>
-      <span class="profile-demo-label">Perfil demonstrativo</span>
     </div>
 
     <section class="profile-hero" aria-labelledby="profile-name">
@@ -11,15 +10,12 @@
         <p class="profile-eyebrow">Minha conta</p>
         <h1 id="profile-name">{{ profile().displayName }}</h1>
         <p class="profile-location">{{ profile().city }}{{ profile().city && profile().state ? ', ' : '' }}{{ profile().state }}</p>
-        <p class="profile-member-since">No BemFalado desde {{ formatDate(profile().memberSince) }}</p>
+        <p class="profile-member-since">Membro desde {{ formatDate(profile().memberSince) }}</p>
       </div>
-      <button type="button" class="profile-edit-button" (click)="setSection('account')">Editar perfil</button>
+      <button type="button" class="profile-edit-button" (click)="editProfile()">Editar perfil</button>
     </section>
 
-    <div class="profile-demo-notice" role="note">
-      <span aria-hidden="true">ⓘ</span>
-      <p>Esta é uma prévia com informações fictícias. Alterações feitas aqui não são salvas em uma conta real.</p>
-    </div>
+    <p class="profile-demo-notice">Perfil demonstrativo. As alterações ficam nesta página.</p>
 
     <section class="profile-stats" aria-label="Resumo da participação">
       <article class="profile-stat-card">
@@ -31,11 +27,6 @@
         <span class="profile-stat-icon private-stat-icon" aria-hidden="true">▤</span>
         <strong>{{ privateExperienceCount() }}</strong>
         <span>Experiências privadas</span>
-      </article>
-      <article class="profile-stat-card">
-        <span class="profile-stat-icon" aria-hidden="true">⌁</span>
-        <strong>{{ publishedPraiseCount() + privateExperienceCount() }}</strong>
-        <span>Participações registradas</span>
       </article>
     </section>
 
@@ -52,12 +43,8 @@
       <section class="profile-section-content" aria-live="polite">
         @if (activeSection() === 'overview') {
           <div class="profile-section-heading">
-            <div><p class="profile-eyebrow">Seu espaço</p><h2>Visão geral</h2></div>
-            <a routerLink="/compartilhar" class="profile-primary-action">Compartilhar experiência <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="profile-welcome-card">
-            <div><h3>Suas experiências ajudam outras pessoas.</h3><p>Cada elogio publicado amplia as boas indicações disponíveis na comunidade.</p></div>
-            <span aria-hidden="true" class="welcome-spark">✳</span>
+            <h2>Visão geral</h2>
+            <a routerLink="/compartilhar" class="profile-primary-action">Escrever elogio <span aria-hidden="true">→</span></a>
           </div>
           <div class="profile-content-grid">
             <article class="profile-panel">
@@ -72,8 +59,7 @@
             <article class="profile-panel private-summary-panel">
               <div class="profile-panel-heading"><h3>Registros privados</h3><button type="button" class="profile-text-action" (click)="setSection('private')">Ver registros</button></div>
               <p class="private-summary-number">{{ privateExperienceCount() }} <span>experiências</span></p>
-              <p class="private-summary-copy">Visíveis somente para você. Nenhum relato ou motivo é exibido publicamente.</p>
-              <span class="privacy-indicator"><span aria-hidden="true">▣</span> Área privada</span>
+              <p class="private-summary-copy">Visíveis somente para você.</p>
             </article>
           </div>
         }
@@ -154,15 +140,15 @@
         }
 
         @if (activeSection() === 'account') {
-          <div class="profile-section-heading"><div><p class="profile-eyebrow">Informações pessoais</p><h2>Dados da conta</h2><p class="profile-section-description">Gerencie as informações básicas do seu perfil.</p></div>@if (!isEditing()) { <button type="button" class="profile-outline-action" (click)="startEditing()">Editar dados</button> }</div>
+          <div class="profile-section-heading"><div><p class="profile-eyebrow">Informações pessoais</p><h2 id="profile-account-title" tabindex="-1" bfFocusOnRender>Dados da conta</h2><p class="profile-section-description">Gerencie as informações básicas do seu perfil.</p></div>@if (!isEditing()) { <button type="button" class="profile-outline-action" (click)="startEditing()">Editar dados</button> }</div>
           @if (profileSavedNotice()) { <p class="profile-saved-notice" role="status">Prévia atualizada. As alterações não foram salvas em uma conta real.</p> }
           <form class="profile-account-form" (submit)="$event.preventDefault(); saveProfileDemo()">
-            <label><span>Nome de exibição</span><input type="text" name="displayName" maxlength="100" [readOnly]="!isEditing()" [value]="profile().displayName" (input)="onProfileInput($event, 'displayName')"></label>
+            <label><span>Nome de exibição</span><input type="text" name="displayName" maxlength="100" required [readOnly]="!isEditing()" [value]="profile().displayName" (input)="onProfileInput($event, 'displayName')"></label>
             <label><span>E-mail</span><input type="email" name="email" [value]="profile().email" readonly><small>Para alterar o e-mail, a versão completa exigirá confirmação de segurança.</small></label>
             <label><span>Cidade</span><input type="text" name="city" maxlength="100" [readOnly]="!isEditing()" [value]="profile().city" (input)="onProfileInput($event, 'city')"></label>
             <label><span>Sobre você</span><textarea name="bio" rows="4" maxlength="240" [readOnly]="!isEditing()" [value]="profile().bio" (input)="onProfileInput($event, 'bio')"></textarea><small>Até 240 caracteres.</small></label>
             @if (isEditing()) {
-              <div class="profile-form-actions"><button type="button" class="profile-cancel-action" (click)="cancelEditing()">Cancelar</button><button type="submit" class="profile-primary-action">Salvar alterações</button></div>
+              <div class="profile-form-actions"><button type="button" class="profile-cancel-action" (click)="cancelEditing()">Cancelar</button><button type="submit" class="profile-primary-action" [disabled]="!profile().displayName.trim()">Salvar alterações</button></div>
             }
           </form>
           <div class="profile-account-security"><div><strong>Senha e segurança</strong><p>Gerencie sua senha e as formas de acesso à conta.</p></div><a routerLink="/recuperar-senha" class="profile-text-action">Alterar senha →</a></div>

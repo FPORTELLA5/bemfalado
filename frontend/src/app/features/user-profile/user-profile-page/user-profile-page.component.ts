@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FocusOnRenderDirective } from '../../../shared/directives/focus-on-render.directive';
 import { MOCK_MODERATED_PRAISE, MOCK_PRIVATE_EXPERIENCES, MOCK_USER_PRAISES, MOCK_USER_PROFILE } from '../data/mock-user-profile';
 import { NotificationsService } from '../../notifications/services/notifications.service';
 import { ModerationAppealsService } from '../../moderation/services/moderation-appeals.service';
@@ -11,7 +12,7 @@ type ProfileField = 'displayName' | 'city' | 'bio';
 @Component({
   selector: 'bf-user-profile-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FocusOnRenderDirective],
   templateUrl: './user-profile-page.component.html',
   styleUrl: './user-profile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -26,6 +27,7 @@ export class UserProfilePageComponent {
   readonly existingAppeal = computed(() => this.appeals.findByPraiseId(this.moderatedPraise.id));
   readonly activeSection = signal<ProfileSection>('overview');
   readonly profile = signal<UserProfile>(MOCK_USER_PROFILE);
+  private savedProfile: UserProfile = MOCK_USER_PROFILE;
   readonly praises = MOCK_USER_PRAISES;
   readonly privateExperiences = MOCK_PRIVATE_EXPERIENCES;
   readonly isEditing = signal<boolean>(false);
@@ -68,6 +70,10 @@ export class UserProfilePageComponent {
   }
 
   setSection(section: ProfileSection): void {
+    if (this.activeSection() === section) return;
+    if (this.isEditing()) {
+      this.cancelEditing();
+    }
     this.activeSection.set(section);
     this.isEditing.set(false);
     this.profileSavedNotice.set(false);
@@ -87,18 +93,29 @@ export class UserProfilePageComponent {
     this.profileSavedNotice.set(false);
   }
 
+  editProfile(): void {
+    this.setSection('account');
+    this.startEditing();
+  }
+
   startEditing(): void {
     this.isEditing.set(true);
     this.profileSavedNotice.set(false);
   }
 
   saveProfileDemo(): void {
+    if (!this.isEditing()) return;
+    const current = this.profile();
+    const displayName = current.displayName.trim();
+    if (!displayName) return;
+    this.savedProfile = { ...current, displayName };
+    this.profile.set(this.savedProfile);
     this.isEditing.set(false);
     this.profileSavedNotice.set(true);
   }
 
   cancelEditing(): void {
-    this.profile.set(MOCK_USER_PROFILE);
+    this.profile.set(this.savedProfile);
     this.isEditing.set(false);
     this.profileSavedNotice.set(false);
   }

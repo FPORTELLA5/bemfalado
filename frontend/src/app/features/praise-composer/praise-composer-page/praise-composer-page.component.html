@@ -16,14 +16,12 @@
       </section>
     } @else if (!isFinished()) {
       <header class="composer-heading">
-        <p class="composer-eyebrow">Compartilhe uma boa experiência</p>
-        <h1>Uma boa experiência merece ser contada.</h1>
-        <p>Conte à comunidade o que fez esse negócio se destacar.</p>
+        <h1>Escrever elogio</h1>
       </header>
 
-      <nav class="composer-progress" aria-label="Etapas do elogio">
+      <ol class="composer-progress" aria-label="Etapas do elogio">
         @for (stepNumber of [1, 2, 3, 4]; track stepNumber) {
-          <div class="progress-step" [class.is-active]="step() === stepNumber" [class.is-complete]="step() > stepNumber">
+          <li class="progress-step" [class.is-active]="step() === stepNumber" [class.is-complete]="step() > stepNumber" [attr.aria-current]="step() === stepNumber ? 'step' : null">
             <span>{{ step() > stepNumber ? '✓' : stepNumber }}</span>
             <small>
               @switch (stepNumber) {
@@ -33,15 +31,14 @@
                 @case (4) { Revisão }
               }
             </small>
-          </div>
+          </li>
         }
-      </nav>
+      </ol>
 
       <section class="composer-card" aria-live="polite">
         @switch (step()) {
           @case (1) {
             <div class="step-heading">
-              <span>Etapa 1 de 4</span>
               <h2>Qual negócio você quer elogiar?</h2>
               <p>Busque pelo nome, categoria ou localização do estabelecimento.</p>
             </div>
@@ -180,7 +177,6 @@
           }
           @case (2) {
             <div class="step-heading">
-              <span>Etapa 2 de 4</span>
               <h2>O que merece ser destacado?</h2>
               <p>Escolha uma ou mais qualidades que fizeram parte da sua experiência.</p>
             </div>
@@ -201,7 +197,6 @@
           }
           @case (3) {
             <div class="step-heading">
-              <span>Etapa 3 de 4</span>
               <h2>Conte como foi sua experiência.</h2>
               <p>Seja específico. Seu relato pode ajudar outras pessoas.</p>
             </div>
@@ -258,7 +253,6 @@
           }
           @case (4) {
             <div class="step-heading">
-              <span>Etapa 4 de 4</span>
               <h2>Revise seu elogio.</h2>
               <p>Confira as informações antes de concluir esta demonstração.</p>
             </div>

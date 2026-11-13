@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FocusOnRenderDirective } from '../../../shared/directives/focus-on-render.directive';
 
 interface LoginForm {
   readonly email: string;
@@ -12,9 +13,8 @@ type SocialProvider = 'Google' | 'Facebook' | 'Apple';
 @Component({
   selector: 'bf-login-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FocusOnRenderDirective],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent {
