@@ -1,7 +1,40 @@
-<main>
+<main class="home-page">
   <bf-hero-search (searchRequested)="onSearch($event)" />
   <bf-category-grid (categorySelected)="onCategorySelected($event)" />
-  <bf-discovery-section />
+
+  <section class="featured-section" aria-labelledby="featured-title">
+    <div class="container">
+      <div class="featured-heading">
+        <div>
+          <p class="home-kicker">Boas descobertas começam aqui</p>
+          <h2 id="featured-title">Negócios que merecem ser conhecidos.</h2>
+          <p>Veja o que a comunidade está reconhecendo.</p>
+        </div>
+        <a class="home-text-link" routerLink="/buscar">Explorar todos <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="featured-grid">
+        @for (business of featuredBusinesses; track business.id) {
+          <a class="featured-card" [routerLink]="['/negocio', business.id]">
+            <div class="featured-card-top">
+              <span class="featured-avatar" [attr.data-accent]="business.accent">{{ business.initials }}</span>
+              <span class="featured-category">{{ business.category }}</span>
+              <span class="featured-arrow" aria-hidden="true">↗</span>
+            </div>
+            <h3>{{ business.name }}</h3>
+            <p class="featured-location">{{ business.neighborhood }}, {{ business.city }}</p>
+            <p class="featured-description">{{ business.description }}</p>
+            <div class="featured-metrics">
+              <strong>{{ business.praiseCount }} <span>elogios</span></strong>
+              <span class="featured-index">{{ business.recognitionIndex }}% <small>de reconhecimento</small></span>
+            </div>
+          </a>
+        }
+      </div>
+      <p class="featured-disclaimer">Demonstração: estabelecimentos e indicadores fictícios.</p>
+    </div>
+  </section>
+
   <bf-how-it-works />
   <bf-community-cta />
 </main>
