@@ -1,0 +1,55 @@
+name: Publicar prévia BemFalado
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Instalar dependências
+        working-directory: frontend
+        run: npm install
+
+      - name: Compilar prévia Angular
+        working-directory: frontend
+        run: npm run build -- --base-href /bemfalado/
+
+      - name: Preparar navegação interna
+        run: |
+          cp frontend/dist/bemfalado/browser/index.html frontend/dist/bemfalado/browser/404.html
+          touch frontend/dist/bemfalado/browser/.nojekyll
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Enviar site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: frontend/dist/bemfalado/browser
+
+      - name: Publicar site
+        id: deployment
+        uses: actions/deploy-pages@v4
