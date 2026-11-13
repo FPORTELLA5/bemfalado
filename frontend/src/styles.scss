@@ -1189,3 +1189,84 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* ARTE OFICIAL DO BEMFALADO — imagem original aplicada sem redesenho */
+:root {
+  --color-accent: #FE6301;
+  --color-accent-soft: #FFF0E6;
+  --bf-terracotta-dark: #C64B00;
+  --bf-blush: #FFF0E6;
+}
+:root[data-theme='dark'] {
+  --color-accent: #FF8A3D;
+  --color-accent-soft: #3F2A20;
+  --bf-terracotta-dark: #FF9A59;
+  --bf-blush: #32251F;
+}
+
+.brand { gap: 0; }
+.brand-logo {
+  display: block;
+  width: clamp(176px, 19vw, 218px);
+  max-height: 52px;
+  height: auto;
+  object-fit: contain;
+  object-position: left center;
+}
+.site-footer .brand-logo {
+  width: 208px;
+  max-height: 52px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: #fff;
+}
+.hero-brand-card {
+  width: min(410px, 94%);
+  min-height: 184px;
+  gap: 14px;
+  padding: 24px 28px;
+}
+.hero-official-logo {
+  display: block;
+  width: 100%;
+  max-width: 342px;
+  height: auto;
+  object-fit: contain;
+}
+.hero-brand-caption { text-align: center; }
+.community-panel { grid-template-columns: 184px minmax(0, 1fr) auto; }
+.community-brand-mark {
+  width: 176px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 13px;
+  border-radius: 15px;
+  background: #fff;
+}
+.community-brand-mark .community-official-logo {
+  display: block;
+  width: 100%;
+  max-height: 52px;
+  height: auto;
+  object-fit: contain;
+}
+:root[data-theme='dark'] .hero-brand-card,
+:root[data-theme='dark'] .community-brand-mark { background: #fff; }
+
+@media (max-width: 760px) {
+  .brand-logo { width: 190px; max-height: 46px; }
+  .community-panel { grid-template-columns: 150px minmax(0, 1fr); }
+  .community-brand-mark { width: 144px; height: 66px; padding: 9px; }
+  .community-brand-mark .community-official-logo { max-height: 45px; }
+}
+@media (max-width: 560px) {
+  .brand-logo { width: 164px; max-height: 40px; }
+  .site-footer .brand-logo { width: 190px; }
+  .hero-brand-card { width: 260px; min-height: 165px; padding: 18px; }
+  .hero-official-logo { max-width: 225px; }
+  .community-panel { grid-template-columns: 1fr; }
+  .community-brand-mark { width: 142px; height: 62px; }
+}
