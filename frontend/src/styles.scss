@@ -305,3 +305,14 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .community-panel { background:var(--color-action-bg); }
 .community-copy h2 { color:#fff; }
 .community-copy p { color:rgba(255,255,255,.82); }
+
+
+/* Palette lock: deep blue + approved soft terracotta. */
+:root {
+  --color-accent:#d9a58f;
+  --color-accent-soft:#f1e2da;
+}
+:root[data-theme='dark'] {
+  --color-accent:#d9a58f;
+  --color-accent-soft:#3a2e2a;
+}
