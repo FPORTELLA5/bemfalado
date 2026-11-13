@@ -23,7 +23,7 @@ No tema escuro, colocar a imagem sobre uma superfície clara, sem editar as core
 
 | Cor | Hexadecimal | Aplicação |
 |---|---|---|
-| Azul-marinho | #102A43 | Identidade principal e estrutura |
+| Azul-marinho | #0C2641 | Identidade principal e estrutura |
 | Laranja oficial | #FE6301 | Lettering, símbolo e acentos |
 | Off-white | #F5F3EF | Fundos e superfícies |
 | Grafite | #343A40 | Textos e ícones |
