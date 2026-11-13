@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FocusOnRenderDirective } from '../focus-on-render.directive';
 
 @Component({
   selector: 'bf-password-recovery-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FocusOnRenderDirective],
   templateUrl: './password-recovery-page.component.html',
-  styleUrl: './password-recovery-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PasswordRecoveryPageComponent {

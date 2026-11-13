@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FocusOnRenderDirective } from '../focus-on-render.directive';
 
 interface RegistrationForm {
   readonly name: string;
@@ -15,9 +16,8 @@ type SocialProvider = 'Google' | 'Facebook' | 'Apple';
 @Component({
   selector: 'bf-registration-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FocusOnRenderDirective],
   templateUrl: './registration-page.component.html',
-  styleUrl: './registration-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationPageComponent {
