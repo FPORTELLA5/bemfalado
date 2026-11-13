@@ -8,7 +8,7 @@ Este documento acompanha a conclusão do frontend antes do início do backend. O
 
 | Tela/funcionalidade | Status | Observações |
 |---|---|---|
-| Página inicial | Implementada — primeira versão | Componentes standalone; precisa de revisão visual, responsividade, acessibilidade e estados finais. |
+| Página inicial | Redesenho estrutural aplicado — validação visual pendente | Busca como foco principal, categorias compactas, três negócios em destaque e fluxo de participação sem seção intermediária repetitiva. Ajustes responsivos e contraste nos dois temas incluídos; precisa de validação no navegador em desktop/mobile e revisão final de acessibilidade. Logotipo final ainda depende do arquivo vetorial fiel à arte aprovada. |
 | Busca e resultados | Implementada — demonstração | Usa quatro negócios fictícios; filtros e ordenação são locais. Faltam refinamentos de filtros, paginação/rolagem, sugestões e estados completos. |
 | Perfil público do negócio | Implementado — demonstração | Usa dados e elogios fictícios. Inclui ação de sinalização privada em cada elogio, com formulário tipado e motivos estruturados. O registro é apenas demonstrativo, em memória, sem envio real, autenticação ou persistência. |
 | Navegação entre telas | Implementada — base | Angular Router com rotas para início, busca, negócio, compartilhamento, cadastro, login, recuperação, perfil, favoritos, notificações, páginas institucionais/legais e demonstração da central de moderação. Precisa validar navegação, histórico, links e rota inexistente. |
