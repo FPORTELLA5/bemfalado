@@ -295,3 +295,13 @@ button:focus-visible, a:focus-visible, input:focus-visible {
  .how-section { padding:34px 0; }.steps-grid { grid-template-columns:1fr; }.step-item { min-height:0; padding:15px; }
  .community-section { padding-bottom:32px; }.community-panel { align-items:flex-start; flex-direction:column; padding:25px 21px; }.button-light { width:100%; text-align:center; }
 }
+
+
+/* Contraste estável para ações principais nos dois temas. */
+:root { --color-action-bg:#26364a; --color-action-hover:#1d2b3d; }
+:root[data-theme='dark'] { --color-action-bg:#34465d; --color-action-hover:#425873; }
+.search-submit { background:var(--color-action-bg); color:#fff; }
+.search-submit:hover { background:var(--color-action-hover); filter:none; }
+.community-panel { background:var(--color-action-bg); }
+.community-copy h2 { color:#fff; }
+.community-copy p { color:rgba(255,255,255,.82); }
