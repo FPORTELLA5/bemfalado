@@ -1,13 +1,13 @@
 # Manual inicial da marca — BemFalado
 
-Status: primeira versão conceitual. A identidade visual está em desenvolvimento; não representa ainda uma arte-final vetorial nem validação jurídica do nome.
+Status: conceito do logotipo aprovado; arquivo vetorial final pendente de reprodução fiel e validação em aplicações.
 
 ## 1. Essência da marca
 
 **Nome:** BemFalado  
-**Slogan:** Boas experiências merecem ser compartilhadas.  
+**Slogan:** Boas experiências merecem ser compartilhadas.
 
-O BemFalado nasce como uma plataforma descontraída, próxima e fácil de entender, com o objetivo de construir confiança. A longo prazo, deve se tornar uma referência para descobrir estabelecimentos, empresas e serviços a partir de experiências positivas compartilhadas por usuários reais.
+O BemFalado é uma plataforma descontraída, próxima e fácil de entender, que transmite confiança. Seu propósito é ajudar pessoas a descobrir estabelecimentos, empresas e serviços por meio de experiências positivas compartilhadas por usuários reais.
 
 ## 2. Personalidade e voz
 
@@ -16,103 +16,71 @@ O BemFalado nasce como uma plataforma descontraída, próxima e fácil de entend
 - Clara, simples e confiável.
 - Popular na linguagem, cuidadosa com a credibilidade.
 
-Exemplos:
-- “Boas experiências merecem ser compartilhadas.”
-- “Descubra lugares e serviços bem recomendados.”
-- “Veja o que pessoas reais elogiam.”
+## 3. Logotipo — conceito aprovado e protegido
 
-Evitar: linguagem agressiva, exageros promocionais, promessas de reputação garantida e expressões que sugiram avaliações compradas.
+**Conceito aprovado pela responsável pelo projeto em 12/11/2026.**
 
-## 3. Símbolo e logotipo
+O logotipo é composto por:
+- Um balão de conversa estilizado.
+- Um traço curvo que sugere um sorriso.
+- Três reticências integradas ao próprio símbolo, como parte inseparável da composição.
+- Azul profundo como cor estrutural e terracota em detalhes expressivos.
+- Lettering arredondado, amigável e profissional com o nome BemFalado.
 
-### Conceito escolhido
+### Regra de preservação
 
-Balão de conversa estilizado com um traço curvo que sugere um sorriso. A forma representa conversa, boa experiência e recomendação espontânea.
+A composição aprovada deve ser reproduzida fielmente. Não redesenhar por interpretação, não substituir por outro ícone, não remover, reposicionar ou separar as três reticências, não alterar proporções, traços, cores ou tipografia da arte aprovada.
 
-### Diretrizes
+As três reticências são parte do logotipo — não são decoração independente da interface.
 
-- O símbolo deve ser simples e reconhecível sem o nome.
-- Evitar detalhes pequenos, rosto completo ou aparência infantil.
-- Usar azul profundo como cor estrutural.
-- Aplicar terracota apenas em um detalhe expressivo, como o traço do sorriso ou pequenos acentos.
-- O lettering deve ser robusto, arredondado e legível.
-- Não usar efeitos 3D, sombras pesadas ou gradientes na versão principal.
+**Atenção:** o SVG atualmente usado no cabeçalho ainda não deve ser considerado a arte-final aprovada. Não o expandir para outras telas nem fazer novas alterações nele como se fosse o logo definitivo. A reprodução vetorial final deve ser conferida lado a lado com a imagem aprovada antes de substituir qualquer aplicação.
 
-### Versões a produzir
+### Aplicações previstas após validação da arte-final
 
-1. Horizontal: símbolo à esquerda e nome à direita.
-2. Vertical: símbolo acima do nome.
-3. Símbolo isolado: para ícone de aplicativo e avatar.
-4. Monocromática: uma única cor.
-5. Negativa: versão clara para fundos escuros.
-
-A imagem conceitual criada na exploração serve como referência visual; a arte-final deverá ser redesenhada em vetor e revisada em diferentes tamanhos.
+1. Versão horizontal: símbolo à esquerda e nome à direita.
+2. Versão vertical: símbolo acima do nome.
+3. Símbolo isolado: favicon e ícone de aplicativo.
+4. Versões monocromática e negativa, somente se mantiverem integralmente a composição.
 
 ## 4. Paleta de cores
 
 | Cor | Código | Uso |
 |---|---|---|
-| Azul profundo | #26364A | Cor institucional principal, logotipo, navegação e títulos |
-| Terracota suave | #D9A58F | Acentos do símbolo, detalhes e pequenas chamadas |
-| Off-white | #F5F3EF | Fundo principal e superfícies claras |
-| Grafite | #343A40 | Texto, ícones e elementos secundários |
+| Azul profundo | #26364A | Cor institucional principal |
+| Terracota suave | #D9A58F | Detalhes expressivos |
+| Off-white | #F5F3EF | Fundo e superfícies |
+| Grafite | #343A40 | Texto e elementos secundários |
 
-### Proporção orientativa
-
-- Azul profundo: predominante em elementos de marca.
-- Off-white: base dos layouts e áreas de respiro.
-- Grafite: textos e informações.
-- Terracota: uso pontual; não deve competir com o azul.
-
-A terracota suave não deve ser usada como texto pequeno sobre off-white sem teste de contraste. Para textos e controles, priorizar combinações que atendam WCAG 2.2 AA.
+A paleta deve ser aplicada de forma consistente. Não introduzir novas cores dominantes sem aprovação. A terracota não deve ser usada em texto pequeno sobre off-white sem validação de contraste.
 
 ## 5. Temas da interface
 
-A plataforma terá tema claro e tema escuro. A identidade da marca deverá funcionar nos dois contextos sem perder contraste, legibilidade ou reconhecimento.
-
-- Tema claro: usar off-white como base, azul profundo como cor institucional e grafite para textos.
-- Tema escuro: definir superfícies escuras e cores de texto claras, preservando o azul e a terracota como acentos adaptados ao contraste necessário.
-- Não aplicar simplesmente uma inversão automática de todas as cores; criar tokens semânticos próprios para fundo, superfície, texto, borda, ação e estados.
-- Permitir seleção manual entre claro e escuro e opção “seguir sistema”.
-- Salvar a preferência do usuário para as próximas visitas.
-- Validar contraste e estados interativos nos dois temas conforme WCAG 2.2 AA.
+A plataforma terá tema claro e escuro, além da opção de acompanhar o sistema operacional. Criar tokens semânticos próprios para fundo, superfície, texto, borda, ação e estados. Não inverter mecanicamente as cores. Validar contraste e legibilidade nos dois temas conforme WCAG 2.2 AA.
 
 ## 6. Tipografia
 
-Direção recomendada para validação:
 - Títulos e chamadas: Manrope, com pesos semibold ou bold.
-- Textos corridos e interface: Inter, com pesos regular e medium.
-- Lettering do logotipo: desenho tipográfico ajustado manualmente, não depender apenas da fonte aplicada sem customização.
+- Textos e interface: Inter, com pesos regular e medium.
+- O lettering do logotipo é parte da arte e não deve ser substituído por uma fonte aplicada automaticamente.
 
-A escolha final deverá considerar legibilidade em telas pequenas, acentuação em português e suporte a inglês e espanhol.
+## 7. Direção de interface
 
-## 7. Elementos gráficos
+- Visual contemporâneo, descontraído, confiante e acolhedor.
+- Hierarquia visual clara, conteúdo objetivo e telas compactas.
+- Evitar espaços vazios sem função, blocos repetidos, excesso de cartões e aparência de template genérico.
+- Usar elementos gráficos com moderação; as três reticências do logotipo não devem ser copiadas como ornamento aleatório.
+- Priorizar consistência, acessibilidade e boa experiência em desktop e mobile.
 
-- Usar curvas e formas derivadas do balão como elementos de apoio.
-- Ícones simples, preferencialmente lineares e com espessura consistente.
-- Espaçamento generoso e layouts limpos.
-- Evitar excesso de estrelas, medalhas e sinais que façam a plataforma parecer um sistema tradicional de notas.
+## 8. Acessibilidade e consistência
 
-## 8. Aplicações prioritárias
-
-1. Ícone do aplicativo e favicon.
-2. Cabeçalho do site e versão responsiva.
-3. Perfil de redes sociais e capa.
-4. Cartões de compartilhamento de elogios.
-5. Templates para divulgação de estabelecimentos bem recomendados.
-
-## 9. Acessibilidade e consistência
-
-- Validar contraste de texto, ícones e controles conforme WCAG 2.2 AA.
+- Validar contraste conforme WCAG 2.2 AA.
 - Não comunicar estados apenas por cor.
-- Manter área de respiro ao redor do logotipo.
-- Testar símbolo em 16, 24, 32 e 48 px, além de tamanhos maiores.
-- Não distorcer, inclinar, contornar ou alterar arbitrariamente as cores do logotipo.
+- Preservar proporção e área de proteção do logotipo.
+- Testar o símbolo em tamanhos pequenos sem redesenhar seus elementos.
 
-## 10. Pendências antes da identidade final
+## 9. Pendências
 
-- Verificar disponibilidade do nome BemFalado no INPI.
-- Verificar domínio e identificadores nas redes sociais.
-- Redesenhar o símbolo e o lettering em vetor.
-- Testar legibilidade, contraste e reconhecimento em tamanhos pequenos.
-- Aprovar arquivos finais e suas variações.
+- Armazenar no repositório o arquivo de arte aprovado, sem alterações.
+- Reproduzir o vetor somente com conferência visual direta com a referência aprovada.
+- Validar aplicações em cabeçalho, mobile, favicon e redes sociais.
+- Verificar disponibilidade do nome no INPI, domínio e identificadores nas redes sociais.
