@@ -332,3 +332,79 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .brand-name .brand-name-first { color: #26364a; }
 .brand-name .brand-name-second { color: #d9a58f; }
 :root[data-theme='dark'] .brand-name .brand-name-first { color: #f5f3ef; }
+
+
+/* PALETA TEMPORÁRIA DE TESTE — NOV/2026
+   Cores propositalmente contrastantes para confirmar atualização visual no Preview.
+   Substituir pela paleta oficial após a validação. */
+:root {
+  --color-brand: #5b21b6;
+  --color-brand-hover: #4c1d95;
+  --color-accent: #0891b2;
+  --color-accent-soft: #cffafe;
+  --color-bg: #f3e8ff;
+  --color-surface: #ffffff;
+  --color-surface-raised: #faf5ff;
+  --color-text: #24113d;
+  --color-text-muted: #624b7d;
+  --color-border: #d8b4fe;
+  --color-border-strong: #a78bfa;
+  --color-success: #15803d;
+  --color-action-bg: #5b21b6;
+  --color-action-hover: #4c1d95;
+  --shadow-soft: 0 12px 32px rgba(91, 33, 182, .16);
+}
+:root[data-theme='dark'] {
+  --color-brand: #c4b5fd;
+  --color-brand-hover: #ddd6fe;
+  --color-accent: #67e8f9;
+  --color-accent-soft: #164e63;
+  --color-bg: #180d2b;
+  --color-surface: #24133d;
+  --color-surface-raised: #321b50;
+  --color-text: #f5f0ff;
+  --color-text-muted: #c4b5d8;
+  --color-border: #563778;
+  --color-border-strong: #76539b;
+  --color-success: #86efac;
+  --color-action-bg: #6d28d9;
+  --color-action-hover: #7c3aed;
+  --shadow-soft: 0 12px 32px rgba(0, 0, 0, .3);
+}
+
+/* Sobrescreve também as cores fixas da página inicial para o teste ser evidente. */
+body, .home-page { background: var(--color-bg) !important; color: var(--color-text) !important; }
+.site-header, .categories-section, .featured-section, .how-section,
+.community-section { background: var(--color-surface) !important; }
+.hero, .discovery-section { background: #ede9fe !important; }
+:root[data-theme='dark'] .hero,
+:root[data-theme='dark'] .discovery-section { background: #201036 !important; }
+.hero h1, .section-heading, .featured-heading h2, .category-text strong,
+.featured-card h3, .step-item h3, .art-bubble p, .visual-card > p {
+  color: var(--color-brand) !important;
+}
+.hero h1 em, .hero-eyebrow, .eyebrow, .hero-note-symbol,
+.hero-note-small span, .featured-arrow, .category-arrow, .home-text-link span {
+  color: var(--color-accent) !important;
+}
+.hero-description, .section-copy, .category-text small, .featured-location,
+.featured-description, .step-item p, .featured-disclaimer {
+  color: var(--color-text-muted) !important;
+}
+.search-panel, .hero-note-main, .hero-note-small, .category-item,
+.featured-card, .step-item, .art-bubble, .visual-card {
+  background: var(--color-surface-raised) !important;
+  border-color: var(--color-border) !important;
+}
+.search-submit, .button-primary, .community-panel {
+  background: var(--color-action-bg) !important;
+}
+.search-submit:hover, .button-primary:hover { background: var(--color-action-hover) !important; }
+.category-icon, .step-icon, .visual-pill {
+  color: var(--color-brand) !important;
+  background: var(--color-accent-soft) !important;
+}
+.community-panel { border: 2px solid var(--color-accent) !important; }
+.community-copy .eyebrow, .community-copy .community-kicker { color: #67e8f9 !important; }
+.search-field svg { stroke: var(--color-accent) !important; }
+.search-divider { background: var(--color-border) !important; }
