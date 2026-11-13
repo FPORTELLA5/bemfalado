@@ -1,6 +1,6 @@
 # Direção visual da marca
 
-Status: conceito do logotipo aprovado em 12/11/2026. A arte vetorial final deve ser reproduzida fielmente a partir da referência aprovada.
+Status: logotipo oficial recebido em 12/11/2026, salvo no repositório e integrado à interface.
 
 ## Personalidade
 
@@ -9,24 +9,26 @@ Status: conceito do logotipo aprovado em 12/11/2026. A arte vetorial final deve 
 - Humana, sem excesso de formalidade.
 - Evitar aparência de plataforma genérica ou interface produzida por template.
 
-## Logotipo — conceito aprovado
+## Logotipo oficial
 
-A marca usa um balão de conversa estilizado, com um traço curvo que sugere um sorriso e **três reticências integradas ao próprio símbolo**. A composição inclui azul profundo, detalhes em terracota e lettering arredondado, amigável e profissional.
+O arquivo oficial está em `frontend/src/assets/branding/logo-bemfalado.png`.
 
-**Regra obrigatória:** preservar a arte aprovada sem alterar desenho, posição das reticências, proporções, cores, traços ou lettering. As reticências fazem parte do logotipo e não devem ser tratadas como ornamento independente.
+A marca apresenta um balão de conversa azul-marinho, um sorriso laranja dentro do balão, três traços laranja de destaque acima da lateral superior direita e o lettering horizontal “BemFalado”, com “Bem” em azul-marinho e “Falado” em laranja.
 
-O SVG atualmente aplicado no cabeçalho não está validado como a arte-final aprovada. Não reutilizá-lo como referência definitiva nem fazer alterações adicionais nele até que o arquivo vetorial seja conferido diretamente com a imagem aprovada.
+**Regra obrigatória:** usar o arquivo original como uma única imagem, sem redesenhar, separar elementos, substituir a tipografia, transformar os três traços em pontos ou alterar proporções e cores. Exibir com proporção preservada e `object-fit: contain`.
+
+No tema escuro, colocar a imagem sobre uma superfície clara, sem editar as cores originais do logo.
 
 ## Paleta de referência
 
 | Cor | Hexadecimal | Aplicação |
 |---|---|---|
-| Azul profundo | #26364A | Cor institucional |
-| Terracota suave | #D9A58F | Detalhes do símbolo e acentos |
+| Azul-marinho | #102A43 | Identidade principal e estrutura |
+| Laranja oficial | #FE6301 | Lettering, símbolo e acentos |
 | Off-white | #F5F3EF | Fundos e superfícies |
 | Grafite | #343A40 | Textos e ícones |
 
-Não introduzir outra cor dominante sem aprovação. Validar contraste antes de aplicar cores em textos e controles.
+O laranja deve receber tonalidade mais escura quando aplicado em texto pequeno sobre fundos claros, para garantir contraste. Não usar terracota como substituta da cor oficial da marca.
 
 ## Direção das telas
 
@@ -40,8 +42,8 @@ Não introduzir outra cor dominante sem aprovação. Validar contraste antes de 
 
 ## Tipografia
 
-Manrope para títulos e Inter para interface e textos. O lettering do logotipo é parte da arte aprovada e não deve ser substituído por tipografia automática.
+Manrope para títulos e DM Sans para interface e textos. O lettering do logotipo é parte da arte original e não deve ser substituído por tipografia automática.
 
 ## Próxima validação
 
-A primeira tela a ser redesenhada é a página inicial. Antes de replicar o sistema visual nas demais páginas, validar a home em desktop e mobile.
+Conferir a página inicial em desktop e mobile, incluindo cabeçalho, destaque, chamada principal e rodapé. Depois validar as demais páginas para garantir que a marca seja usada de forma consistente.
