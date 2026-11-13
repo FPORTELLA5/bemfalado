@@ -230,3 +230,13 @@ bf-root:has(.account-page, .profile-page, .favorites-page, .notifications-page, 
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
   }
 }
+
+/* Seletor de idiomas com foco visível e leitura por leitores de tela. */
+.language-control { display: flex; align-items: center; }
+.language-select {
+  min-width: 58px; min-height: 38px; padding: 6px 5px;
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  background: var(--color-surface); color: var(--color-text);
+  font: 700 .8rem sans-serif; cursor: pointer;
+}
+.language-select:focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; }

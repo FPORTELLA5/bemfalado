@@ -6,23 +6,29 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Navegação principal">
-      <a href="/buscar">Explorar</a>
-      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page">Categorias</a>
-      <a href="/como-funciona">Como funciona</a>
-      <a href="/empresas">Para empresas</a>
+      <a href="/buscar">{{ languageService.t('explore') }}</a>
+      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page">{{ languageService.t('categories') }}</a>
+      <a href="/como-funciona">{{ languageService.t('how') }}</a>
+      <a href="/empresas">{{ languageService.t('companies') }}</a>
     </nav>
 
     <div class="header-actions">
+      <label class="language-control">
+        <span class="sr-only">Idioma da interface</span>
+        <select class="language-select" aria-label="Idioma da interface" [value]="languageService.language()" (change)="onLanguageChange($event)">
+          <option value="pt">PT</option><option value="en">EN</option><option value="es">ES</option>
+        </select>
+      </label>
       <button class="theme-toggle" type="button" (click)="themeToggle.emit()"
-        [attr.aria-label]="darkMode() ? 'Ativar modo claro' : 'Ativar modo escuro'"
-        [title]="darkMode() ? 'Ativar modo claro' : 'Ativar modo escuro'">
+        [attr.aria-label]="darkMode() ? languageService.t('light') : languageService.t('dark')"
+        [title]="darkMode() ? languageService.t('light') : languageService.t('dark')">
         @if (darkMode()) {
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/></svg>
         } @else {
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13.2A9 9 0 0 1 10.8 3 9 9 0 1 0 21 13.2Z"/></svg>
         }
       </button>
-      <a class="login-link" href="/entrar">Entrar</a>
+      <a class="login-link" href="/entrar">{{ languageService.t('login') }}</a>
       <a class="button button-small button-primary header-cta" href="/criar-conta">Criar conta <span aria-hidden="true">↗</span></a>
       <button class="mobile-menu-button" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" [attr.aria-label]="mobileMenuOpen() ? 'Fechar menu' : 'Abrir menu'">
         @if (mobileMenuOpen()) {
@@ -35,12 +41,12 @@
   </div>
   @if (mobileMenuOpen()) {
     <nav class="mobile-nav" id="mobile-navigation" aria-label="Navegação móvel">
-      <a href="/buscar" (click)="closeMobileMenu()">Explorar</a>
-      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMobileMenu()">Categorias</a>
-      <a href="/como-funciona" (click)="closeMobileMenu()">Como funciona</a>
-      <a href="/empresas" (click)="closeMobileMenu()">Para empresas</a>
-      <a href="/entrar" (click)="closeMobileMenu()">Entrar</a>
-      <a href="/criar-conta" (click)="closeMobileMenu()">Criar conta</a>
+      <a href="/buscar" (click)="closeMobileMenu()">{{ languageService.t('explore') }}</a>
+      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMobileMenu()">{{ languageService.t('categories') }}</a>
+      <a href="/como-funciona" (click)="closeMobileMenu()">{{ languageService.t('how') }}</a>
+      <a href="/empresas" (click)="closeMobileMenu()">{{ languageService.t('companies') }}</a>
+      <a href="/entrar" (click)="closeMobileMenu()">{{ languageService.t('login') }}</a>
+      <a href="/criar-conta" (click)="closeMobileMenu()">{{ languageService.t('signup') }}</a>
     </nav>
   }
 </header>

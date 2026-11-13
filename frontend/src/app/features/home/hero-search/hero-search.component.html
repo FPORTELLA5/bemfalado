@@ -1,27 +1,27 @@
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-content">
-      <h1>Descubra lugares que fazem <em>bem falar.</em></h1>
-      <p class="hero-description">Encontre negócios recomendados por quem já viveu a experiência.</p>
+      <h1>{{ languageService.t('heroStart') }} <em>{{ languageService.t('heroEnd') }}</em></h1>
+      <p class="hero-description">{{ languageService.t('heroText') }}</p>
 
       <form class="search-panel" (submit)="onSearchSubmit($event)">
         <label class="search-field search-main-field">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
-          <span class="sr-only">O que você procura?</span>
-          <input id="search-input" type="search" placeholder="Lugar, empresa ou serviço" [value]="searchTerm()" (input)="onSearchTermInput($event)">
+          <span class="sr-only">{{ languageService.t('searchHint') }}</span>
+          <input id="search-input" type="search" [placeholder]="languageService.t('searchPlaceholder')" [value]="searchTerm()" (input)="onSearchTermInput($event)">
         </label>
         <span class="search-divider" aria-hidden="true"></span>
         <label class="search-field location-field">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></svg>
-          <span class="sr-only">Cidade ou região</span>
-          <input type="text" placeholder="Cidade ou bairro" [value]="locationTerm()" (input)="onLocationInput($event)">
+          <span class="sr-only">{{ languageService.t('locationHint') }}</span>
+          <input type="text" [placeholder]="languageService.t('locationPlaceholder')" [value]="locationTerm()" (input)="onLocationInput($event)">
         </label>
-        <button class="button button-primary search-submit" type="submit">Buscar <span aria-hidden="true">→</span></button>
+        <button class="button button-primary search-submit" type="submit">{{ languageService.t('searchButton') }} <span aria-hidden="true">→</span></button>
       </form>
       @if (searchFeedback()) {
         <p class="search-feedback" role="status" aria-live="polite">{{ searchFeedback() }}</p>
       }
-      <p class="hero-footnote"><span aria-hidden="true">✓</span> Explore sem criar uma conta.</p>
+      <p class="hero-footnote"><span aria-hidden="true">✓</span> {{ languageService.t('exploreFree') }}</p>
     </div>
   </div>
 </section>

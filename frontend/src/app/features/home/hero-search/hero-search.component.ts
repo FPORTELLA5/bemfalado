@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import type { SearchCriteria } from '../../../shared/models/search-criteria.type';
+import { LanguageService } from '../../../shared/services/language.service';
 
 @Component({
   selector: 'bf-hero-search',
@@ -8,6 +9,7 @@ import type { SearchCriteria } from '../../../shared/models/search-criteria.type
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroSearchComponent {
+  readonly languageService = inject(LanguageService);
   readonly searchRequested = output<SearchCriteria>();
   readonly searchTerm = signal('');
   readonly locationTerm = signal('');
@@ -32,10 +34,10 @@ export class HeroSearchComponent {
     event.preventDefault();
     const term = this.searchTerm().trim();
     if (!term) {
-      this.searchFeedback.set('Digite o nome de um lugar, empresa ou serviço para começar.');
+      this.searchFeedback.set(this.languageService.t('empty'));
       return;
     }
-    this.searchFeedback.set('Abrindo resultados...');
+    this.searchFeedback.set(this.languageService.t('loading'));
     this.searchRequested.emit({ term, location: this.locationTerm().trim() });
   }
 }
