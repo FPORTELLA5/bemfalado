@@ -14,13 +14,15 @@ Evoluir a home Angular do BemFalado usando o layout do Site `bemfalado-explorar`
 - Usar cabeçalho compacto, filtros por categoria e cards fotográficos de estabelecimentos.
 - Reduzir informações repetidas e espaços vazios sem comprometer a leitura.
 - Consolidar um sistema visual reutilizável nas próximas telas.
-- Preservar responsividade, acessibilidade, navegação por teclado, modo claro/escuro e tradução futura.
+- Preservar responsividade, acessibilidade, navegação por teclado e modo claro/escuro.
+- Disponibilizar a home em português, inglês e espanhol já nesta etapa.
 - Manter TypeScript totalmente tipado, sem `any`.
 
 ## Não objetivos desta etapa
 
 - Não redesenhar todas as telas de uma vez.
 - Não implementar back-end, autenticação real, persistência ou login social.
+- Não traduzir todas as demais telas nesta etapa; o mecanismo será reutilizável e a home será a primeira tela totalmente traduzida.
 - Não alterar as regras de negócio, ranking ou moderação.
 - Não copiar literalmente o Site de referência nem substituir a identidade oficial do BemFalado.
 - Não remover os dados fictícios usados para demonstrar o front-end.
@@ -35,6 +37,7 @@ Evoluir a home Angular do BemFalado usando o layout do Site `bemfalado-explorar`
 - A paleta Petróleo e névoa continua aprovada; o layout de referência não autoriza copiar a paleta roxa.
 - A versão escura deve manter as cores da marca e contraste adequado.
 - O front-end será finalizado e validado antes do back-end.
+- Idioma padrão: português do Brasil, com inglês e espanhol selecionáveis e preferência preservada no navegador.
 
 ## Abordagens consideradas
 
@@ -56,6 +59,7 @@ Riscos: mais regressões, revisão difícil e maior retrabalho se a direção pr
 
 ### Cabeçalho
 
+- Seletor de idioma acessível para Português, English e Español.
 - Altura compacta e comportamento fixo já existente.
 - Logo oficial à esquerda.
 - Navegação principal ao centro no desktop.
@@ -85,6 +89,16 @@ Riscos: mais regressões, revisão difícil e maior retrabalho se a direção pr
 - CTA final para publicar elogio.
 - Rodapé simplificado e consistente.
 
+## Internacionalização
+
+- Centralizar todo o texto visível da home em catálogos tipados, sem strings duplicadas nos templates.
+- Disponibilizar os idiomas `pt-BR`, `en` e `es` por um serviço de idioma reutilizável.
+- Usar `pt-BR` como fallback quando uma chave não existir.
+- Persistir a escolha em `localStorage` e respeitar o idioma do navegador no primeiro acesso quando for inglês ou espanhol.
+- Atualizar o atributo `lang` do documento ao trocar o idioma.
+- Traduzir navegação, botões, campos, placeholders, mensagens de validação, categorias, cards demonstrativos, seções e rodapé da home.
+- Garantir que o seletor funcione por teclado e tenha nome acessível.
+
 ## Sistema visual
 
 - Criar tokens semânticos para superfície, texto, borda, ação, destaque e estados nos temas claro e escuro.
@@ -103,6 +117,7 @@ A implementação partirá da branch `design/petroleo-e-nevoa` em uma nova branc
 - Executar `npm run validate` para a regra de ausência de `any` e o build.
 - Verificar home em desktop, tablet e celular.
 - Conferir temas claro, escuro e automático.
+- Conferir a home completa em `pt-BR`, `en` e `es`, incluindo persistência após recarregar e atualização do atributo `lang`.
 - Percorrer busca, navegação por teclado, menu móvel, troca de tema e CTA de elogio.
 - Conferir foco visível, nomes acessíveis, contraste e redução de movimento.
 - Revisar console do navegador para erros.
