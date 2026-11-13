@@ -1,45 +1,40 @@
 <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="eyebrow hero-eyebrow"><span class="eyebrow-line"></span> Boas experiências merecem ser compartilhadas</div>
-        <h1>O próximo lugar que você vai <em>adorar</em> pode estar aqui.</h1>
-        <p class="hero-description">Descubra lugares e serviços bem falados por pessoas reais. Boas experiências compartilhadas ajudam você a escolher melhor.</p>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <p class="hero-eyebrow"><span class="hero-eyebrow-mark" aria-hidden="true">✳</span> Boas experiências merecem ser compartilhadas</p>
+      <h1>Descubra lugares que fazem <em>bem falar.</em></h1>
+      <p class="hero-description">Encontre empresas e serviços recomendados por experiências reais.</p>
 
-        <form class="search-panel" (submit)="onSearchSubmit($event)">
-          <label class="search-field search-main-field">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
-            <span class="sr-only">O que você procura?</span>
-            <input id="search-input" type="search" placeholder="Lugar, empresa ou serviço" [value]="searchTerm()" (input)="onSearchTermInput($event)">
-          </label>
-          <span class="search-divider" aria-hidden="true"></span>
-          <label class="search-field location-field">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></svg>
-            <span class="sr-only">Cidade ou região</span>
-            <input type="text" placeholder="Cidade ou região" [value]="locationTerm()" (input)="onLocationInput($event)">
-          </label>
-          <button class="button button-primary search-submit" type="submit">
-            Buscar <span aria-hidden="true">→</span>
-          </button>
-        </form>
-        @if (searchFeedback()) {
-          <p class="search-feedback" role="status" aria-live="polite">{{ searchFeedback() }}</p>
-        }
-        <div class="hero-footnote"><span class="footnote-dot"></span> Pesquise livremente. Não precisa criar uma conta.</div>
-      </div>
-
-      <div class="hero-art" aria-label="Ilustração abstrata de conversas e boas experiências">
-        <div class="art-orbit orbit-one"></div>
-        <div class="art-orbit orbit-two"></div>
-        <div class="art-note note-top"><span class="note-icon">✳</span><span>Atendimento que faz a diferença</span></div>
-        <div class="art-note note-bottom"><span class="note-check">✓</span><span>Uma experiência para lembrar</span></div>
-        <div class="art-bubble">
-          <span class="bubble-quote">“</span>
-          <p>Tem lugares que conquistam a gente nos detalhes.</p>
-          <div class="bubble-signature"><span class="signature-avatar">M</span><span><strong>Marina R.</strong><small>Compartilhou uma experiência</small></span></div>
-        </div>
-        <span class="art-spark spark-one">✳</span>
-        <span class="art-spark spark-two">✦</span>
-        <span class="art-spark spark-three">✳</span>
-      </div>
+      <form class="search-panel" (submit)="onSearchSubmit($event)">
+        <label class="search-field search-main-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+          <span class="sr-only">O que você procura?</span>
+          <input id="search-input" type="search" placeholder="Nome do lugar, empresa ou serviço" [value]="searchTerm()" (input)="onSearchTermInput($event)">
+        </label>
+        <span class="search-divider" aria-hidden="true"></span>
+        <label class="search-field location-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></svg>
+          <span class="sr-only">Cidade ou região</span>
+          <input type="text" placeholder="Cidade ou região" [value]="locationTerm()" (input)="onLocationInput($event)">
+        </label>
+        <button class="button button-primary search-submit" type="submit">Buscar <span aria-hidden="true">→</span></button>
+      </form>
+      @if (searchFeedback()) {
+        <p class="search-feedback" role="status" aria-live="polite">{{ searchFeedback() }}</p>
+      }
+      <p class="hero-footnote"><span aria-hidden="true">✓</span> Explore à vontade. Não precisa criar uma conta.</p>
     </div>
-  </section>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-art-backdrop"></div>
+      <div class="hero-note hero-note-main">
+        <span class="hero-note-symbol">“</span>
+        <p>O cuidado nos detalhes faz toda a diferença.</p>
+        <span class="hero-note-caption">Uma experiência compartilhada</span>
+      </div>
+      <div class="hero-note hero-note-small"><span>✳</span> Tem coisa boa por aí.</div>
+      <span class="hero-art-dot hero-art-dot-one"></span>
+      <span class="hero-art-dot hero-art-dot-two"></span>
+    </div>
+  </div>
+</section>
