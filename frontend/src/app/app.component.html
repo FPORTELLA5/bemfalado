@@ -1,3 +1,21 @@
+<svg class="brand-filter" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="bemfalado-logo-on-dark" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+      <!-- Isolate orange, then map the other tones to the dark-theme blue while preserving alpha. -->
+      <feColorMatrix type="matrix" values="
+        1.28 0 -1.28 0 -0.25
+        1.28 0 -1.28 0 -0.25
+        1.28 0 -1.28 0 -0.25
+        0 0 0 1 0" />
+      <feColorMatrix type="matrix" values="
+        0.603922 0 0 0 0.388235
+       -0.125490 0 0 0 0.517647
+       -0.643137 0 0 0 0.654902
+        0 0 0 1 0" />
+    </filter>
+  </defs>
+</svg>
+
 <bf-header [themePreference]="themePreference()" (themeChange)="setTheme($event)" />
 
 <router-outlet />

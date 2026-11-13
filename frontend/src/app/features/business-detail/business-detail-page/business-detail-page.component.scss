@@ -1,6 +1,6 @@
 .business-detail-page {
   min-height: 70vh;
-  padding: clamp(30px, 5vw, 58px) 24px 96px;
+  padding: clamp(24px, 5vw, 44px) 24px 78px;
   background: var(--color-bg);
 }
 
@@ -25,30 +25,9 @@
 }
 
 .detail-demo-notice {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-  padding: 12px 15px;
-  border: 1px solid var(--color-border);
-  border-radius: 9px;
-  background: var(--color-surface);
+  margin: -8px 0 14px;
   color: var(--color-text-muted);
-  font-size: .76rem;
-  line-height: 1.5;
-}
-
-.detail-demo-notice span {
-  display: grid;
-  width: 19px;
-  height: 19px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--color-bg);
-  color: var(--color-brand);
-  font-size: .7rem;
-  font-weight: 800;
+  font-size: .8rem;
 }
 
 .business-profile,
@@ -87,8 +66,7 @@
 
 .profile-copy { min-width: 0; }
 
-.profile-category,
-.section-eyebrow {
+.profile-category {
   color: var(--color-accent);
   font-size: .68rem;
   font-weight: 750;
@@ -114,7 +92,7 @@
 
 .profile-description {
   max-width: 680px;
-  margin: 23px 0 16px;
+  margin: 16px 0 12px;
   color: var(--color-text-muted);
   font-size: .9rem;
   line-height: 1.75;
@@ -131,15 +109,16 @@
 .praise-qualities span {
   padding: 6px 10px;
   border-radius: 6px;
-  background: var(--color-bg);
-  color: var(--color-text-muted);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
   font-size: .7rem;
 }
 
 .profile-actions {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .profile-praise-link,
@@ -148,11 +127,11 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 42px;
+  min-height: 44px;
   padding: 11px 16px;
   border-radius: 8px;
-  background: var(--color-brand);
-  color: #fff;
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
   font-size: .8rem;
   font-weight: 700;
   text-decoration: none;
@@ -161,7 +140,7 @@
 
 .profile-praise-link:hover,
 .praises-empty a:hover {
-  opacity: .88;
+  background: var(--color-action-hover);
 }
 
 .profile-praise-link:focus-visible,
@@ -175,8 +154,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-top: 16px;
-  padding: 24px;
+  margin-top: 12px;
+  padding: 22px;
+  background: var(--color-surface-raised);
 }
 
 .recognition-primary {
@@ -232,7 +212,7 @@
   line-height: 1.4;
 }
 
-.praises-section { margin-top: 42px; }
+.praises-section { margin-top: 26px; }
 
 .section-heading {
   display: flex;
@@ -240,9 +220,11 @@
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 16px;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  line-height: inherit;
 }
-
-.section-eyebrow { margin: 0 0 6px; }
 
 .section-heading h2 {
   margin: 0;
@@ -363,8 +345,8 @@
   display: inline-flex;
   padding: 11px 16px;
   border-radius: 8px;
-  background: var(--color-brand);
-  color: #fff;
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
   font-size: .8rem;
   font-weight: 700;
   text-decoration: none;
@@ -386,7 +368,7 @@
   .business-detail-page * { scroll-behavior: auto; transition-duration: 0.01ms !important; }
 }
 
-.profile-favorite-button { min-height: 42px; margin-right: 10px; padding: 10px 15px; border: 1px solid var(--color-border-strong); border-radius: 8px; color: var(--color-brand); background: transparent; font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer; }
+.profile-favorite-button { min-height: 44px; padding: 10px 15px; border: 1px solid var(--color-border-strong); border-radius: 8px; color: var(--color-brand); background: transparent; font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer; }
 .profile-favorite-button.is-saved { border-color: color-mix(in srgb,var(--color-accent) 60%,var(--color-border)); background: color-mix(in srgb,var(--color-accent) 14%,var(--color-surface)); }
 .profile-favorite-button:hover { border-color: var(--color-accent); }
 .profile-favorite-button:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
@@ -513,8 +495,8 @@
   padding: 9px 14px;
   border: 0;
   border-radius: 7px;
-  background: var(--color-brand);
-  color: #fff;
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
   font: inherit;
   font-size: .76rem;
   font-weight: 700;
