@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
+import { CATEGORIES } from '../../../shared/data/categories';
 import { FocusOnRenderDirective } from '../../../shared/directives/focus-on-render.directive';
 
 interface RegistrationForm {
@@ -10,6 +11,20 @@ interface RegistrationForm {
   readonly passwordConfirmation: string;
 }
 
+interface NewBusinessForm {
+  readonly name: string;
+  readonly category: string;
+  readonly street: string;
+  readonly number: string;
+  readonly neighborhood: string;
+  readonly city: string;
+  readonly state: string;
+  readonly postalCode: string;
+  readonly phone: string;
+}
+
+type NewBusinessField = keyof NewBusinessForm;
+type BusinessRegistrationMode = 'existing' | 'new';
 type RegistrationField = keyof RegistrationForm;
 type AccountType = 'personal' | 'business';
 type SocialProvider = 'Google' | 'Facebook' | 'Apple';
@@ -33,9 +48,26 @@ export class RegistrationPageComponent {
   );
   readonly businesses = MOCK_BUSINESS_RESULTS;
   readonly businessId = signal('');
+  readonly businessRegistrationMode = signal<BusinessRegistrationMode>('existing');
+  readonly categories = CATEGORIES;
+  readonly newBusiness = signal<NewBusinessForm>({
+    name: '', category: '', street: '', number: '',
+    neighborhood: '', city: '', state: '', postalCode: '', phone: ''
+  });
   readonly selectedBusiness = computed(() =>
     this.businesses.find((business) => business.id === this.businessId())
   );
+  readonly newBusinessValid = computed<boolean>(() => {
+    const business = this.newBusiness();
+    return business.name.trim().length >= 2
+      && business.category.trim().length > 0
+      && business.street.trim().length >= 2
+      && business.number.trim().length > 0
+      && business.neighborhood.trim().length >= 2
+      && business.city.trim().length >= 2
+      && /^[A-Za-z]{2}$/.test(business.state.trim())
+      && /^\d{5}-?\d{3}$/.test(business.postalCode.trim());
+  });
   readonly acceptedTerms = signal<boolean>(false);
   readonly submitted = signal<boolean>(false);
   readonly passwordVisible = signal<boolean>(false);
@@ -59,7 +91,11 @@ export class RegistrationPageComponent {
       && this.emailValid()
       && this.passwordLengthValid()
       && this.passwordsMatch()
-      && this.acceptedTerms();
+      && this.acceptedTerms()
+      && (this.accountType() === 'personal'
+        || (this.businessRegistrationMode() === 'existing'
+          ? this.selectedBusiness() !== undefined
+          : this.newBusinessValid()));
   });
 
   onAccountTypeSelected(accountType: AccountType): void {
@@ -70,6 +106,21 @@ export class RegistrationPageComponent {
   onBusinessChange(event: Event): void {
     const target = event.target;
     if (target instanceof HTMLSelectElement) this.businessId.set(target.value);
+  }
+
+  onBusinessRegistrationModeSelected(mode: BusinessRegistrationMode): void {
+    this.businessRegistrationMode.set(mode);
+    this.submitted.set(false);
+    if (mode === 'new') this.businessId.set('');
+  }
+
+  onNewBusinessFieldInput(event: Event, field: NewBusinessField): void {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return;
+    this.newBusiness.update((current: NewBusinessForm) => ({
+      ...current,
+      [field]: target.value
+    }));
   }
 
   onSocialProviderSelected(provider: SocialProvider): void {

@@ -324,3 +324,31 @@
 
 .account-field select { padding-right: 28px; }
 .account-field label span { color: var(--color-text-muted); font-weight: 500; }
+
+/* Cadastro do estabelecimento na mesma etapa do cadastro empresarial. */
+.account-business-new {
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+.account-business-new h2 {
+  margin: 0;
+  color: var(--color-text);
+  font: 700 1.05rem var(--font-heading);
+}
+.account-business-new > p {
+  margin: 6px 0 18px;
+  color: var(--color-text-muted);
+  font-size: .82rem;
+}
+.business-mode-fieldset { margin-top: 2px; }
+.business-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.business-full-width { grid-column: 1 / -1; }
+@media (max-width: 580px) {
+  .business-fields { grid-template-columns: minmax(0, 1fr); }
+}

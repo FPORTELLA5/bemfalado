@@ -22,17 +22,96 @@
         </fieldset>
 
         @if (accountType() === 'business') {
-          <div class="account-field">
-            <label for="registration-business">Estabelecimento para vincular <span>(opcional)</span></label>
-            <select id="registration-business" name="businessId" aria-describedby="business-account-note"
-              [value]="businessId()" (change)="onBusinessChange($event)">
-              <option value="">Continuar sem vincular</option>
-              @for (business of businesses; track business.id) {
-                <option [value]="business.id">{{ business.name }} · {{ business.neighborhood }}, {{ business.city }}</option>
-              }
-            </select>
-            <p id="business-account-note">Escolha um estabelecimento já listado. Na versão completa, o vínculo será verificado antes de liberar a gestão do perfil.</p>
-          </div>
+          <fieldset class="account-types business-mode-fieldset">
+            <legend>Qual é o seu estabelecimento?</legend>
+            <div class="account-type-options">
+              <label class="account-type">
+                <input type="radio" name="businessRegistrationMode" value="existing"
+                  [checked]="businessRegistrationMode() === 'existing'"
+                  (change)="onBusinessRegistrationModeSelected('existing')">
+                <span><strong>Já está no BemFalado</strong><small>Solicitar vínculo com um perfil existente.</small></span>
+              </label>
+              <label class="account-type">
+                <input type="radio" name="businessRegistrationMode" value="new"
+                  [checked]="businessRegistrationMode() === 'new'"
+                  (change)="onBusinessRegistrationModeSelected('new')">
+                <span><strong>Não encontrei meu estabelecimento</strong><small>Cadastrar os dados junto com minha conta.</small></span>
+              </label>
+            </div>
+          </fieldset>
+          @if (businessRegistrationMode() === 'existing') {
+            <div class="account-field">
+              <label for="registration-business">Selecione seu estabelecimento</label>
+              <select id="registration-business" name="businessId" required
+                [value]="businessId()" (change)="onBusinessChange($event)">
+                <option value="">Escolha na lista</option>
+                @for (business of businesses; track business.id) {
+                  <option [value]="business.id">{{ business.name }} · {{ business.neighborhood }}, {{ business.city }}</option>
+                }
+              </select>
+              <p>Para segurança, o vínculo de gestão será confirmado após a verificação.</p>
+            </div>
+          } @else {
+            <section class="account-business-new" aria-labelledby="new-business-title">
+              <h2 id="new-business-title">Dados do estabelecimento</h2>
+              <p>Informe os dados para solicitar a inclusão. O estabelecimento será analisado antes de aparecer publicamente.</p>
+              <div class="business-fields">
+                <div class="account-field business-full-width">
+                  <label for="new-business-name">Nome do estabelecimento</label>
+                  <input id="new-business-name" name="businessName" required minlength="2" maxlength="120"
+                    [value]="newBusiness().name" (input)="onNewBusinessFieldInput($event, 'name')"
+                    placeholder="Como seu estabelecimento é conhecido">
+                </div>
+                <div class="account-field business-full-width">
+                  <label for="new-business-category">Categoria</label>
+                  <select id="new-business-category" name="businessCategory" required
+                    [value]="newBusiness().category" (change)="onNewBusinessFieldInput($event, 'category')">
+                    <option value="">Selecione uma categoria</option>
+                    @for (category of categories; track category.name) {
+                      <option [value]="category.name">{{ category.name }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="account-field business-full-width">
+                  <label for="new-business-street">Endereço (rua ou avenida)</label>
+                  <input id="new-business-street" name="businessStreet" required minlength="2" maxlength="160"
+                    autocomplete="street-address" [value]="newBusiness().street"
+                    (input)="onNewBusinessFieldInput($event, 'street')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-number">Número</label>
+                  <input id="new-business-number" name="businessNumber" required maxlength="15"
+                    [value]="newBusiness().number" (input)="onNewBusinessFieldInput($event, 'number')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-neighborhood">Bairro</label>
+                  <input id="new-business-neighborhood" name="businessNeighborhood" required minlength="2" maxlength="90"
+                    [value]="newBusiness().neighborhood" (input)="onNewBusinessFieldInput($event, 'neighborhood')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-city">Cidade</label>
+                  <input id="new-business-city" name="businessCity" required minlength="2" maxlength="90"
+                    [value]="newBusiness().city" (input)="onNewBusinessFieldInput($event, 'city')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-state">UF</label>
+                  <input id="new-business-state" name="businessState" required maxlength="2" pattern="[A-Za-z]{2}"
+                    placeholder="RJ" [value]="newBusiness().state" (input)="onNewBusinessFieldInput($event, 'state')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-postal-code">CEP</label>
+                  <input id="new-business-postal-code" name="businessPostalCode" required
+                    inputmode="numeric" pattern="[0-9]{5}-?[0-9]{3}" placeholder="00000-000"
+                    [value]="newBusiness().postalCode" (input)="onNewBusinessFieldInput($event, 'postalCode')">
+                </div>
+                <div class="account-field">
+                  <label for="new-business-phone">Telefone <span>(opcional)</span></label>
+                  <input id="new-business-phone" name="businessPhone" type="tel" autocomplete="tel" maxlength="25"
+                    [value]="newBusiness().phone" (input)="onNewBusinessFieldInput($event, 'phone')">
+                </div>
+              </div>
+            </section>
+          }
         }
 
         <div class="registration-fields">
@@ -139,8 +218,12 @@
         <span class="account-success-mark" aria-hidden="true">✓</span>
         <h1 id="account-title" tabindex="-1" bfFocusOnRender>{{ accountType() === 'business' ? 'Cadastro de empresa simulado' : 'Cadastro pessoal simulado' }}</h1>
         <p class="account-intro">Na versão completa, você receberá um e-mail de confirmação. Nesta demonstração, nenhuma conta foi criada.</p>
-        @if (accountType() === 'business' && selectedBusiness(); as business) {
-          <p class="account-notice">Estabelecimento selecionado para vínculo <strong>{{ business.name }}</strong>.</p>
+        @if (accountType() === 'business') {
+          @if (businessRegistrationMode() === 'new') {
+            <p class="account-notice">Solicitação de inclusão simulada para <strong>{{ newBusiness().name }}</strong>. O perfil dependerá de validação.</p>
+          } @else if (selectedBusiness(); as business) {
+            <p class="account-notice">Estabelecimento selecionado para vínculo <strong>{{ business.name }}</strong>.</p>
+          }
         }
         <a class="account-submit" routerLink="/entrar">Ir para entrar</a>
       </div>
