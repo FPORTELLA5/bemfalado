@@ -46,7 +46,7 @@ Aplicar com `object-fit: contain` e dimensões proporcionais. Não esticar, reco
 
 | Cor | Código | Uso |
 |---|---|---|
-| Azul-marinho | #102A43 | Símbolo, “Bem” e estrutura institucional |
+| Azul-marinho | #0C2641 | Símbolo, “Bem” e estrutura institucional |
 | Laranja oficial | #FE6301 | “Falado”, sorriso, traços de destaque e acentos |
 | Off-white | #F5F3EF | Fundo e superfícies |
 | Grafite | #343A40 | Texto e elementos secundários |
