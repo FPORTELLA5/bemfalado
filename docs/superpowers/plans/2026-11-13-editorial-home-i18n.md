@@ -50,7 +50,7 @@
 **Interfaces:**
 - Produces: `SUPPORTED_LOCALES: readonly ['pt-BR', 'en', 'es']`
 - Produces: `SupportedLocale = 'pt-BR' | 'en' | 'es'`
-- Produces: `TranslationCatalog` with typed `shell`, `home`, and `footer` sections.
+- Produces: `TranslationCatalog` with typed `meta`, `shell`, `home`, and `footer` sections.
 - Produces: JSON catalogs with identical non-empty leaf paths.
 
 - [ ] **Step 1: Create a working branch from the current `design/petroleo-e-nevoa` head**
@@ -73,6 +73,7 @@ Expected: FAIL because the locale catalogs have not been created.
 In `language.type.ts`, export `SUPPORTED_LOCALES`, `SupportedLocale`, and `LOCALE_STORAGE_KEY = 'bemfalado-locale'`.
 
 In `translation-catalog.model.ts`, define readonly nested interfaces for:
+- localized document title and meta description;
 - shell navigation, theme labels, locale labels, account actions, mobile menu labels;
 - hero copy, search labels/placeholders/statuses;
 - category filters;
@@ -103,6 +104,7 @@ git commit -m "feat: add typed trilingual copy catalogs"
 ### Task 2: Implement reactive locale selection and localize the app shell
 
 **Files:**
+- Create: `frontend/src/app/core/i18n/language-preference.ts`
 - Create: `frontend/src/app/core/i18n/language.service.ts`
 - Create: `frontend/scripts/check-locale-resolution.mjs`
 - Modify: `frontend/src/app/app.component.ts`
@@ -121,7 +123,7 @@ git commit -m "feat: add typed trilingual copy catalogs"
 
 - [ ] **Step 1: Write the failing locale-resolution check**
 
-Create `check-locale-resolution.mjs` with assertions for:
+Create `check-locale-resolution.mjs` to transpile the pure, import-free `language-preference.ts` with the already-installed TypeScript compiler and execute assertions against that actual exported resolver:
 - saved `en` wins over browser `es-MX`;
 - saved `es` wins over browser `en-US`;
 - invalid saved value plus `en-US` resolves to `en`;
@@ -137,7 +139,7 @@ Expected: FAIL because locale resolution is not implemented.
 
 - [ ] **Step 3: Implement the locale service**
 
-Implement the resolver as a pure exported function and the service as `providedIn: 'root'`. The constructor must read `localStorage` safely, inspect `navigator.language`, set the signal, update `document.documentElement.lang`, and persist later changes. Import the three JSON catalogs into a `Readonly<Record<SupportedLocale, TranslationCatalog>>`.
+Implement the resolver in `language-preference.ts` as a pure exported function with no runtime imports, and the service as `providedIn: 'root'`. The constructor must read `localStorage` safely, inspect `navigator.language`, set the signal, update `document.documentElement.lang`, update `document.title` and the description meta tag from the catalog, and persist later changes. Import the three JSON catalogs into a `Readonly<Record<SupportedLocale, TranslationCatalog>>`.
 
 - [ ] **Step 4: Make the resolver check pass and add it to validation**
 
@@ -267,7 +269,7 @@ Render:
 - heading and localized location;
 - compact filter controls with current state exposed by `aria-pressed`;
 - three photographic cards with localized copy;
-- favorite button with a localized accessible name;
+- favorite button with a localized accessible name, kept outside the business link so interactive elements are never nested;
 - praise/recognition indicators;
 - explicit fictional-data disclaimer.
 
