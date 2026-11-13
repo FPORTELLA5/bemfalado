@@ -4,7 +4,6 @@
 
     <header class="notifications-heading">
       <div>
-        <p class="notifications-eyebrow">Atualizações da comunidade</p>
         <h1>Notificações</h1>
         <p>Acompanhe o que acontece com suas contribuições e sua conta.</p>
       </div>
@@ -13,17 +12,14 @@
       }
     </header>
 
-    <div class="notifications-demo-notice" role="note">
-      <span aria-hidden="true">ⓘ</span>
-      <p>Prévia demonstrativa com notificações fictícias. Alertas por e-mail ou push ainda não estão conectados.</p>
-    </div>
+    <p class="notifications-demo-notice">Dados fictícios para demonstração.</p>
 
     <section class="notifications-toolbar" aria-label="Filtros de notificações">
       <div class="notification-filters" role="group" aria-label="Filtrar notificações">
         <button type="button" [class.active]="activeFilter() === 'all'" [attr.aria-pressed]="activeFilter() === 'all'" (click)="setFilter('all')">Todas <span>{{ notificationService.notifications().length }}</span></button>
         <button type="button" [class.active]="activeFilter() === 'unread'" [attr.aria-pressed]="activeFilter() === 'unread'" (click)="setFilter('unread')">Não lidas <span>{{ notificationService.unreadCount() }}</span></button>
       </div>
-      <p class="notifications-unread-count">{{ notificationService.unreadCount() }} não lidas</p>
+      <p class="notifications-unread-count" role="status">{{ notificationService.unreadCount() }} não lidas</p>
     </section>
 
     @if (filteredNotifications().length > 0) {

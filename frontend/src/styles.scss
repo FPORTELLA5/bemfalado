@@ -1030,7 +1030,6 @@ body {
 }
 
 
-.brand-filter { position: absolute; }
 .brand { gap: 0; }
 .brand-logo {
   display: block;
@@ -1054,9 +1053,13 @@ body {
 }
 
 
-/* Ajustes finais da marca oficial em fundos escuros e estados de destaque */
-:root[data-theme='dark'] .site-header .brand-logo,
-.site-footer .brand-logo {
-  filter: url(#bemfalado-logo-on-dark);
+.site-header .brand-logo-dark,
+:root[data-theme='dark'] .site-header .brand-logo-light {
+  display: none;
 }
+
+:root[data-theme='dark'] .site-header .brand-logo-dark {
+  display: block;
+}
+
 .site-footer .footer-links a:hover { color: #FF995C; }

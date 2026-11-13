@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FocusOnRenderDirective } from '../focus-on-render.directive';
+import { FocusOnRenderDirective } from '../../../shared/directives/focus-on-render.directive';
 
 interface RegistrationForm {
   readonly name: string;
