@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import type { SearchCriteria } from '../../../shared/models/search-criteria.type';
+import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
+import type { BusinessResult } from '../../search-results/models/business-result.model';
 import { CategoryGridComponent } from '../category-grid/category-grid.component';
 import { CommunityCtaComponent } from '../community-cta/community-cta.component';
-import { DiscoverySectionComponent } from '../discovery-section/discovery-section.component';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
 import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
 
@@ -11,9 +12,9 @@ import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
   selector: 'bf-home-page',
   standalone: true,
   imports: [
+    RouterLink,
     HeroSearchComponent,
     CategoryGridComponent,
-    DiscoverySectionComponent,
     HowItWorksComponent,
     CommunityCtaComponent
   ],
@@ -22,6 +23,8 @@ import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
 })
 export class HomePageComponent {
   private readonly router = inject(Router);
+
+  readonly featuredBusinesses: readonly BusinessResult[] = MOCK_BUSINESS_RESULTS.slice(0, 3);
 
   onSearch(criteria: SearchCriteria): void {
     void this.router.navigate(['/buscar'], {
