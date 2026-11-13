@@ -34,10 +34,4 @@ export class HomePageComponent {
       }
     });
   }
-
-  onCategorySelected(category: string): void {
-    void this.router.navigate(['/buscar'], {
-      queryParams: { category }
-    });
-  }
 }

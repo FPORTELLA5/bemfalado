@@ -15,14 +15,25 @@
             </label>
             <label class="account-type">
               <input type="radio" name="accountType" value="business" [checked]="accountType() === 'business'"
-                (change)="onAccountTypeSelected('business')" [attr.aria-describedby]="accountType() === 'business' ? 'business-account-note' : null">
+                (change)="onAccountTypeSelected('business')">
               <span><strong>Pessoa jurídica</strong><small>Representar um estabelecimento.</small></span>
             </label>
           </div>
-          @if (accountType() === 'business') {
-            <p id="business-account-note" class="account-notice" role="status">Você poderá cadastrar ou vincular um estabelecimento depois. O CNPJ será solicitado em outra etapa, se necessário.</p>
-          }
         </fieldset>
+
+        @if (accountType() === 'business') {
+          <div class="account-field">
+            <label for="registration-business">Estabelecimento para vincular <span>(opcional)</span></label>
+            <select id="registration-business" name="businessId" aria-describedby="business-account-note"
+              [value]="businessId()" (change)="onBusinessChange($event)">
+              <option value="">Continuar sem vincular</option>
+              @for (business of businesses; track business.id) {
+                <option [value]="business.id">{{ business.name }} · {{ business.neighborhood }}, {{ business.city }}</option>
+              }
+            </select>
+            <p id="business-account-note">Escolha um estabelecimento já listado. Na versão completa, o vínculo será verificado antes de liberar a gestão do perfil.</p>
+          </div>
+        }
 
         <div class="registration-fields">
           <div class="account-field">
@@ -128,6 +139,9 @@
         <span class="account-success-mark" aria-hidden="true">✓</span>
         <h1 id="account-title" tabindex="-1" bfFocusOnRender>{{ accountType() === 'business' ? 'Cadastro de empresa simulado' : 'Cadastro pessoal simulado' }}</h1>
         <p class="account-intro">Na versão completa, você receberá um e-mail de confirmação. Nesta demonstração, nenhuma conta foi criada.</p>
+        @if (accountType() === 'business' && selectedBusiness(); as business) {
+          <p class="account-notice">Estabelecimento selecionado para vínculo <strong>{{ business.name }}</strong>.</p>
+        }
         <a class="account-submit" routerLink="/entrar">Ir para entrar</a>
       </div>
     }

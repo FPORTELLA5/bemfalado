@@ -1,0 +1,72 @@
+<main class="category-directory">
+  <div class="container">
+    <div class="directory-heading">
+      <div>
+        <h1 tabindex="-1" bfFocusOnRender>Explorar por categoria</h1>
+        <p>Escolha um tipo de estabelecimento ou serviço para encontrar lugares e ler os elogios.</p>
+      </div>
+      <a routerLink="/buscar">Ir para a busca geral <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="directory-layout">
+      <div class="directory-mobile-filter">
+        <label for="directory-category">Categoria</label>
+        <select id="directory-category" [value]="selectedCategory()?.name ?? ''" (change)="selectCategory($event)">
+          <option value="">Todas as categorias</option>
+          @for (category of categories; track category.name) {
+            <option [value]="category.name">{{ category.name }} ({{ category.businesses.length }})</option>
+          }
+        </select>
+      </div>
+
+      <nav class="directory-filters" aria-label="Filtrar por categoria">
+        <a class="directory-filter" routerLink="/categorias"
+          [attr.aria-current]="!selectedCategory() ? 'true' : null">
+          <strong>Todas as categorias</strong>
+          <span class="filter-count">{{ allBusinesses.length }}</span>
+        </a>
+        @for (category of categories; track category.name) {
+          <a class="directory-filter" routerLink="/categorias" [queryParams]="{ category: category.name }"
+            [attr.aria-current]="selectedCategory()?.name === category.name ? 'true' : null">
+            <span><strong>{{ category.name }}</strong><small>{{ category.description }}</small></span>
+            <span class="filter-count">{{ category.businesses.length }}</span>
+          </a>
+        }
+      </nav>
+
+      <section class="directory-results" aria-labelledby="directory-results-title">
+        <div class="directory-results-heading">
+          <h2 id="directory-results-title">{{ selectedCategory()?.name ?? 'Todos os estabelecimentos' }}</h2>
+          <p role="status">
+            {{ businesses().length }} {{ businesses().length === 1 ? 'estabelecimento' : 'estabelecimentos' }} de exemplo
+            @if (selectedCategory(); as category) {
+              em {{ category.name }}
+            }
+          </p>
+        </div>
+        <ul class="directory-businesses">
+          @for (business of businesses(); track business.id) {
+            <li>
+              <a class="directory-business" [routerLink]="['/negocio', business.id]"
+                [queryParams]="{ from: 'categorias', category: selectedCategory()?.name }">
+                <span class="directory-avatar" aria-hidden="true">{{ business.initials }}</span>
+                <div class="directory-business-copy">
+                  <h3>{{ business.name }}</h3>
+                  <p>{{ business.neighborhood }}, {{ business.city }}</p>
+                  <p class="directory-description">{{ business.description }}</p>
+                </div>
+                <span class="directory-praise-count"><strong>{{ business.praiseCount }}</strong> elogios</span>
+                <span class="directory-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          } @empty {
+            <li class="directory-empty">
+              <h3>Ainda não há estabelecimentos nesta categoria.</h3>
+              <a routerLink="/categorias">Ver todas as categorias</a>
+            </li>
+          }
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>

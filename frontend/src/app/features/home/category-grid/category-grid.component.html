@@ -5,12 +5,12 @@
         <p class="home-kicker">Por onde começar?</p>
         <h2 class="section-heading" id="categories-title">O que você quer descobrir?</h2>
       </div>
-      <a class="text-link desktop-only" href="/buscar">Todas as categorias <span aria-hidden="true">↗</span></a>
+      <a class="text-link desktop-only" routerLink="/categorias">Todas as categorias <span aria-hidden="true">↗</span></a>
     </div>
 
     <div class="category-grid">
       @for (category of categories; track category.name) {
-        <button class="category-item" type="button" (click)="categorySelected.emit(category.name)">
+        <a class="category-item" routerLink="/categorias" [queryParams]="{ category: category.name }">
           <span class="category-icon" [attr.data-icon]="category.icon">
             @switch (category.icon) {
               @case ('utensils') { <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7m4-7v7M5 3v4a4 4 0 0 0 8 0V3m-4 8v10m8-18v18m0-18c3 2 4 5 4 9h-4"/></svg> }
@@ -27,7 +27,7 @@
           </span>
           <span class="category-text"><strong>{{ category.name }}</strong></span>
           <span class="category-arrow" aria-hidden="true">↗</span>
-        </button>
+        </a>
       }
     </div>
   </div>

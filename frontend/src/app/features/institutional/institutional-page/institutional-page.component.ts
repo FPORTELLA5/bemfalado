@@ -65,14 +65,14 @@ const INSTITUTIONAL_PAGES = {
     notice: 'Esta página é informativa. O formulário de contato e o atendimento ainda não estão conectados.'
   },
   empresas: {
-    eyebrow: 'Para estabelecimentos e empresas',
-    title: 'Boas experiências também merecem ser encontradas.',
-    introduction: 'O BemFalado quer aproximar pessoas de empresas e estabelecimentos por meio de experiências positivas compartilhadas pela comunidade.',
+    eyebrow: 'Para empresas',
+    title: 'Dê um perfil ao seu negócio no BemFalado',
+    introduction: 'Veja como as pessoas encontram seu estabelecimento e reconhecem o que sua equipe faz bem.',
     sections: [
       { heading: 'O que sua presença pode oferecer', paragraphs: ['Um perfil organizado ajuda as pessoas a encontrar informações sobre seu negócio e conhecer os elogios publicados por consumidores.'] },
       { heading: 'Reconhecimento construído pela comunidade', paragraphs: ['Os elogios devem ser espontâneos e partir de experiências reais. Empresas não podem comprar publicações, avaliações positivas ou melhor posicionamento orgânico.'] },
       { heading: 'Próximas funcionalidades', paragraphs: ['Recursos de reivindicação e verificação de perfil, respostas a elogios e ferramentas de análise poderão ser avaliados em etapas futuras. A existência de um perfil reivindicado não será uma garantia de qualidade do negócio.'] },
-      { heading: 'Como participar', paragraphs: ['A inclusão e a gestão de perfis comerciais serão disponibilizadas conforme a evolução do produto. Nesta demonstração, solicitações e interações não são enviadas para uma equipe real.'] }
+      { heading: 'Como participar', paragraphs: ['Escolha o tipo de conta Pessoa jurídica e selecione seu estabelecimento, se ele já estiver listado. A demonstração permite testar a seleção do perfil. A verificação do vínculo fará parte da versão completa.'] }
     ]
   },
   privacidade: {
@@ -124,6 +124,8 @@ export class InstitutionalPageComponent {
   private readonly routeSegments = toSignal(this.route.url.pipe(map((segments) => segments[0]?.path)), {
     initialValue: this.route.snapshot.url[0]?.path
   });
+
+  readonly isCompaniesPage = computed(() => this.routeSegments() === 'empresas');
 
   readonly page = computed<InstitutionalPageContent>(() => {
     const slug = this.routeSegments();

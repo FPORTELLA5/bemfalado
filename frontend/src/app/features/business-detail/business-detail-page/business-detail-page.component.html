@@ -1,6 +1,10 @@
 <main class="business-detail-page">
   <div class="detail-container">
-    <a class="detail-back-link" routerLink="/buscar">← Voltar aos resultados</a>
+    @if (fromCategories()) {
+      <a class="detail-back-link" routerLink="/categorias" [queryParams]="categoryQuery()">← Voltar para categorias</a>
+    } @else {
+      <a class="detail-back-link" routerLink="/buscar">← Voltar aos resultados</a>
+    }
 
     @if (business(); as item) {
       <p class="detail-demo-notice">Perfil e elogios fictícios para demonstração.</p>
@@ -60,6 +64,8 @@
           </div>
         </div>
       </section>
+
+      <bf-business-photo-gallery [photos]="photos()" />
 
       <section class="praises-section" aria-labelledby="praises-title">
         <div class="section-heading">

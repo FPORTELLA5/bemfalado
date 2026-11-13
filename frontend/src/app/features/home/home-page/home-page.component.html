@@ -1,12 +1,12 @@
 <main class="home-page">
   <bf-hero-search (searchRequested)="onSearch($event)" />
-  <bf-category-grid (categorySelected)="onCategorySelected($event)" />
+  <bf-category-grid />
 
   <section class="featured-section" aria-labelledby="featured-title">
     <div class="container">
       <div class="featured-heading">
         <div>
-          <h2 id="featured-title">Destaques da comunidade</h2>
+          <h2 id="featured-title">Lugares bem falados</h2>
         </div>
         <a class="home-text-link" routerLink="/buscar">Ver todos <span aria-hidden="true">↗</span></a>
       </div>

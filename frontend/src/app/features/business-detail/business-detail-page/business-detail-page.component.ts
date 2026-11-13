@@ -3,6 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { BusinessPraise } from '../models/business-praise.model';
 import type { BusinessResult } from '../../search-results/models/business-result.model';
+import { BusinessPhotoGalleryComponent } from '../business-photo-gallery/business-photo-gallery.component';
+import { MOCK_BUSINESS_PHOTOS } from '../data/mock-business-photos';
 import { MOCK_BUSINESS_PRAISES } from '../data/mock-business-praises';
 import { MOCK_BUSINESS_RESULTS } from '../../search-results/data/mock-business-results';
 import { FavoritesService } from '../../favorites/services/favorites.service';
@@ -13,7 +15,7 @@ import { PraiseReportsService } from '../services/praise-reports.service';
 @Component({
   selector: 'bf-business-detail-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, BusinessPhotoGalleryComponent],
   templateUrl: './business-detail-page.component.html',
   styleUrl: './business-detail-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,6 +27,12 @@ export class BusinessDetailPageComponent {
   private readonly routeParams = toSignal(this.route.paramMap, {
     initialValue: this.route.snapshot.paramMap
   });
+
+  private readonly queryParams = toSignal(this.route.queryParamMap, {
+    initialValue: this.route.snapshot.queryParamMap
+  });
+  readonly fromCategories = computed(() => this.queryParams().get('from') === 'categorias');
+  readonly categoryQuery = computed(() => ({ category: this.queryParams().get('category') }));
 
   readonly reportReasons = PRAISE_REPORT_REASONS;
   readonly maxReportDetailsLength = 500;
@@ -40,6 +48,8 @@ export class BusinessDetailPageComponent {
   readonly business = computed<BusinessResult | undefined>(() => (
     MOCK_BUSINESS_RESULTS.find((item: BusinessResult) => item.id === this.businessId())
   ));
+
+  readonly photos = computed(() => MOCK_BUSINESS_PHOTOS[this.businessId()] ?? []);
 
   readonly praises = computed<readonly BusinessPraise[]>(() => (
     MOCK_BUSINESS_PRAISES.filter((praise: BusinessPraise) => praise.businessId === this.businessId())

@@ -1,0 +1,45 @@
+<section class="photo-gallery" aria-labelledby="business-photos-title">
+  <div class="gallery-heading">
+    <h2 id="business-photos-title">Fotos do estabelecimento</h2>
+    @if (photos().length) {
+      <span>Fotos ilustrativas</span>
+    }
+  </div>
+
+  @if (photos().length) {
+    <div class="photo-grid" [class.single-photo]="photos().length === 1"
+      [class.two-photos]="photos().length === 2">
+      @for (photo of photos(); track photo.src; let index = $index) {
+        <button type="button" class="photo-thumbnail" (click)="openPhoto(viewer, index)"
+          [attr.aria-label]="'Ampliar foto: ' + photo.description">
+          <img [src]="photo.src" [alt]="photo.description" loading="lazy" />
+        </button>
+      }
+    </div>
+
+    <dialog #viewer class="photo-viewer" aria-labelledby="photo-viewer-title"
+      (keydown.arrowleft)="photos().length > 1 && movePhoto(-1)"
+      (keydown.arrowright)="photos().length > 1 && movePhoto(1)">
+      <div class="viewer-heading">
+        <h3 id="photo-viewer-title">Fotos do estabelecimento</h3>
+        <button type="button" class="viewer-button" aria-label="Fechar fotos" (click)="viewer.close()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      @if (activePhoto(); as photo) {
+        <figure>
+          <img [src]="photo.src" [alt]="photo.description" loading="lazy" />
+          <figcaption aria-live="polite">{{ photo.description }} · {{ activeIndex() + 1 }} de {{ photos().length }}</figcaption>
+        </figure>
+      }
+      @if (photos().length > 1) {
+        <div class="viewer-navigation">
+          <button type="button" class="viewer-button" (click)="movePhoto(-1)">← Anterior</button>
+          <button type="button" class="viewer-button" (click)="movePhoto(1)">Próxima →</button>
+        </div>
+      }
+    </dialog>
+  } @else {
+    <p class="gallery-empty">Este perfil ainda não tem fotos.</p>
+  }
+</section>

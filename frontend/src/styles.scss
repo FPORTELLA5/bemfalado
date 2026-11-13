@@ -417,35 +417,33 @@ body {
   align-items: center;
   gap: 13px;
 }
-.theme-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 9px;
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text-muted);
+  border-radius: 12px;
+  color: var(--color-brand);
   background: var(--color-surface);
 }
-.theme-control svg {
-  width: 16px;
-  height: 16px;
+.theme-toggle:hover { background: var(--color-accent-soft); }
+.theme-toggle:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.theme-toggle svg {
+  width: 19px;
+  height: 19px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.6;
+  stroke-width: 1.7;
   stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.theme-control:focus-within { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-.theme-control select {
-  max-width: 74px;
-  border: 0;
-  outline: 0;
-  color: var(--color-text);
-  background: transparent;
-  font: inherit;
-  font-size: .72rem;
-  font-weight: 700;
-  cursor: pointer;
+.desktop-nav a.active,
+.mobile-nav a.active {
+  background: var(--color-accent-soft);
+  color: var(--color-brand);
 }
 .login-link {
   color: var(--color-brand);
@@ -940,7 +938,7 @@ body {
 }
 @media (max-width: 900px) {
   .header-inner { min-height: 70px; }
-  .desktop-nav, .login-link, .header-actions > .theme-control { display: none; }
+  .desktop-nav, .login-link { display: none; }
   .mobile-menu-button {
     width: 40px;
     height: 40px;
@@ -960,7 +958,6 @@ body {
     background: var(--color-surface);
   }
   .mobile-nav a { padding: 11px 13px; }
-  .mobile-theme-control { display: inline-flex; width: max-content; margin: 7px 13px 0; }
 }
 @media (max-width: 760px) {
   .container { width: min(100% - 36px, 1200px); }
@@ -975,8 +972,6 @@ body {
   .container { width: min(100% - 30px, 1200px); }
   .brand-mark { width: 39px; height: 39px; }
   .brand-name { font-size: 1.18rem; }
-  .theme-control { padding: 7px; }
-  .theme-control select { max-width: 46px; }
   .header-cta { min-height: 37px; padding-inline: 12px; font-size: .7rem; }
   .header-cta span { display: none; }
   .header-inner { gap: 10px; }
@@ -1063,3 +1058,10 @@ body {
 }
 
 .site-footer .footer-links a:hover { color: #FF995C; }
+
+@media (max-width: 390px) {
+  .site-header .brand-logo { width: 118px; }
+  .header-inner { gap: 6px; }
+  .header-actions { gap: 6px; }
+  .header-cta { padding-inline: 9px; white-space: nowrap; }
+}

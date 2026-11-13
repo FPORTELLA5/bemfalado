@@ -14,7 +14,8 @@ import type { ThemePreference } from './shared/models/theme-preference.type';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  readonly themePreference = signal<ThemePreference>(this.readThemePreference());
+  private readonly themePreference = signal<ThemePreference>(this.readThemePreference());
+  readonly darkMode = signal(false);
 
   constructor() {
     effect((onCleanup) => {
@@ -27,6 +28,7 @@ export class AppComponent {
           ? (media.matches ? 'dark' : 'light')
           : preference;
 
+        this.darkMode.set(resolvedTheme === 'dark');
         document.documentElement.dataset['theme'] = resolvedTheme;
         document.documentElement.style.colorScheme = resolvedTheme;
       };
@@ -44,8 +46,8 @@ export class AppComponent {
     });
   }
 
-  setTheme(preference: ThemePreference): void {
-    this.themePreference.set(preference);
+  toggleTheme(): void {
+    this.themePreference.set(this.darkMode() ? 'light' : 'dark');
   }
 
   private readThemePreference(): ThemePreference {

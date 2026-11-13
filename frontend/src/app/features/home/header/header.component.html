@@ -7,24 +7,24 @@
 
     <nav class="desktop-nav" aria-label="Navegação principal">
       <a href="/buscar">Explorar</a>
-      <a href="/#categorias">Categorias</a>
+      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page">Categorias</a>
       <a href="/como-funciona">Como funciona</a>
       <a href="/empresas">Para empresas</a>
     </nav>
 
     <div class="header-actions">
-      <label class="theme-control">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
-        <span class="sr-only">Tema da interface</span>
-        <select aria-label="Tema da interface" [value]="themePreference()" (change)="onThemeChange($event)">
-          <option value="system">Auto</option>
-          <option value="light">Claro</option>
-          <option value="dark">Escuro</option>
-        </select>
-      </label>
+      <button class="theme-toggle" type="button" (click)="themeToggle.emit()"
+        [attr.aria-label]="darkMode() ? 'Ativar modo claro' : 'Ativar modo escuro'"
+        [title]="darkMode() ? 'Ativar modo claro' : 'Ativar modo escuro'">
+        @if (darkMode()) {
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/></svg>
+        } @else {
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13.2A9 9 0 0 1 10.8 3 9 9 0 1 0 21 13.2Z"/></svg>
+        }
+      </button>
       <a class="login-link" href="/entrar">Entrar</a>
       <a class="button button-small button-primary header-cta" href="/criar-conta">Criar conta <span aria-hidden="true">↗</span></a>
-      <button class="mobile-menu-button" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" aria-label="Abrir menu">
+      <button class="mobile-menu-button" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" [attr.aria-label]="mobileMenuOpen() ? 'Fechar menu' : 'Abrir menu'">
         @if (mobileMenuOpen()) {
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
         } @else {
@@ -36,20 +36,11 @@
   @if (mobileMenuOpen()) {
     <nav class="mobile-nav" id="mobile-navigation" aria-label="Navegação móvel">
       <a href="/buscar" (click)="closeMobileMenu()">Explorar</a>
-      <a href="/#categorias" (click)="closeMobileMenu()">Categorias</a>
+      <a routerLink="/categorias" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMobileMenu()">Categorias</a>
       <a href="/como-funciona" (click)="closeMobileMenu()">Como funciona</a>
       <a href="/empresas" (click)="closeMobileMenu()">Para empresas</a>
       <a href="/entrar" (click)="closeMobileMenu()">Entrar</a>
       <a href="/criar-conta" (click)="closeMobileMenu()">Criar conta</a>
-      <label class="theme-control mobile-theme-control">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-11.32-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
-        <span class="sr-only">Tema da interface</span>
-        <select aria-label="Tema da interface" [value]="themePreference()" (change)="onThemeChange($event)">
-          <option value="system">Automático</option>
-          <option value="light">Claro</option>
-          <option value="dark">Escuro</option>
-        </select>
-      </label>
     </nav>
   }
 </header>

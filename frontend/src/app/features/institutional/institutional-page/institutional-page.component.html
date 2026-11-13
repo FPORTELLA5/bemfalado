@@ -5,6 +5,10 @@
       <p class="eyebrow">{{ page().eyebrow }}</p>
       <h1>{{ page().title }}</h1>
       <p class="introduction">{{ page().introduction }}</p>
+      @if (isCompaniesPage()) {
+        <a class="button button-primary company-signup" routerLink="/criar-conta"
+          [queryParams]="{ tipo: 'empresa' }">Criar conta de empresa <span aria-hidden="true">→</span></a>
+      }
       @if (page().draftLabel) {
         <p class="draft-label" role="note">{{ page().draftLabel }}</p>
       }
@@ -33,10 +37,5 @@
       }
     </article>
 
-    <aside class="side-note">
-      <span class="side-note-mark" aria-hidden="true">“</span>
-      <p>Boas experiências merecem ser compartilhadas.</p>
-      <a routerLink="/buscar">Descobrir experiências <span aria-hidden="true">→</span></a>
-    </aside>
   </div>
 </main>
