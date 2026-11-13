@@ -35,7 +35,7 @@ export class HeroSearchComponent {
       this.searchFeedback.set('Digite o nome de um lugar, empresa ou serviço para começar.');
       return;
     }
-    this.searchFeedback.set('Busca preparada. A página de resultados será conectada na próxima etapa.');
+    this.searchFeedback.set('Abrindo resultados...');
     this.searchRequested.emit({ term, location: this.locationTerm().trim() });
   }
 }
